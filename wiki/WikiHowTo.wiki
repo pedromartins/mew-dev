@@ -1,0 +1,13 @@
+#Quick guide to using the google code wiki and a page to play around with
+
+= Introduction =
+
+How to use the wiki
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
