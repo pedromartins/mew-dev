@@ -8,7 +8,7 @@ This lets us abstract out various functionality into the places it is necessary.
 
 An over-riding principle is speed and ease of development.
 
-= More Concrete Overview =
+= Control System Overview =
 
 _As a first, preliminary, draft Hok and I propose the following architecture:_
 
@@ -29,10 +29,11 @@ We would writing our own _simple_ protocol over this to control the servos and s
 
 ===[http://opencv.willowgarage.com/wiki/ OpenCV] computer vision library===
 
-As we saw on the noisy macbook (with the facial recognition thing), openCV is awesome. Its a computer vision library (which has an embedded version, if we need it) with python bindings. It can do object recognition with haar-classifiers (a type of cool machine learning) and about a million other things which will no doubt soon be discussed at length elsewhere!
+As we saw on the noisy macbook (with the facial recognition thing), OpenCV is awesome. It's a computer vision library (which has an embedded version, if we need it) with Python bindings. It can do object recognition with haar-classifiers (a type of cool machine learning) and about a million other things which will no doubt soon be discussed at length elsewhere!
 
-===[http://www.python.com Python] glue===
+===[http://www.python.com Python] programming language ===
 
-When speed and ease of development are key, python is the perfect language to use. If you have never used python, don't worry. It's easy to learn and the online documentation is great.
+When speed and ease of development are key, python is the perfect language to use. If you have never used Python, don't worry. It's easy to learn and the online documentation is great, syntax is intuitive and straightforward.
 
-We would write a simple I²C based module for python (maybe in C, maybe just in straight python) which our AI would use to interact with the world. The Gumstix would be running python, and this is where the AI would happen. Navigation, object-recognition, planning etc (and don't worry, that etc will be *very* well defined as we go along!) will happen here.
+
+We would write a simple I²C based module for Python (maybe in C, maybe just in straight Python) which our AI would use to interact with the world. The Gumstix would be running Python, and this is where the AI would happen. Navigation, object-recognition, planning etc (and don't worry, that etc will be *very* well defined as we go along!) will happen here.
