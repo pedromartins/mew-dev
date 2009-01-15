@@ -1,6 +1,6 @@
 #summary Quick guide to using the google code wiki and a page to play around with
 
-The google code wiki is just a very simple markup.
+The Google Code wiki is just a very simple markup.
 
 In fact, when you click 'Edit This Page' (see that in the blue bar at above this, by the search box?) you are taken to the editing screen where there is a simple cheatsheet.
 
@@ -26,7 +26,7 @@ In fact, when you click 'Edit This Page' (see that in the blue bar at above this
 
 which is of the format
 
-  {{{ [address text] }}}
+  {{{ [<URL> <text>] }}}
 
 
 
