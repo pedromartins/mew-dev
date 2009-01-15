@@ -10,7 +10,7 @@ In fact, when you click 'Edit This Page' (see that in the blue bar at above this
 
 ===It is picky about whitespace===
 
-  * Shows how to make an indented list, when preceeded by its quotation,
+  * 'Shows how to make an indented list, when preceeded by its quotation',
 
   {{{ * shows how to make an indented list, when preceeded by its quotation. }}}
 
