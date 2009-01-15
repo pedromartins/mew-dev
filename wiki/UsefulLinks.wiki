@@ -1,0 +1,18 @@
+#summary A list of useful, robot-related links.
+
+= Introduction =
+
+A place for links which could prove useful in the future. A sort of shared bookmark list...
+
+= Details =
+
+Shops:
+  * [http://www.active-robots.com/ Active Robots] - UK based robotics components retailer
+  * [http://uk.rs-online.com/web/ RS-UK] - Huge UK electronics retailer
+  * [http://www.rapidonline.com/ Rapid] - UK electronics retailer
+  * [http://uk.farnell.com/ Farnell] - UK electronics retailer
+  * [http://www.sparkfun.com Sparkfun] - US based seller with some really nice little boards and also some interesting tutorials/projects.
+
+Hobbyist Robotics Websites:
+  * [http://societyofrobots.com/ Society Of Robots] - Great robotics community with some helpful experienced members. A nice range of tutorials.
+  * [http://robosavvy.com Robosavvy] - Humanoid robotics site, maybe some useful information/discussions about robotic vision.
