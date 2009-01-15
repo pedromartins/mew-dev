@@ -1,11 +1,8 @@
 #summary Quick guide to using the google code wiki and a page to play around with
 
-= Introduction =
-
 The google code wiki is just a very simple markup.
 
 In fact, when you click 'Edit This Page' (see that in the blue bar at above this, by the search box?) you are taken to the editing screen where there is a simple cheatsheet.
-
 
 
 ==Here is a list of things it took me a few minutes to realise:==
