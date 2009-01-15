@@ -10,7 +10,7 @@ An over-riding principle is speed and ease of development.
 
 = More Concrete Overview =
 
-_As a first, preliminary draft Hok and I propose the following architecture:_
+_As a first, preliminary, draft Hok and I propose the following architecture:_
 
 ===[http://www.gumstix.com Gumstix] embedded linux computer running both the AI and image acquisition/processing===
 
