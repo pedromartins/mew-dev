@@ -1,0 +1,10 @@
+#summary Robotic Vision
+= Introduction =
+
+Use this page to add any ideas you get for robotic vision
+
+= Details =
+
+There are 2 main hobbyist robotics cameras - [http://www.cs.cmu.edu/~cmucam/ CMUcam] and [http://www.jrobot.net/Projects/AVRcam.html AVRcam].
+
+Here is a great piece of software to play with computer vision using a webcam - [http://www.roborealm.com/ Roborealm].
