@@ -1,16 +1,8 @@
 #summary Collection of everyone's contact detals
 = Introduction =
 
-Please add your contact details to this page.
-
-
-= Details =
-
-  * Name: Harry Eakins
-  * Dept: EEE (ISE)
-  * Email: harry.eakins@googlemail.com (MSN/gtalk), hje08@ic.ac.uk
-  * Phone: 07595533310
-
+~~Please add your contact details to this page.~~
+This page is publicly viewable, probably best to keep this stuff in the google group!
 
 <wiki:comment>
 
