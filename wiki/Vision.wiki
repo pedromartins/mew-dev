@@ -8,3 +8,10 @@ Use this page to add any ideas you get for robotic vision
 There are 2 main hobbyist robotics cameras - [http://www.cs.cmu.edu/~cmucam/ CMUcam] and [http://www.jrobot.net/Projects/AVRcam.html AVRcam].
 
 Here is a great piece of software to play with computer vision using a webcam - [http://www.roborealm.com/ Roborealm].
+
+----
+
+ian added:
+As we are looking at using a fairly high powered linux system I think we will probably shy away from those sort of 'robotics specific' cameras. They tend to be fairly low resolution and single purpose (ie, can track a color, and the board just outputs co-ordinates).
+
+We are looking at doing much more involved computer vision. Computer vision will be one of our main 'working groups', and in fact, this wiki page would be a good place for that to start. I know hok got a book on openCV yesterday, and Pedro and thomas seem to know quite a lot about it.
