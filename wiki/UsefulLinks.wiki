@@ -11,6 +11,7 @@ Shops:
   * [http://uk.rs-online.com/web/ RS-UK] - Huge UK electronics retailer
   * [http://www.rapidonline.com/ Rapid] - UK electronics retailer
   * [http://uk.farnell.com/ Farnell] - UK electronics retailer
+  * [http://www.robot-electronics.co.uk/ Robot Electronics] - UK electronics retailer
   * [http://www.sparkfun.com Sparkfun] - US based seller with some really nice little boards and also some interesting tutorials/projects.
 
 Hobbyist Robotics Websites:
