@@ -17,3 +17,6 @@ Shops:
 Hobbyist Robotics Websites:
   * [http://societyofrobots.com/ Society Of Robots] - Great robotics community with some helpful experienced members. A nice range of tutorials.
   * [http://robosavvy.com Robosavvy] - Humanoid robotics site, maybe some useful information/discussions about robotic vision.
+
+i2c explanation:
+  * http://www.robot-electronics.co.uk/htm/using_the_i2c_bus.htm
