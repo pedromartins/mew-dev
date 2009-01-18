@@ -1,4 +1,5 @@
 #summary Trying to get a front page.
+#labels Featured
 
 = Introduction =
 
