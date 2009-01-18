@@ -18,3 +18,4 @@ There are 2 main hobbyist robotics cameras with embedded microcontrollers:
 
 == Software Libraries ==
 [http://sourceforge.net/projects/opencvlibrary/ OpenCV] is a software library for computer vision. It is implemented in C, and has an in-built Python interface, amongst many others.
+There is a electronic copy of the book [http://www.amazon.co.uk/Learning-OpenCV-Computer-Vision-Library/dp/0596516134/ref=sr_1_1?ie=UTF8&s=books&qid=1232278953&sr=8-1 "Learning OpenCV"] in the [http://groups.google.com/group/mew-imperial-college/files files section] of our google group.
