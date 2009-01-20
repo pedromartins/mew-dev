@@ -1,13 +1,37 @@
-#summary Trying to get a front page.
+#summary Front page.
 
-= Introduction =
+= mew-dev =
 
-Add your content here.
+Welcome to the mew Wiki. For meetings, minutes and additional details please check the [http://groups.google.com/group/mew-imperial-college Google group].
 
+<wiki:toc max_depth="2" />
 
-= Details =
+== Next Meeting ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Wednesday, 21st January 09 in 311*, Huxley Building at 4:15pm
+(the final word on date, time and location will be on the google group so this might be wrong).
+
+This meeting will be preceded by an introductory talk to potential new members from Mech Eng. If you want to come to the talk, show up at 15.30 and help captivate the attention of the newcomers! :)
+
+Some notes from the committee meeting (from the google group):
+
+<pre>
+ What will happen at the meeting on Wednesday?
+ - Hok talk about Overall structure of mew 
+ - Talk about the pilot study:
+        - Choose grasping mechanism,
+        - Axles needed,
+        - Motors needed, and
+        - Materials.
+ - Pedro talk about software
+ - Ian talk about electrical
+ - Mikhail talk about mechanical
+ - Work out time slot for next meetings
+</pre>
+
+Completing the pilot study is vital for the acceptance of our Eurobot application. After settling that, we can move on to starting the development of the robot itself. We'll try to post the details on what the separate groups are going to be doing on the meeting, later today.
+
+See you there!
+
+== Resources ==
+[http://code.google.com/p/mew-dev/w/list Wiki pages list]
