@@ -1,0 +1,29 @@
+****************************************
+  mew Imperial College Robot Simulator
+****************************************
+
+This is just a simple simulator of a platform similar to the one we'll
+be experiencing with actual hardware.
+
+For the users of the simulator it is composed of the following files,
+in subdirectory release:
+
+include/sim.h : The header file which contains the public functions that
+	      	are available.
+lib/libsim.a  : The library object file itself, designed for static
+	      	linking.
+
+In the samples folder, you can also find some very naive samples. 
+
+To compile and link them use gcc as such:
+gcc -o <exec-file> <c-file> -lsim -L<library-file-location>
+
+This should give you an executable.
+
+Have fun!
+
+****
+
+For people who want to improve the simulator, the source code is in
+src. The code is not perfect by any means so feel free to improve it,
+it was quickly assembled for this meeting :) Thanks!
