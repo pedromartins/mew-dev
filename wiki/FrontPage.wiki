@@ -7,6 +7,9 @@ Welcome to the mew Wiki. For meetings, minutes and additional details please che
 <wiki:toc max_depth="2" />
 
 == Next Meeting ==
+UPDATES ON FIRST MEETING:
+Firstly, the room is booked, so we might need to find another place. Look for something on the door pointing you to the appropriate room. Sorry for the inconvenience.
+Secondly, I've just uploaded the simulator that we're going to use, for the people who want to develop the logic. You're encouraged to bind into it using an FFI and some examples are provided. I'll elaborate on this in my introduction presentation tomorrow, but you can play with it in the meantime if you want :). Also, it was very quickly developed and my C was rusty so it might not be very idiomatic. Feel free to improve it as well! --Pedro
 
 Wednesday, 21st January 09 in 311*, Huxley Building at 4:15pm
 (the final word on date, time and location will be on the google group so this might be wrong).
