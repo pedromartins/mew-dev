@@ -27,15 +27,19 @@ Because we don't yet know what the actual physical sensors and inputs will be, w
 
 I also implemented some failure in the simulator because I think that failure is something that we need to cope with. We should not assume that things work by default. It is the most frustrating thing when a hugely complicated logic fails because something unexpected happens, and only if the mechanism would restart it would succeed. So I think that's something to take into account, but if anyone has a different opinion please let me know.
 
-Concrete tasks resulting from this description and resources:
- * Pathfinding in a dynamic changing map - The map will have static obstacles, moving obstacles and pieces to collect (the pieces to avoid = obstacles). Thus, the algorithm has to integrate all these. 
+*Concrete tasks resulting from this description and resources:*
+ == Pathfinding in a dynamic changing map ==
+
+The map will have static obstacles, moving obstacles and pieces to collect (the pieces to avoid = obstacles). Thus, the algorithm has to integrate all these. 
 Pathfinding in a discrete map can be seen as a special case of state-space search, or graph search. In which you have a set of states, a set of actions, and a set of transitions from state to state using an action. In this case:
- ** States: Discrete squares in a map
- ** Actions: Move to an adjacent square (different notions of adjacency can be chosen e.g 4-adjacency(N S W E), 8-adjacency(N NE E SE S SW W NW), 16-adjacency (N NNE NE ENE E...)
- ** Transitions: Defined by the map
+  * States: Discrete squares in a map
+  * Actions: Move to an adjacent square (different notions of adjacency can be chosen e.g 4-adjacency(N S W E), 8-adjacency(N NE E SE S SW W NW), 16-adjacency (N NNE NE ENE E...)
+  * Transitions: Defined by the map
 With this definition, the problem can be viewed as a state-space, which can be represented as a graph with nodes for states and arcs for the transitions (Again, the map is a good visualisation). Thus, the problem becomes finding the smallest path from the initial state to the goal state. There are many algorithms for graph search, but usually the most interesting one for this sort of application is A**. It is interesting because it uses a heuristic function to estimate which node will be the next best move to take. If the heuristic is admissible (monotonic), i.e. it never overestimates the cost then A** is proven to always find the shortest path. A great reference for this would be the amazing Artificial Intelligence: A Modern Approach, which I personally consider a must read (and it also has a chapter on robotics and CV). Googling around will lead you to a lot of tutorials and sample code as well.
 If you want to suggest another approach feel free to do so of course :)
- * Decision - Something has to be done to choose the best block to pick up. In my opinion we should just assign weights to certain conditions (e.g. dispenser block, block on the ground, block near a wall/corner), that we would tweak as a result of experimenting with our grabbing mechanism and noting which blocks can it pick up more easily. That way we could decide on the block with the best score. The same could be done for the building areas.
+ == Decision ==
+
+Something has to be done to choose the best block to pick up. In my opinion we should just assign weights to certain conditions (e.g. dispenser block, block on the ground, block near a wall/corner), that we would tweak as a result of experimenting with our grabbing mechanism and noting which blocks can it pick up more easily. That way we could decide on the block with the best score. The same could be done for the building areas.
 
 In my opinion you can implement these algorithms in the language that you're most confortable with. It will make it a lot easier to implement and give you a better knowledge of the problem. For binding to the simulator I suggest that you use whatever [http://en.wikipedia.org/wiki/Foreign_function_interface foreign function interfacing solutions] the language provides. I made this [http://pedromartinspt.com/blog/2008/12/opening-up-the-borders-or-how-i-learned-to-stop-worrying-and-love-the-ffi/ blog post] some time ago, and it reflects my view on foreign function interfacing. You might also find it interesting. 
 
