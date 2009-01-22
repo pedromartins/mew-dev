@@ -1,0 +1,60 @@
+#summary Software Team subwiki
+
+I'll identify the main working areas in this wiki page so that we can all get started. (i.e. what I should have focused on in my presentation but completely failed at, sorry about that :] ) -- Pedro
+
+*Main working areas:*
+||<wiki:toc max_depth="1" />||
+
+----
+
+= Logic =
+
+Assuming complete updated knowledge of the map from somewhere...
+
+Semi-formal description of the problem:
+Inputs: position, (maybe) claw sensors
+Goals: pick up pieces and build temples
+Functions required for the goals: moving, picking up and dropping
+
+The robot then has to plan the best strategy.
+Possible problems:
+ * Which block to choose? => Decision
+ * Which building area to choose? => Decision
+ * How to get to the block I choose? => Pathfinding
+ * How to build a temple?
+
+Because we don't yet know what the actual physical sensors and inputs will be, we should focus on the high level problems.
+
+I also implemented some failure in the simulator because I think that failure is something that we need to cope with. We should not assume that things work by default. It is the most frustrating thing when a hugely complicated logic fails because something unexpected happens, and only if the mechanism would restart it would succeed. So I think that's something to take into account, but if anyone has a different opinion please let me know.
+
+Concrete tasks resulting from this description and resources:
+ * Pathfinding in a dynamic changing map - The map will have static obstacles, moving obstacles and pieces to collect (the pieces to avoid = obstacles). Thus, the algorithm has to integrate all these. 
+Pathfinding in a discrete map can be seen as a special case of state-space search, or graph search. In which you have a set of states, a set of actions, and a set of transitions from state to state using an action. In this case:
+ ** States: Discrete squares in a map
+ ** Actions: Move to an adjacent square (different notions of adjacency can be chosen e.g 4-adjacency(N S W E), 8-adjacency(N NE E SE S SW W NW), 16-adjacency (N NNE NE ENE E...)
+ ** Transitions: Defined by the map
+With this definition, the problem can be viewed as a state-space, which can be represented as a graph with nodes for states and arcs for the transitions (Again, the map is a good visualisation). Thus, the problem becomes finding the smallest path from the initial state to the goal state. There are many algorithms for graph search, but usually the most interesting one for this sort of application is A**. It is interesting because it uses a heuristic function to estimate which node will be the next best move to take. If the heuristic is admissible (monotonic), i.e. it never overestimates the cost then A** is proven to always find the shortest path. A great reference for this would be the amazing Artificial Intelligence: A Modern Approach, which I personally consider a must read (and it also has a chapter on robotics and CV). Googling around will lead you to a lot of tutorials and sample code as well.
+If you want to suggest another approach feel free to do so of course :)
+ * Decision - Something has to be done to choose the best block to pick up. In my opinion we should just assign weights to certain conditions (e.g. dispenser block, block on the ground, block near a wall/corner), that we would tweak as a result of experimenting with our grabbing mechanism and noting which blocks can it pick up more easily. That way we could decide on the block with the best score. The same could be done for the building areas.
+
+In my opinion you can implement these algorithms in the language that you're most confortable with. It will make it a lot easier to implement and give you a better knowledge of the problem. For binding to the simulator I suggest that you use whatever [http://en.wikipedia.org/wiki/Foreign_function_interface foreign function interfacing solutions] the language provides. I made this [http://pedromartinspt.com/blog/2008/12/opening-up-the-borders-or-how-i-learned-to-stop-worrying-and-love-the-ffi/ blog post] some time ago, and it reflects my view on foreign function interfacing. You might also find it interesting. 
+
+= Computer Vision (CV) =
+
+The CV part is quite interesting and work needs to be done in it asap. As we are going to have a camera, there is a lot of useful information we can extract from it. Think about it as just a signal receiver which receives light from whatever is visible! Pretty exciting. The problem with the "whatever is visible" is obviously the extreme noise (noise in signal processing means unwanted signal). Thus, the difficulty of CV comes from ignoring that noise.
+Let's step back for a second, what signal do we need to receive?
+ * From the beacons
+ * From the pieces
+ * From the opponents robot
+ * From the dispensers
+ * From the building areas
+
+With that signal in hand we can locate them or get some additional knowledge about them that we didn't have before (e.g. they're empty(dispensers)).
+For now, we should focus on the task of locating. Locating everything around the map and plotting it, and also, locating ourselves using the beacons.
+
+Again stepping back a bit, we first need to identify what is what. So, the next actionable thing is try to find a way to identify in an image, all these things (by their unique characteristics, be it color, shape, texture, reflectivity, whatever they have that makes them unique from the "noise").
+After we have identified them, we need to extract that information about them. So, for locating, we need to extract the information that makes them unique from the information that we would get if that element were in another position (e.g. size, orientation). So, we need to figure out a way to obtain that information.
+
+Stepping out even further, the camera is not perfect. We have to account for the lens (distortion), which can be done by calibration and for the noise which the camera itself introduces, either by sensor imperfections or even by blooming out intense light for instance. So, our algorithms should not expect perfect images as there might be a lot of unexpected data. Also, the lighting conditions are unknown, so our algorithms have to be invariant to lighting and compensate for that.
+
+Thus in CV the tasks are more ill-defined, but are mostly researching solutions to all the problems I stated, and coming up with some problems I haven't stated but that will be there.
