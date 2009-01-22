@@ -4,6 +4,11 @@
 
 Welcome to the mew Wiki. For meetings, minutes and additional details please check the [http://groups.google.com/group/mew-imperial-college Google group].
 
+ * Team wikis:
+  * SoftwareTeam
+  * HardwareTeam
+  * MechanicalTeam
+
 <wiki:toc max_depth="2" />
 
 == Next Meeting ==
