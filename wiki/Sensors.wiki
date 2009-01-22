@@ -1,0 +1,5 @@
+#summary A list of the sensors envisaged, their interfaces and so on
+
+= Sensors =
+
+If people, both Software and Electronics could post here both the sensors they want and how they will work!
