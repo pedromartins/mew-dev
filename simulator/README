@@ -1,3 +1,13 @@
+***
+TEMPORARY WORKAROUND
+***
+
+pedro can fix this properly later, but for the moment you can write and compile
+a working simulator a'la the example now in simulator/src/sample.c
+
+compile with:
+gcc -o foo *.c
+
 ****************************************
   mew Imperial College Robot Simulator
 ****************************************
