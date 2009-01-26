@@ -1,12 +1,3 @@
-***
-TEMPORARY WORKAROUND
-***
-
-pedro can fix this properly later, but for the moment you can write and compile
-a working simulator a'la the example now in simulator/src/sample.c
-
-compile with:
-gcc -o foo *.c
 
 ****************************************
   mew Imperial College Robot Simulator
@@ -23,12 +14,16 @@ include/sim.h : The header file which contains the public functions that
 lib/libsim.a  : The library object file itself, designed for static
 	      	linking.
 
-In the samples folder, you can also find some very naive samples. 
+In the samples folder, you can also find some very naive samples. To
+compile them you can use the makefile that is in the release/
+folder. So, if you cd to to the release folder and type "make", you
+should get the samples built in the release/bin folder.
 
-To compile and link them use gcc as such:
-gcc -o <exec-file> <c-file> -lsim -L<library-file-location>
+To compile and link your own examples for testing you can use gcc as:
+gcc <c-file> -I<include-dir> -lsim -L<library-file-location> -o <out-file>
 
 This should give you an executable.
+
 
 Have fun!
 
@@ -37,3 +32,6 @@ Have fun!
 For people who want to improve the simulator, the source code is in
 src. The code is not perfect by any means so feel free to improve it,
 it was quickly assembled for this meeting :) Thanks!
+
+Also in the source code folder is a sample made by ian that can be
+compiled along with the simulator.
