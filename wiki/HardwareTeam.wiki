@@ -24,6 +24,7 @@ Also we need to think about our approach towards the low level processing that i
 
 The bot is going to need to measure distance so rangefinders will be useful. The most common output method for these sensors is an analogue voltage, but some use PWM or even i2c. If we use analogue voltages, we will have to consider low-pass filters to clean the signal if they aren't already implemented in the sensors.
 An electronic compass could be useful for orientation purposes (maybe even gyros and accelerometers...)
+Our wiki page on sensors is [http://code.google.com/p/mew-dev/wiki/Sensors here].
 
 = Actuators = 
 
