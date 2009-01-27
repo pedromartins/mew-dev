@@ -30,3 +30,5 @@ Our wiki page on sensors is [http://code.google.com/p/mew-dev/wiki/Sensors here]
 
 Until the mechanical team have come to a decision, we should think about which actuators we would like them to use. For driving the wheels of the bot, DC motors, stepper motors, modified servos and AC motors are possibilities. What electronic requirements would each of these need?
 For the grippers and other effectors on the bot, we will be using servos and possibly a linear actuator. 
+
+Interesting article on creating a PIC based DC motor controller with PID control - [http://www.seattlerobotics.org/encoder/200205/pidmc.html here].
