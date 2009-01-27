@@ -109,7 +109,7 @@ void moveForward() {
 void pickUp() {
   initSimulator();
   Position f = inFront();
-  if(randDouble() > PROB_FAILURE_PICKUP && getPos(f) == PIECE ) {
+  if(randDouble() > PROB_FAILURE_PICKUP && getElementAt(f) == PIECE ) {
     grab = TRUE;
     removePiece(f.x,f.y);
   }
