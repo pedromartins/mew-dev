@@ -38,9 +38,10 @@ void initPredefMap(int mapNum) {
   }
 }
 
-MapElement getPos(Position pos) {
+MapElement getElementAt(Position pos) {
   return map[pos.x][pos.y];
 }
+
 
 void placePiece(int posx, int posy) {
   map[posx][posy] = PIECE;

@@ -28,13 +28,17 @@ void moveForward();
 // Pick up what's in *front* of the robot.
 void pickUp();
 
-// Turn 45º left or right
-void turn(int left);
+/**
+ * Turns the robot 45º left if left is TRUE,
+ * otherwise turns the robot 45º right.
+ * @param left iff TRUE, will turn robot left, else will turn robot right.
+ */
+void turn(bool left);
 
-/*
-  Load a different map 
-  (must be done before starting/reseting)
-*/
+/**
+ * Load a different map 
+ * (must be done before starting/reseting)
+ */
 void loadMap(int i);
 
 // Reset the board and robot
