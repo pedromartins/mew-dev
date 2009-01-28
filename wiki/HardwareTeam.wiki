@@ -7,18 +7,19 @@ A few initial ideas to get the ball rolling -- Harry
 
 ----
 
+=i have decreed that it is arduino, no one contributed early enough!=
 
-= MCU platform =
+~~= MCU platform =~~
 
 
-For choice of microcontroller platform we have PIC, Arduino (atmega), ARM or parallax stamp (probably others). 
-Things to consider when deciding which to use - 
- * Do the chips suit the application in terms of pin count, hardware peripherals (i2c, PWM, counters, timers, A/D...), processing power, package?
- * What are the available resources? - Online communities, programming equipment(we might be able to use university programmers), libraries, documentation, etc
- * What experience does the group have with this platform?
- * What costs are associated with it in terms of money, time, space on the bot, etc.
+~~For choice of microcontroller platform we have PIC, Arduino (atmega), ARM or parallax stamp (probably others). ~~
+~~Things to consider when deciding which to use - ~~
+ * ~~Do the chips suit the application in terms of pin count, hardware peripherals (i2c, PWM, counters, timers, A/D...), processing power, package?~~
+ * ~~What are the available resources? - Online communities, programming equipment(we might be able to use university programmers), libraries, documentation, etc~~
+ * ~~What experience does the group have with this platform?~~
+ * ~~What costs are associated with it in terms of money, time, space on the bot, etc.~~
 
-Also we need to think about our approach towards the low level processing that is required. Are going to go for a modular approach? - separate MCUs for the servo controller, stepper/DC motors and sensors might make sense since we can easily fit plenty of slaves on the i2c bus.
+~~Also we need to think about our approach towards the low level processing that is required. Are going to go for a modular approach? - separate MCUs for the servo controller, stepper/DC motors and sensors might make sense since we can easily fit plenty of slaves on the i2c bus.~~
 
 = Sensors =
 
