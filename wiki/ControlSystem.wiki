@@ -1,0 +1,22 @@
+#summary Discussion on the design of the overall control system of the robot.
+
+= Introduction =
+The Control System is, on the lowest levels, specified by the Electronics team.
+While the Electronics team have not decided fully, or decided completely on an interface, I have still drafted a possible rough idea of how we could build our Software system atop of the hardware, such that we have enough layers of abstraction for flexible design.
+The code related to the lowest levels of the Control System should provide some sort of pseudo-API which more advanced generic algorithms could make use of.
+
+= The Design =
+[http://code.google.com/images/Control Class Diagram.jpg]
+
+== Details ==
+  * {{{Robot}}} - Maintains a reference to current {{{RobotState}}}. Provides functions to update the best estimate of the {{{RobotState}}}. Maintains references to {{{IAngularVelocimeter}}}s, {{{ISpedometer}}}s, {{{ILocator}}}s, and {{{IOrientator}}}s and applies an algorithm to data gathered from each of these sensors (such as calculating the mean) to update the RobotState.
+  * {{{IAngularVelocimeter}}} - Returns a float of how much the robot is turning at this moment in time. Measured in _degrees per second_, +ve values are clockwise, -ve values are anti-clockwise.
+  * {{{IOrientator}}} - Returns a float of the 'absolute' orientation of the robot (relative to the playing area's orientation). Achieved via using devices such as a compass.
+  * {{{ILocator}}}- Returns a Point2df of the 'absolute' location of the robot (relative to an arbitrary origin set on the plane of the playing area's ground).
+  * {{{ISpedometer}}} - Returns a float of the speed at which the robot is travelling. Derivable from the drive system, assuming stepper motors or rotary encoders are used.
+  * {{{IServoController}}} - Control subsystem for servo(motor)s only, to perform intelligent coordinated tasks, e.g. robotic arm with 3 degrees of freedom: provide simple interface via Inverse Kinematics. Implementation of this interface is totally dependent on the physical configuration of the servos, and how they are used. *{{{TempleBuildingServoController}}} will be extended when implementation details become more clear.*
+  * {{{IDriveSystem}}} - Control subsystem for locomotion only, to perform implementation specific control of motors, e.g. Differential drives use motors to steer differently from Skid-steering. *{{{DifferentialDriveSystem}}} will be extended when implementation details becomes more clear*.
+  * {{{IProgramLogic}}} - Represents a program that the robot should run. This software, therefore, could be re-configured to *{{{TempleBuildingLogic}}} will be extended when {{{DifferentialDriveSystem}}} and {{{TempleBuildingServoController}}} are well defined.*
+
+
+MAJOR REVISIONS REQUIRED!
