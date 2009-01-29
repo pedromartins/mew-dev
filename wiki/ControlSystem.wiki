@@ -6,7 +6,7 @@ While the Electronics team have not decided fully, or decided completely on an i
 The code related to the lowest levels of the Control System should provide some sort of pseudo-API which more advanced generic algorithms could make use of.
 
 = The Design =
-[http://mew-dev.googlecode.com/svn/wiki/images/ControlClassDiagram.png]
+http://mew-dev.googlecode.com/svn/wiki/images/ControlClassDiagram.jpg
 
 == Details ==
   * {{{Robot}}} - Maintains a reference to current {{{RobotState}}}. Provides functions to update the best estimate of the {{{RobotState}}}. Maintains references to {{{IAngularVelocimeter}}}s, {{{ISpedometer}}}s, {{{ILocator}}}s, and {{{IOrientator}}}s and applies an algorithm to data gathered from each of these sensors (such as calculating the mean) to update the RobotState.
