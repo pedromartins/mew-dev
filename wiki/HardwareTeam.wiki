@@ -40,7 +40,7 @@ They will be powerful enough to power the motors provided we don't stall them - 
 
 
 I suggest 1 arduino to read the encoders and output to the motors - then you get a good feedback loop.  Here's some quick sudocode:
-
+{{{
 define ACCEL_CONST 20       // aprox 200ms to get to speed or to stop.
 while (1) {
   ds=read_desired_speed();  // from PC, probably into an I2C memory location
@@ -69,6 +69,6 @@ void ISR() {  //called on a fast timer, although could be integrated into above 
   last_state=a;
 
 }
-
+}}}
 
 Interesting article on creating a PIC based DC motor controller with PID control - [http://www.seattlerobotics.org/encoder/200205/pidmc.html here].
