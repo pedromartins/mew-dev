@@ -72,4 +72,6 @@ void ISR() {  //called on a fast timer, although could be integrated into above 
 }}}
 (note in the above code, yes, there is a race, but it won't matter since 1 error in actual_speed won't cause a noticeable problem)
 
+There are more efficient hardware ways of handling an encoder than using timer interrupts. We should probably look at using an external clock source for incrementing a timer. Then speed calculation requires no interrupt. speed = k*(current_pulses_counted - previous pulses_counted)/delta_time. There is more information in the Counter chapters of the atmega 168 datasheet - [http://www.atmel.com/dyn/resources/prod_documents/doc2545.pdf here]. -- Harry
+
 Interesting article on creating a PIC based DC motor controller with PID control - [http://www.seattlerobotics.org/encoder/200205/pidmc.html here].
