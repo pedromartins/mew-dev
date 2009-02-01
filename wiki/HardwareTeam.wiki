@@ -32,4 +32,43 @@ Our wiki page on sensors is [http://code.google.com/p/mew-dev/wiki/Sensors here]
 Until the mechanical team have come to a decision, we should think about which actuators we would like them to use. For driving the wheels of the bot, DC motors, stepper motors, modified servos and AC motors are possibilities. What electronic requirements would each of these need?
 For the grippers and other effectors on the bot, we will be using servos and possibly a linear actuator. 
 
+== drive motors ==
+The motor controllers are these:
+http://www.technobots.co.uk/Data%20Sheets/1502-001.pdf
+
+They will be powerful enough to power the motors provided we don't stall them - we need software protection to power them off if the optical encoders detect stalling.
+
+
+I suggest 1 arduino to read the encoders and output to the motors - then you get a good feedback loop.  Here's some quick sudocode:
+
+define ACCEL_CONST 20       // aprox 200ms to get to speed or to stop.
+while (1) {
+  ds=read_desired_speed();  // from PC, probably into an I2C memory location
+  as=actual_speed;          // set by encoder in a timed interrupt routine
+  deltaSum+=ds-as;          // speed delta.  Additive so that average speed=desired speed.
+  if ((delatSum>STALL_THRESHOLD) || (delatSum< -STALL_THRESHOLD)) {
+    // motor is stalled
+    output_i2c(MOTOR_BASE_ADDRESS,0);
+    sleep(5000);            // wait 5 secs, then retry.
+    deltaSum=0;
+  }
+  // set motor speed
+  output_i2c(MOTOR_BASE_ADDRESS,deltaSum / ACCEL_CONST);
+  // sleep to allow motor speed to change, prevents too much
+  // negative feedback causing oscillations.
+  sleep(10);
+}
+
+void ISR() {  //called on a fast timer, although could be integrated into above loop
+  int a = read_encoder_state();  // returns 0, 1, 2, or 3.
+  static int last_state = 0;
+  
+  // decay speed, this acts as a simple filter.
+  actual_speed=actual_speed - actual_speed>>2;
+  actual_speed+=difference(a, last_state);  // where difference retuns +1, 0, or -1;
+  last_state=a;
+
+}
+
+
 Interesting article on creating a PIC based DC motor controller with PID control - [http://www.seattlerobotics.org/encoder/200205/pidmc.html here].
