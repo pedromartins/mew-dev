@@ -2,7 +2,7 @@
 
 = mew-dev =
 
-Welcome to the mew Wiki. For meetings, minutes and additional details please check the [http://groups.google.com/group/mew-imperial-college Google group].
+Welcome to the mew Wiki. For meetings, minutes and additional details please check the [http://groups.google.com/group/mew-imperial-college Google Group].
 
  * Team wikis:
   * SoftwareTeam
@@ -10,36 +10,6 @@ Welcome to the mew Wiki. For meetings, minutes and additional details please che
   * MechanicalTeam
 
 <wiki:toc max_depth="2" />
-
-== Next Meeting ==
-=== Updates on the Next Meeting ===
-||<b>Firstly, the room is booked, so we might need to find another place. Look for something on the door pointing you to the appropriate room. Sorry for the inconvenience.</b>||
-||Secondly, I've just commited the simulator that we're going to use, for the people who want to develop the logic. You're encouraged to bind into it using an FFI and some examples are provided. I'll elaborate on this in my introduction presentation tomorrow, but you can play with it in the meantime if you want :). Also, it was very quickly developed and my C was rusty so it might not be very idiomatic. Feel free to improve it as well! --Pedro||
-
-Wednesday, 21st January 09 in 311*, Huxley Building at 4:15pm
-(the final word on date, time and location will be on the google group so this might be wrong).
-
-This meeting will be preceded by an introductory talk to potential new members from Mech Eng. If you want to come to the talk, show up at 15.30 and help captivate the attention of the newcomers! :)
-
-Some notes from the committee meeting (from the google group):
-
-<pre>
- What will happen at the meeting on Wednesday?
- - Hok talk about Overall structure of mew 
- - Talk about the pilot study:
-        - Choose grasping mechanism,
-        - Axles needed,
-        - Motors needed, and
-        - Materials.
- - Pedro talk about software
- - Ian talk about electrical
- - Mikhail talk about mechanical
- - Work out time slot for next meetings
-</pre>
-
-Completing the pilot study is vital for the acceptance of our Eurobot application. After settling that, we can move on to starting the development of the robot itself. We'll try to post the details on what the separate groups are going to be doing on the meeting, later today.
-
-See you there!
 
 == Resources ==
 [http://code.google.com/p/mew-dev/w/list Wiki pages list]
