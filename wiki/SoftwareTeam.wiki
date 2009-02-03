@@ -5,5 +5,13 @@ I'll identify the main working areas in this wiki page so that we can all get st
 
  * Main working areas:
   * [ControlSystem]
+   * [TaskSpecificControl]
+   * [MotorControl]
   * [Logic]
-  * [ComputerVision]
+   * [WorldModelling]
+   * [Planning]
+   * [TaskExecution]
+   * [Behaviours]
+  * [Perception]
+   * [ComputerVision]
+   * [OtherSensors]
