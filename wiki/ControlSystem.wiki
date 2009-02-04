@@ -1,9 +1,10 @@
 #summary Discussion on the design of the overall control system of the robot.
 
 = Introduction =
-The Control System is, on the lowest levels, specified by the Electronics team.
-While the Electronics team have not decided fully, or decided completely on an interface, I have still drafted a possible rough idea of how we could build our Software system atop of the hardware, such that we have enough layers of abstraction for flexible design.
-The code related to the lowest levels of the Control System should provide some sort of pseudo-API which more advanced generic algorithms could make use of.
+The so-called {{{controlsystem}}} sits on the lowest level of the software stack. *Pedro: Please provide stack diagram*
+It is a layer that provides a clear and consistent interface for i2c, USB and other deivce protocols, and is specified by specified by the Electronics team.
+
+The code related to the {{{controlsystem}}} should provide some sort of pseudo-API which more advanced generic algorithms could make use of.
 
 = The Design =
 http://mew-dev.googlecode.com/svn/wiki/images/ControlClassDiagram.jpg
