@@ -14,7 +14,7 @@ A robot is an entity with speed and
 
 
 = Paths =
-Because the path produced by the A* algorithm will be very jagged (as the algorithm works on a set-resolution grid), it will be necessary to simplify the path, so that the robot may formulate make more generalized and sensible driving 
+Because the path produced by the A`*` algorithm will be very jagged (as the algorithm works on a set-resolution grid), it will be necessary to simplify the path, so that the robot may formulate make more generalized and sensible driving 
 
 == Simplification of paths =
 
