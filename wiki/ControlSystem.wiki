@@ -6,6 +6,32 @@ It is a layer that provides a clear and consistent interface for i2c, USB and ot
 
 The code related to the {{{controlsystem}}} should provide some sort of pseudo-API which more advanced generic algorithms could make use of.
 
+= Approaches, and Paradigms =
+== Hierarchical paradigm ==
+Sense -> Plan -> Act -> ... loop (until condition).
+The robot has some goal it wishes to achieve, which affects decisions made in the plan. By acting on the steps required incrementally, the robot *hopes* to succeed in reaching its goal.
+Requires computation, and heavy software involvement.
+
+== Reactive paradigm ==
+Sense -> Act ->... loop (until condition).
+No planning. Expects that the problem to be solved, or the environment to navigate, is simple enough to not require any planning. 
+Perfect for simple tasks which require little computation. Forms low-level closed-loop feedback systems. An example in our project would be using the Arduino to carry out the gripping of cylinders.
+
+== Hybrid Deliberate/Reactive Paradigm ==
+Sense < - > (Plan) < - > Act... loop.
+The plan deliberates what should be done, and delegates specific well-defined tasks to simple reactive systems when required. Reactive systems may pass messages to the deliberation (or planning) unit if any unexpected circumstances arise. A new plan is formulated.
+
+* In our control system, we will be taking the hybrid approach. *
+
+There are two extremes of implementing the control system:
+  * Two tier design
+   * Planning, localizing, mapping, decisions - these form the top tier.
+   * Movement, other actuation, and sensory input - these form the bottom tier.
+  * Fully hierarchical - nodes represent a well-defined behaviour. Sub-nodes also represent a smaller and simpler behaviour. Higher order behaviours blend sub-behaviours appropriately to achieve its own goal.
+Typically, commands are delegated down the hierarchy (e.g. actuation), while sensor readings, state data, and other feedback propagate up the hierarchy for handling at various levels. Tasks are typically given more computing time on the higher level, such as mapping, planning and decision-making. Lower levels require relatively less computing power of the hierarchy execute much faster- tasks such as polling sensors, or actuating.
+
+* In our control system, we will be building a two- or three-tier architecture. *
+
 = The Design =
 http://mew-dev.googlecode.com/svn/wiki/images/ControlClassDiagram.jpg
 
