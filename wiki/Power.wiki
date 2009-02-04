@@ -8,12 +8,12 @@ Place any information related to powering the robot here.
 
 Things which consume power - 
 
-*Servos*
+===Servos===
 [http://www.hitecrcd.com/product_file/file/15/HS225MG.pdf HS-225MG](x5) - 4.8-6.0V, ~340mA no load operating
 
 [http://www.hitecrcd.com/product_file/file/139/HS-45HB_Spec_sheet_Final_.pdf HS-45](x2)  - 4.8V, 100mA no load, 440mA stall.
 
-*Motors*
+===Motors===
 [http://www.technobots.co.uk/acatalog/Online_Catalogue_919D_Spur_Geared_Motor_230.html Drive motors with 50:1 gearing] - 21W @ ?V
 
 ==Unfinished==
