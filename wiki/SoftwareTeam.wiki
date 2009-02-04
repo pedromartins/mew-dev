@@ -3,15 +3,18 @@
 
 I'll identify the main working areas in this wiki page so that we can all get started. (i.e. what I should have focused on in my presentation but completely failed at, sorry about that :] ) -- Pedro
 
- * Main working areas:
-  * [ControlSystem]
-   * [TaskSpecificControl]
-   * [MotorControl]
+ * [ControlSystem]
+  * [Movement]
+   * [Behaviours]
+   * [Locomotion]
   * [Logic]
-   * [WorldModelling]
    * [Planning]
    * [TaskExecution]
-   * [Behaviours]
-  * [Perception]
-   * [ComputerVision]
-   * [OtherSensors]
+  * [Mapping]
+   * [WorldModelling]
+  * [Localization]
+   * [Odometric]
+   * [Sensory]
+    * [ComputerVision]
+    * [IRSensors]
+    * [UltrasoundSensors]
