@@ -1,7 +1,10 @@
 #summary Software Team subwiki
 #labels Phase-Design,Phase-Requirements
 
-I'll identify the main working areas in this wiki page so that we can all get started. (i.e. what I should have focused on in my presentation but completely failed at, sorry about that :] ) -- Pedro
+Welcome to the Software Team subwiki.
+I have broken down some of the main areas to be tackled.
+Two main projects are under way: controlsystem (codename Contraband) and the simulator (codename Scythe).
+Both of them are bridged by a common interface, through world representation.
 
  * [ControlSystem]
   * [Movement]
@@ -11,10 +14,16 @@ I'll identify the main working areas in this wiki page so that we can all get st
    * [Planning]
    * [TaskExecution]
   * [Mapping]
-   * [WorldModelling]
   * [Localization]
    * [Odometric]
    * [Sensory]
     * [ComputerVision]
     * [IRSensors]
     * [UltrasoundSensors]
+
+ * [Simulator]
+  * [Programs]
+  * [VirtualSensors]
+
+ * [WorldRep]
+  * [WorldModelling]
