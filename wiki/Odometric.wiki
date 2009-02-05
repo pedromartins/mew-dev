@@ -38,4 +38,6 @@ An integration technique used specifically for Newtonian equations of motion. Ma
 
 * We should use Beeman's algorithm to update both velocities and positions, AND angular velocities, and orientations. *
 
+There are competitions for robots which are exceptional at this type of the thing. The task is generally to do 1 lap of a circuit and finish as close to the starting position as possible, with no external sensors. They often call it 'dead-reckoning'. [http://www.seattlerobotics.org/encoder/200108/using_a_pid.html This] seems like it could be a good article. And you'll find lots more information [http://www.google.co.uk/search?hl=en&q=dead+reckoning+robot&btnG=Google+Search&meta= here]. --Harry
+
 = Specification =
