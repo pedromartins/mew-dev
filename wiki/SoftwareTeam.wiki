@@ -8,7 +8,7 @@ Both of them are bridged by a common interface, through world representation.
 
  * [ControlSystem]
   * [Movement]
-   * [Behaviours]
+   * [SteeringBehaviours]
    * [CombiningBehaviours]
   * [Decision]
    * [Planning]
