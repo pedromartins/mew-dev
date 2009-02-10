@@ -1,0 +1,14 @@
+#ifndef _MEW_PRINTER_H
+#define _MEW_PRINTER_H
+
+#include <iostream>
+
+class Printer {
+	Printer(){}
+	virtual ~Printer(){}
+
+	virtual void print();
+};
+
+
+#endif
