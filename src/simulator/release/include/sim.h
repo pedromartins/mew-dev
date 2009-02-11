@@ -11,7 +11,10 @@
 
 #define TRUE 1
 #define FALSE 0
+
+#ifndef __cplusplus
 typedef int bool;
+#endif
 
 typedef struct Position {
   int x;
