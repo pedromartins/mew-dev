@@ -3,8 +3,9 @@
 
 Welcome to the Software Team subwiki.
 I have broken down some of the main areas to be tackled.
-Two main projects are under way: controlsystem (codename Contraband) and the simulator (codename Scythe).
-Both of them are bridged by a common interface, through world representation.
+If it looks like a lot of work, don't worry!! It's nowhere as complicated as it sounds =]
+I've moved everything around once again- re-decided which functionality goes where, etc.
+With a bit of explanation, everybody should understand what's going on.
  
  * [Overview]
   * [ControlSystem]
