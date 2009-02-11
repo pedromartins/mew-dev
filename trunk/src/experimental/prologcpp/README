@@ -1,0 +1,15 @@
+just execute 
+
+
+ $ plld -shared -o prolog.so prolog.cpp
+
+!!!
+
+and you can then use prolog to do...
+
+ % load_foreign_library('prolog.so').
+ true
+ 
+ % 
+ 
+and call stuff... 
