@@ -48,6 +48,6 @@ typedef enum MapElement {
   EMPTY, PIECE, DROPZONE, FORBIDDEN
 } MapElement;
 
-MapElement getPos(Position pos);
+MapElement getElementAt(Position pos);
 
 #endif //SIM_H
