@@ -26,3 +26,4 @@ With a bit of explanation, everybody should understand what's going on.
    * [Programs]
    * [VirtualSensors] ??
  * SoftwareTeamResources
+ * CodingConventions
