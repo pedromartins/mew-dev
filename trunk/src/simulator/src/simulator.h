@@ -14,7 +14,10 @@
 
 #define TRUE 1
 #define FALSE 0
+
+#ifndef __cplusplus
 typedef int bool;
+#endif
 
 // Get position from the sensors
 Position getPosition();

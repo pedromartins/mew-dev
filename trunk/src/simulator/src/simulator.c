@@ -16,7 +16,7 @@ typedef enum Orientation {
 
 // State:
 Position pos;
-Orientation orientation;
+int orientation;
 int grab;
 
 //                     NORTH  SOUTH   EAST    WEST
