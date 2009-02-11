@@ -1,0 +1,48 @@
+#summary An overview of the current software structure, and brief explanations of each part.
+#labels Phase-Requirements,Phase-Design
+
+= Introduction =
+Building software for a robot means that we have not only got to code, but actually engineer our code.
+I present here a way of breaking up our problem into smaller sub-problems, such that developers know what part of the project you're working on, and how, on the grander scale, everything will collaborate together and work in harmony to produced desired output.
+
+
+= The Diagram =
+http://mew-dev.googlecode.com/svn/wiki/images/Robotsoftwarediagram.svg
+
+
+= Technologies Employed =
+To manage this project, I wish to highlight which technologies have been used in what parts of the project.
+
+== Programming langages ==
+  * C - used in the {{{electronicsinterface}}}. This is closer to what the electronics team actually uses for programming on their Arduino. They have no use for Object Oriented Programming.
+  * C++ - used in [controlsystem] and [perceptionsystem], because both of these must run very fast, and be able to intercommunicate quickly. This is best done via the use of C++ references/pointers.
+  * SWI-Prolog - used in the [decisionsystem]. Provides a sturdy inference engine with which we could declaratively state the problem at hand, and let Prolog's resolution strategy (depth-first search with backtracking, optionally with depth limit) to solve our most complicated of decision problems. SWI will call functions exposed by the {{{controlsystem}}}, and will wait patiently until the controlsystem reports success or failure of achieving that goal.
+
+== Tools ==
+  * gcc/g++ (The GNU Compiler Collection for C/C++) - this should be our main compiler for C/C++ code, because we shall be operating under a UNIX environment on the robot. Development could be done on whichever platform you choose; just ensure that the source-code compiles under UNIX, and we're good =]
+  * [GNU make] - 'Makes' (builds
+  * [CMake] - We're using CMake to manage the build of our project. CMake makes makefiles for GNU make, which actually calls the appropriate tools for compilation of the entire project. It's a really simple build system to use, and I hope that keep things nice and tidy for us, as opposed to getting in our way.
+  * plld - SWI-Prolog linker for producing libraries that expose functionality implemented in C++. I.e. this is a part of SWI-Prolog's Foreign Function Interface for C/C++ functions.
+
+
+
+
+
+= Approaches, and Paradigms =
+This section is more of a justification of why I decided to design the system in this way. If you're interested, I present here the alternatives we have.
+
+== Hierarchical paradigm ==
+Sense -> Plan -> Act -> ... loop (until condition).
+The robot has some goal it wishes to achieve, which affects decisions made in the plan. By acting on the steps required incrementally, the robot *hopes* to succeed in reaching its goal.
+Requires computation, and heavy software involvement.
+
+== Reactive paradigm ==
+Sense -> Act ->... loop (until condition).
+No planning. Expects that the problem to be solved, or the environment to navigate, is simple enough to not require any planning. 
+Perfect for simple tasks which require little computation. Forms low-level closed-loop feedback systems. An example in our project would be using the Arduino to carry out the gripping of cylinders.
+
+== Hybrid Deliberate/Reactive Paradigm ==
+Sense < - > (Plan) < - > Act... loop.
+The plan deliberates what should be done, and delegates specific well-defined tasks to simple reactive systems when required. Reactive systems may pass messages to the deliberation (or planning) unit if any unexpected circumstances arise. A new plan is formulated.
+
+* In our control system, we will be taking the hybrid approach. *
