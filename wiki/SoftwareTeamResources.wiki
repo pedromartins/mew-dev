@@ -1,0 +1,3 @@
+#summary Resources for the software team
+
+ * [http://code.google.com/p/a-star-algorithm-implementation/ A`*` implementation]
