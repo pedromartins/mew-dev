@@ -7,6 +7,7 @@ LFLAGS = -Wall $(DEBUG)
 
 sim : $(OBJS)
 	ar sr libsim.a $(OBJS)
+	cp libsim.a ../release/lib
 
 simulator.o : simulator.h simulator.c map.h
 	$(CC) $(CFLAGS) simulator.c
