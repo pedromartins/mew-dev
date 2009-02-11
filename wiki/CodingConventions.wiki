@@ -1,0 +1,5 @@
+#summary Coding conventions for the project
+
+ * .c and .h files for C and .cpp and .h files for C++
+ * File names all lowercase, with words separated by underscore
+ * Class names start with capital, and use CamelCase, variable names start with lowercase and use CamelCase. Constants all caps and macros all caps and underscore for separating words.
