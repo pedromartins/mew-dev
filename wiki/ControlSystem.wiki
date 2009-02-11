@@ -46,7 +46,7 @@ Typically, commands are delegated down the hierarchy (e.g. actuation), while sen
 
 * In our control system, we will be building a two- or three-tier architecture. *
 
-http://mew-dev.googlecode.com/svn/wiki/images/ControlClassDiagram.jpg
+http://mew-dev.googlecode.com/svn/wiki/images/Robotsoftwarediagram.svg
 
 == Details ==
   * {{{Robot}}} - Maintains a reference to current {{{RobotState}}}. Provides functions to update the best estimate of the {{{RobotState}}}. Maintains references to {{{IAngularVelocimeter}}}s, {{{ISpedometer}}}s, {{{ILocator}}}s, and {{{IOrientator}}}s and applies an algorithm to data gathered from each of these sensors (such as calculating the mean) to update the RobotState.
