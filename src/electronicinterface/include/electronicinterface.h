@@ -1,5 +1,5 @@
 /*
- * i2c.hpp
+ * electronicinterface.h
  *
  * Includes all known i2c devices headers.
  *
@@ -8,8 +8,8 @@
  *      Author: fushunpoon
  */
 
-#ifndef I2C_HPP_
-#define I2C_HPP_
+#ifndef ELECTRONIC_INTERFACE_H
+#define ELECTRONIC_INTERFACE_H
 
 #include "i2c/i2c_claw.h"
 #include "i2c/i2c_motor.h"

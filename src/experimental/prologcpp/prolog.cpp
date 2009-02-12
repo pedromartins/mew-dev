@@ -10,6 +10,7 @@ using namespace std;
 
 PREDICATE(hello,1)
 {
+
 	cout << "Hello " << (char *)A1 << endl;
 	
 	return TRUE;
@@ -52,3 +53,4 @@ PREDICATE(getArea,2)
 	Box* box = PL_CAST(Box,A1);
 	return A2 = box->getArea();
 }
+
