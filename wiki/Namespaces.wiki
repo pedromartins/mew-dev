@@ -1,0 +1,53 @@
+#summary Outlines all the namespaces into which program components should belong.
+
+= Introduction =
+C++ namespaces is a way of 'packaging' or otherwise grouping together entities. To use classes, functions, and global variables declared in a namespace, one must either fully qualify the function, class or global variable name with the namespace it lives in.
+
+
+== Putting code into a namespace ==
+You can put code (class definitions, function definitions, and global variables) Notice that namespaces may be nested:
+
+{{{
+namespace mew {
+namespace electronics{
+
+class IMotor {
+  int getSpeed();
+};
+
+}
+}
+}}}
+
+... means that IMotor lives in mew::electronics
+
+== Using code in namespaces ==
+You can fully qualify the name of a class:
+
+{{{mew::electronics::IMotor}}}
+
+or put, at somewhere near the beginning of the source file, (after the #include's) this:
+
+{{{using namespace mew::electronics;}}}
+
+...
+
+{{{
+int someFunction() {
+  // use the class name directly.
+  IMotor = MotorFactory.getMotor();
+}
+}}}
+
+
+
+
+= Namespaces in mew-software =
+ * mew - root level namespace
+  * core - where core classes like {{{Vector2d<T>}}}, {{{IRobot}}} goes.
+  * perception - where all sensor-related things go.
+   * cv - where all cv-related functionality lives.
+  * control - a namespace for the control system.
+  * simulator - a namespace for the simulator.
+
+IF you can't be bothered with namespaces, that's fine by me, I'll scan through everybody's code one day and put it in the right places. =]
