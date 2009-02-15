@@ -1,0 +1,14 @@
+#summary A simple explanation of what Camel-Case
+#labels Phase-Requirements
+
+Camel-Case is a coding convention.
+
+When writing code, if you want to name a class with multiple words in its name (CustomerBankAccount, for example) or typedef'ed type, then:
+
+  * Capitalize the first letter of every word.
+  * Leave no spaces in between the words.
+
+
+== Examples ==
+{{{class SomethingHasGoneTerriblyWrongException }}}
+{{{typedef SomeTemplate<int> IThinkYouGetThePointByNow}}}
