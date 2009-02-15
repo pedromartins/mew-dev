@@ -22,6 +22,8 @@ With a bit of explanation, everybody should understand what's going on.
      * [ComputerVision]
      * [IRSensors]
      * [UltrasoundSensors]
+  * [DeviceLayer]
+  * [ElectronicInterface]
   * [Simulator]
    * [Programs]
    * [VirtualSensors] ??
