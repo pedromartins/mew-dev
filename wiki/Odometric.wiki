@@ -1,11 +1,14 @@
-#summary Here we discuss the usage of feedback data from the drive system to estimate our absolute position in the map, given a known starting position.
+#summary Here we discuss the usage of feedback data from the drive system to estimate our absolute position in the map, given a known starting position. This is also known as dead reckoning.
+#labels Phase-Requirements
 
 = Introduction =
-Odometry is concerned with tracking the state of the robot through 'internal' sensors. 'Internal' sensors are those that do not take information from the world; they are, instead, sensors that report on the state of the robot's components. These include:
+Dead reckoning and odometry is concerned with tracking the state of the robot through 'internal' sensors only, without external references. 'Internal' sensors are those that do not take information from the world; they are, instead, sensors that report on the state of the robot's components. These include:
 
   * Angle of servos
   * Angular speed of servos
-  * Speed of motors
+  * Angular speed of motors
+  * Maximum known acceleration of motors/servos
+  * Size of the robot's wheel
   * Compass reading
 
 It is important to keep this information, and later combine (using weighted blending techniques) with other sensory data, to refine an estimate of our robot's location.
@@ -37,6 +40,9 @@ Computationally expensive, but error corrections allow for a more accurate estim
 An integration technique used specifically for Newtonian equations of motion. May not be relevant.
 
 * We should use Beeman's algorithm to update both velocities and positions, AND angular velocities, and orientations. *
+
+Here is a nice paper that I think everybody should read, about differential steering (which is exactly what we're using).
+http://rossum.sourceforge.net/papers/DiffSteer/
 
 There are competitions for robots which are exceptional at this type of the thing. The task is generally to do 1 lap of a circuit and finish as close to the starting position as possible, with no external sensors. They often call it 'dead-reckoning'. [http://www.seattlerobotics.org/encoder/200108/using_a_pid.html This] seems like it could be a good article. And you'll find lots more information [http://www.google.co.uk/search?hl=en&q=dead+reckoning+robot&btnG=Google+Search&meta= here]. --Harry
 
