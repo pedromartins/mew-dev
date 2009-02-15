@@ -1,14 +1,11 @@
 // Copyright (C) 2009 Hok Shun Poon
 
-#ifndef _MEW_Vector2d_H
-#define _MEW_Vector2d_H
+#ifndef _MEW_VECTOR2D_H
+#define _MEW_VECTOR2D_H
 
 
-namespace mew
-{
-namespace core
-{
-
+namespace mew {
+namespace core {
 
 template <class T>
 class Vector2d
@@ -75,16 +72,19 @@ public:
 	T Y;
 };
 
-	//! Typedef for f32 2d vector.
-	typedef Vector2d<f32> Vector2df;
-	//! Typedef for integer 2d vector.
-	typedef Vector2d<s32> Vector2di;
+template<class S, class T>
+Vector2d<T> operator*(const S scalar, const Vector2d<T>& vector) { return vector*scalar; }
 
-	template<class S, class T>
-	Vector2d<T> operator*(const S scalar, const Vector2d<T>& vector) { return vector*scalar; }
+//! Typedef for f32 2d vector.
+typedef Vector2d<float> Vector2df;
+//! Typedef for integer 2d vector.
+typedef Vector2d<int> Vector2di;
+//! Typedef for double 2d vector.
+typedef Vector2d<double> Vector2dd;
 
-} // end namespace core
-} // end namespace mew
+
+} /// END of namespace core
+} /// END of namespace mew
 
 #endif
 

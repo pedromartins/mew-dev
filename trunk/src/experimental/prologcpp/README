@@ -1,4 +1,7 @@
-just execute 
+Prolog to C++ Interface:
+
+
+Just execute 
 
 
  $ plld -shared -o prolog.so prolog.cpp
