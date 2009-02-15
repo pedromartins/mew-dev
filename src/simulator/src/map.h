@@ -1,4 +1,3 @@
-
 #ifndef MAP_H
 #define MAP_H
 
@@ -6,6 +5,12 @@
 
 #define SIZE_X 10
 #define SIZE_Y 10
+
+/**
+ * Map
+ *
+ * A map is a simplified grid-based repr
+ */
 
 /**
  * Enum type for representing a drop zone.
@@ -48,7 +53,7 @@ void placePiece(int posx, int posy);
  * Removes a piece from the map.
  * @param posx
  * @param posy
- */ 
+ */
 void removePiece(int posx, int posy);
 
 #endif //MAP_H

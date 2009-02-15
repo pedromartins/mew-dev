@@ -3,5 +3,6 @@
 
 
 #include "vector2d.h"
+#include "robot_state.h"
 
 #endif

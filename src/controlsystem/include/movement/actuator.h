@@ -15,6 +15,12 @@
 
 #include <vector2d.h>
 #include <electronicinterface.h>
+#include <perception.h>
+
+using namespace mew::perception;
+
+namespace mew {
+namespace movement {
 
 /**
  * Takes a velocity, and causes actuation, such that the robot
@@ -25,63 +31,35 @@ class IActuator {
 	virtual void actuateOutput(Vector2df velocity) = 0;
 };
 
+
 /**
- * Takes a velocity, and gives the output velocity of the
+ * DifferentialDriveController
  *
+ * Given references to two motors, and knowing the wheel radius, and also the distance between the dimension
+ * Controls the movement of the two wheels of the robot, such that the acceleration outputs would eventually
+ * match that of the given target (directed) acceleration.
+ * Can give a figure for the
  */
-class ISkidSteerBehaviour {
-
-	virtual ~ISkidSteerBehaviour();
-	virtual float getLeftMotorSpeed() = 0;
-	virtual float getRightMotorSpeed() = 0;
-
-}
-
-
-class SkidSteerActuator : public IActuator {
+class DifferentialDriveController  {
 public:
 
-	// Creates a SkidSteerActuator with appropriate weights.
-	SkidSteerActuator();
-	virtual ~SkidSteerActuator();
+	DifferentialDriveController(IMotor *l, IMotor *r, float wheel_radius_mm);
+	virtual ~DifferentialDriveController();
+
 
 	/**
 	 * Actuate both motors.
-	 *
 	 * */
 	virtual void actuateOutput(Vector2df velocity);
 
 private:
-
-
+	IMotor *left;		// reference to the left motor
+	IMotor *right;		// reference to the right motor
+	float radius;		// wheel radius in mm.
 };
 
 
-/**
- * SkidSteerTurningBehaviour
- *
- * Produces appropriate acceleration request
- */
-
-class SkidSteerTurningBehaviour {
-public:
-
-	double getSpeed();
-private:
-
-};
-
-
-/**
- * SkidSteerDriveBehaviour
- *
- * Produces appropriate acceleration request
- */
-class SkidSteerDriveBehaviour {
-public:
-
-private:
-
-};
+} /// END of namespace movement
+} /// END of namespace mew
 
 #endif /* SKID_STEER_ACTUATOR_H_ */

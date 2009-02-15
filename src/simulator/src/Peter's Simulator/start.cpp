@@ -33,6 +33,7 @@ bool init(){
     return true;
 }
 
+
 void clean_up(){
 	delete field;
 	//delete Robot;
@@ -45,12 +46,12 @@ int main( int argc, char* args[] ) {
 	//The frame rate regulator
 	Timer fps;
 	bool quit = false;
-	
+
 
 	while(quit == false){
 		//The frame rate regulator
 		Timer fps;
-		
+
 		//The event structure
 		SDL_Event event;
 
@@ -82,7 +83,7 @@ int main( int argc, char* args[] ) {
 		}
 	}
 
-	
+
 	clean_up();
 	return 0;
 }

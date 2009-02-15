@@ -10,6 +10,7 @@
  * Defines the software interface to the motor control hardware
  */
 
+
 enum motor_t {
 	MOTOR_LEFT = 1,
 	MOTOR_RIGHT
@@ -29,6 +30,12 @@ float get_motor_speed(motor_t motor);
  * @param motor
  */
 float get_motor_max_speed(motor_t motor);
+
+/**
+ * Retrieves the maximum angular acceleration of the specified motor.
+ * @param motor
+ */
+float get_motor_max_angular_acceleration(motor_t motor);
 
 /**
  * Sets and maintains the angular velocity of the motor specified by motor.

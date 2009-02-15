@@ -7,7 +7,7 @@ class Point
 private:
 	double xVal,yVal;
 public:
-	// Extractors.
+	// Getters
 	double x() { return xVal; }
 	double y() { return yVal; }
 	int sdl_x();
