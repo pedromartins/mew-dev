@@ -11,6 +11,8 @@
 #ifndef I2C_DEVICES_H_
 #define I2C_DEVICES_H_
 
+#include "actuator.h"
+#include "sensor.h"
 #include <electronicinterface.h>
 
 /**

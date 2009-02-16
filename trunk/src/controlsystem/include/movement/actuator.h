@@ -50,7 +50,7 @@ public:
 	/**
 	 * Actuate both motors.
 	 * */
-	virtual void actuateOutput(Vector2df velocity);
+	virtual void actuateOutput(Vector2df target_acceleration);
 
 private:
 	IMotor *left;		// reference to the left motor

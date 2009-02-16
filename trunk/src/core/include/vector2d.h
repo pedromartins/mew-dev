@@ -55,6 +55,14 @@ public:
 	bool operator==(const Vector2d<T>& other) const { return equals(other); }
 	bool operator!=(const Vector2d<T>& other) const { return !equals(other); }
 
+	T squareMagnitude() { return X*X + Y*Y; }
+	T magnitude() { return sqrt( squareMagnitude() ); }
+	// Normalize this vector to a unit vector. Cannot guarantee unit vector if type T is too coarse.
+	void normalize(){ T mag = magnitude(); X/=magnitude; Y/=magnitude; }
+
+	// Dot product
+	T dot(Vector2d<T> other) { return (X*other.X)+(Y*other.Y); }
+
 	// functions
 
 	//! Checks if this vector equals the other one.

@@ -29,6 +29,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/controlsystem/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/electronicinterface/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/perceptionsystem/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/devicelayer/include}&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.903391798" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
@@ -661,6 +662,8 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cconfiguration>
 <cconfiguration id="cdt.managedbuild.config.gnu.exe.release.1161244690">
 <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.release.1161244690" moduleId="org.eclipse.cdt.core.settings" name="Release">
@@ -1289,6 +1292,8 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
