@@ -1,6 +1,6 @@
 
 OBJS = simulator.o map.o
-CC = gcc
+CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
