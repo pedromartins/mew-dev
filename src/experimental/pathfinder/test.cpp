@@ -6,6 +6,8 @@
 // Finding a path on a simple grid maze
 // This shows how to do shortest path finding using A*
 
+//adapted by Michiel to use Pedro's simulator for mew
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "stlastar.h" // See header for copyright and usage information
@@ -15,6 +17,11 @@
 #include <iostream>
 #include <stdio.h>
 
+#include <string>
+
+//for the path
+#include <list>
+
 #define DEBUG_LISTS 0
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
@@ -22,56 +29,24 @@ using namespace std;
 
 // Global data
 
-// The world map_
-
-const int MAP_WIDTH = 20;
-const int MAP_HEIGHT = 20;
-
-int map_[ MAP_WIDTH * MAP_HEIGHT ] = 
-{
-
-// 0001020304050607080910111213141516171819
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 00
-	1,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,   // 01
-	1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 02
-	1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 03
-	1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 04
-	1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 05
-	1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 06
-	1,9,9,9,9,9,9,9,9,1,1,1,9,9,9,9,9,9,9,1,   // 07
-	1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 08
-	1,9,1,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,1,   // 09
-	1,9,1,1,1,1,9,1,1,9,1,1,1,1,1,1,1,1,1,1,   // 10
-	1,9,9,9,9,9,1,9,1,9,1,9,9,9,9,9,1,1,1,1,   // 11
-	1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 12
-	1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 13
-	1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 14
-	1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 15
-	1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 16
-	1,1,9,9,9,9,9,9,9,1,1,1,9,9,9,1,9,9,9,9,   // 17
-	1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 18
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 19
-
-};
-
-// map_ helper functions
-
+//this function gets map data from Pedro's simulator.
 int GetMap( int x, int y )
 {
-
-	if( x < 0 ||
-	    x >= MAP_WIDTH ||
-		 y < 0 ||
-		 y >= MAP_HEIGHT
-	  )
+	//wrapper for simulator getElementAt function
+	Position pos;
+	pos.x = x;
+	pos.y = y;
+	MapElement me;
+	me = getElementAt(pos);
+	if(me != EMPTY)
 	{
-		return 9;	 
+		return 9;
 	}
-
-	return map_[(y*MAP_WIDTH)+x];
+	else
+	{
+		return 1;
+	}
 }
-
-
 
 // Definitions
 
@@ -91,8 +66,6 @@ public:
 	bool IsSameState( MapSearchNode &rhs );
 
 	void PrintNodeInfo(); 
-
-
 };
 
 bool MapSearchNode::IsSameState( MapSearchNode &rhs )
@@ -172,7 +145,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 		astarsearch->AddSuccessor( NewNode );
 	}	
 
-	if( (GetMap( x, y-1 ) < 9) 
+	if( (GetMap( x, y-1 ) < 9)
 		&& !((parent_x == x) && (parent_y == y-1))
 	  ) 
 	{
@@ -207,27 +180,13 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 float MapSearchNode::GetCost( MapSearchNode &successor )
 {
 	return (float) GetMap( x, y );
-
 }
 
-
-// Main
-
-int main( int argc, char *argv[] )
+//get the path from A to B
+list<Position> GetPath(Position start, Position end)
 {
-	cout << "throwing  robot off the edge algorithm 1.0" << endl;
-
-	int i;
-	while(i<20)
-	{
-		moveForward();
-		i++;
-	}
-
-	return 0;
-
-	cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";
-
+	list<Position> path;
+	
 	// Our sample problem defines the world as a 2d array representing a terrain
 	// Each element contains an integer from 0 to 5 which indicates the cost 
 	// of travel across the terrain. Zero means the least possible difficulty 
@@ -244,16 +203,15 @@ int main( int argc, char *argv[] )
 
 	while(SearchCount < NumSearches)
 	{
-
 		// Create a start state
 		MapSearchNode nodeStart;
-		nodeStart.x = rand()%MAP_WIDTH;
-		nodeStart.y = rand()%MAP_HEIGHT; 
+		nodeStart.x = start.x;
+		nodeStart.y = start.y; 
 
 		// Define the goal state
 		MapSearchNode nodeEnd;
-		nodeEnd.x = rand()%MAP_WIDTH;						
-		nodeEnd.y = rand()%MAP_HEIGHT; 
+		nodeEnd.x = end.x;						
+		nodeEnd.y = end.y;
 		
 		// Set Start and goal states
 		
@@ -307,6 +265,8 @@ int main( int argc, char *argv[] )
 		}
 		while( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SEARCHING );
 
+		Position postemp;
+
 		if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SUCCEEDED )
 		{
 			cout << "Search found goal state\n";
@@ -319,6 +279,11 @@ int main( int argc, char *argv[] )
 				int steps = 0;
 
 				node->PrintNodeInfo();
+				//add the node to our path
+				postemp.x = node->x;
+				postemp.y = node->y;
+
+				path.push_back(postemp);
 				for( ;; )
 				{
 					node = astarsearch.GetSolutionNext();
@@ -327,8 +292,13 @@ int main( int argc, char *argv[] )
 					{
 						break;
 					}
-
 					node->PrintNodeInfo();
+					//add node to path
+					postemp.x = node->x;
+					postemp.y = node->y;
+	
+					path.push_back(postemp);
+
 					steps ++;
 				
 				};
@@ -343,7 +313,7 @@ int main( int argc, char *argv[] )
 		else if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED ) 
 		{
 			cout << "Search terminated. Did not find goal state\n";
-		
+			throw -1;
 		}
 
 		// Display the number of loops the search went through
@@ -353,7 +323,233 @@ int main( int argc, char *argv[] )
 
 		astarsearch.EnsureMemoryFreed();
 	}
+
+	return path;
+}
+
+
+
+//for debugging..
+void PrintPosition(Position pos)
+{
+	cout << "Pos(" << pos.x << ", " << pos.y << ")" << endl;
+}
+
+bool InPath(Position pos, list<Position> path)
+{
+	list<Position>::iterator i;
+	for(i=path.begin(); i != path.end(); ++i)
+	{
+		if(pos.x == (*i).x && pos.y == (*i).y)
+		{
+			return true;
+		}	
+	}
+	return false;
+}
+
+//print a layout of the map in ASCII ART, so that you can see what's going on.
+
+void VisualiseMap(list<Position> path) {
+	Position robotPosition = getPosition();
+
+	Position positioncounter;
+	MapElement me;
+	string content;
 	
+	for(positioncounter.y = 0; positioncounter.y < 15; positioncounter.y++) {
+		//rows
+		printf("%.2d:", positioncounter.y);
+
+		for(positioncounter.x = 0; positioncounter.x < 15; positioncounter.x++) {
+			//cols
+			//get map
+			content = "";
+			if(robotPosition.x == positioncounter.x && robotPosition.y == positioncounter.y)
+			{
+				content = "R";
+			}
+			else
+			{
+				me = getElementAt(positioncounter);
+				switch(me)
+				{
+					case EMPTY:
+						//
+						break;
+					case PIECE:
+						content += "O";
+						break;
+					case DROPZONE:
+						content += "_";
+						break;
+					case FORBIDDEN:
+						content += "X";
+						break;
+					default:
+						content += "?";
+				}
+			}
+	
+			cout << "[";
+
+			//include path
+			if(InPath(positioncounter, path))
+			{
+				content += "*";
+			}
+			printf("%*s", 2, content.c_str());
+
+			cout << "]";
+		}
+		cout << endl;
+	}
+}
+
+bool goTo(Position end)
+{
+	//set start to current location of our robot
+	Position start;
+	start = getPosition();
+	
+	//this will contain the path from start to goal
+	list<Position> path;
+
+	try
+	{
+		path = GetPath(start, end);
+	}
+	catch(int& int_exception)
+	{
+		if(int_exception == -1)
+		{
+			//failed finding path
+			cout << "no path";
+			return -1;
+		}
+	}
+	catch(exception& e)
+	{
+		//other exception, shouldn't really happen...
+		cout << e.what();
+	}
+
+	//print solution.
+
+	list<Position>::iterator i;
+
+	for(i=path.begin(); i != path.end(); ++i)
+	{
+		PrintPosition(*i);
+	}
+	cout << endl;
+
+	VisualiseMap(path);		//show what's going on
+
+	//try moving robot
+	cout << endl << "Try moving robot from start to goal (press [ENTER] to start)..." << endl;
+	
+	getchar();
+
+	//the orientation gives the relative direction of the next field the robot is facing
+	Position orientation[4];	//north = 0, 1=west, 2=south, 3=east (counter clockwise)
+	orientation[0].x = 0;
+	orientation[0].y = 1;
+
+	orientation[1].x = -1;
+	orientation[1].y = 0;
+
+	orientation[2].x = 0;
+	orientation[2].y = -1;
+
+	orientation[3].x = 1;
+	orientation[3].y = 0;
+
+	Position currentPosition;
+	Position positionDifference;	//where is the next position relatvive to the current one?
+	int currentOrientation = 0;		//which way do we face now? works similar to above.
+	
+	int turnCounter;	//dummy variable.
+	
+	for(i=path.begin(); i != path.end(); ++i)
+	{
+		//figure out where the next field is compared to the current one.
+		currentPosition = getPosition();
+		if((*i).x == currentPosition.x && (*i).y == currentPosition.y)
+		{
+			//do nothing, we're already there
+			continue;
+		}
+		//ok, so which direction do we need to face to get to the next square? compute
+		//difference in positions
+		positionDifference.x = (*i).x - currentPosition.x;
+		positionDifference.y = (*i).y - currentPosition.y;
+		if(positionDifference.x > 1 || positionDifference.x < -1 || positionDifference.y > 1 || positionDifference.y < -1)
+		{
+			cout << "PANICK";
+			break;
+		}
+		
+		cout << "DIFF: ";
+		PrintPosition(positionDifference);
+		
+		//turn until we face the correct way. todo: optimise to turn left/right
+		while(!(orientation[currentOrientation].x == positionDifference.x && orientation[currentOrientation].y == positionDifference.y))
+		{
+			//turn!
+			currentOrientation++;
+			turn(1);
+			if(currentOrientation == 4)
+				currentOrientation = 0;
+		}
+		switch(currentOrientation)
+		{
+			case 0:
+				cout << "facing north, moving!";
+				break;
+			case 1:
+				cout << "facing west, moving!";
+				break;
+			case 2:
+				cout << "facing south, moving!";
+				break;
+			case 3:
+				cout << "facing east, moving!";
+				break;
+			default:
+				cout << "looking confused, moving...";
+				break;
+		}
+		cout << endl;
+		
+		//move forward!
+		moveForward();
+		VisualiseMap(path);
+		getchar();
+		
+		cout << endl;
+
+	}
+}
+
+// Main
+
+int main( int argc, char *argv[] )
+{
+	cout << "Experimental pathfinder v. 0.1 alpha" << endl;
+	cout << "initialising..." << endl;
+	loadMap(1);
+	restart();	//board & robot.
+
+	Position goal;
+	cout << endl << "finished." << endl;
+	cout << "Plase enter the target x coordinate: ";
+	cin >> goal.x;
+	cout << endl << "Please enter the target y coordinate: ";
+	cin >> goal.y;
+	
+	goTo(goal);
+
 	return 0;
 }
 
