@@ -58,10 +58,16 @@ public:
 	T squareMagnitude() { return X*X + Y*Y; }
 	T magnitude() { return sqrt( squareMagnitude() ); }
 	// Normalize this vector to a unit vector. Cannot guarantee unit vector if type T is too coarse.
-	void normalize(){ T mag = magnitude(); X/=magnitude; Y/=magnitude; }
+	void normalize(){ T mag = magnitude(); X/=mag; Y/=mag; }
 
 	// Dot product
 	T dot(Vector2d<T> other) { return (X*other.X)+(Y*other.Y); }
+	
+	float getOrientation() const { return atan2(Y, X); }
+
+	static Vector2df getOrientationAsVector(float orientation) const	{
+		return Vector2df(cos(orientation),sin(orientation));
+	}
 
 	// functions
 

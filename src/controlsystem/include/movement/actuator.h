@@ -32,32 +32,6 @@ class IActuator {
 };
 
 
-/**
- * DifferentialDriveController
- *
- * Given references to two motors, and knowing the wheel radius, and also the distance between the dimension
- * Controls the movement of the two wheels of the robot, such that the acceleration outputs would eventually
- * match that of the given target (directed) acceleration.
- * Can give a figure for the
- */
-class DifferentialDriveController  {
-public:
-
-	DifferentialDriveController(IMotor *l, IMotor *r, float wheel_radius_mm);
-	virtual ~DifferentialDriveController();
-
-
-	/**
-	 * Actuate both motors.
-	 * */
-	virtual void actuateOutput(Vector2df target_acceleration);
-
-private:
-	IMotor *left;		// reference to the left motor
-	IMotor *right;		// reference to the right motor
-	float radius;		// wheel radius in mm.
-};
-
 
 } /// END of namespace movement
 } /// END of namespace mew

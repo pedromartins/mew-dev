@@ -53,7 +53,7 @@ class IModel;
 /**
  * Geometry
  *
- * Represents an arbitarily sized shape.
+ * Use the geometry library!!!
  */
 class Geometry {
 public:
@@ -72,24 +72,6 @@ class ShadingModel {
 
 };
 
-/**
- * Circle
- */
-class Circle : public Geometry {
-
-private:
-	float radius;
-};
-
-/**
- * Rectangle
- *
- * Represents a rectangular geometry.
- */
-class Rectangle : public Geometry {
-private:
-
-};
 
 class Entity {
 public:
@@ -151,20 +133,38 @@ private:
 
 class CircularEntity
 
+
+
 /**
- * IModel
- *
- * A model is some representation of the world.
- *
+ * EntityHeightmapModel
+ * 
+ * A basic 2D model that works with certain resolution grid, and 
+ *  
  */
-class IModel {
+class EntityHeightmapModel {
 public:
-	virtual ~IModel() {}
+	EntityHeightmapModel(int columns, int rows);
+	virtual ~EntityHeightmapModel();
+	
+	virtual void registerStaticEntity(StaticEntity *static_ent);
+	virtual void registerKinematicEntity(KinematicEntity *kin_ent);
 
-	virtual void registerStaticEntity(StaticEntity *static_ent) = 0;
-	virtual void registerKinematicEntity(KinematicEntity *kin_ent) = 0;
 
-	int getWeight()
+	virutal void removeStaticEntity(StaticEntity *static_ent);
+	virutal void removeKinematicEntity(KinematicEntity *kin_ent);
+protected:
+	// Updates the heightmap. Usually called after an addition of
+	// an entity or  
+	virtual void updateMap();
+
+
+private:
+	int columns;
+	int height;
+	int rows;
+	int heightmap[][];
+	
+	Robot robot; // This is the robot currently holding this model.
 };
 
 #endif /* MODEL_H_ */
