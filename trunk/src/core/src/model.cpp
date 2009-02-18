@@ -7,3 +7,6 @@
 
 #include "../include/model.h"
 
+EntityHeightmap::EntityHeightmap(int columns, int rows)
+: columns(columns), rows(rows) {
+}

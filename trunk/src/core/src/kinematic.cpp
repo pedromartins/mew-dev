@@ -28,15 +28,18 @@ void Static::setOrientationFromVelocity(const Vector2df& velocity)
 {
 	// If we haven't got any velocity, then we can do nothing.
 	if (velocity.squareMagnitude() > 0) {
-		orientation = float_atan2(velocity.x, velocity.z);
+		orientation = atan2(velocity.Y, velocity.X);
 	}
+}
+
+float Static::getOrientationFromVelocity(const Vector2df& velocity)
+{
+	return atan2(velocity.Y, velocity.X);
 }
 
 Vector2df Static::getOrientationAsVector() const
 {
-	return Vector2df(sin(orientation),
-			0,
-			cos(orientation));
+	return Vector2df(cos(orientation),sin(orientation));
 }
 
 /*
