@@ -1,0 +1,28 @@
+# Geometry Library unit tests
+#
+# Copyright Bruno Lalande 2008
+# Copyright Barend Gehrels, Geodan Holding B.V. Amsterdam, the Netherlands.
+# Use, modification and distribution is subject to the Boost Software License,
+# Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt)
+
+
+project : requirements <include>../.. ;
+
+import testing ;
+
+run for_each_coordinate.cpp ;
+run copy.cpp ;
+run assign.cpp ;
+run arithmetic.cpp ;
+run dot_product.cpp ;
+run pythagoras.cpp ;
+run segment.cpp ;
+run box.cpp ;
+run grow.cpp ;
+run circle.cpp ;
+run loop.cpp ;
+run envelope.cpp ;
+run distance.cpp ;
+run simplify.cpp ;
+run wkt.cpp ;
