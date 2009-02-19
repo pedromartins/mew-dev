@@ -30,6 +30,9 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/electronicinterface/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/perceptionsystem/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/src/devicelayer/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/lib/geometry}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Maple/lib}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${BOOST_ROOT}&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.903391798" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
