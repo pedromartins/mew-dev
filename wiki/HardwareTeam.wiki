@@ -1,6 +1,6 @@
 #summary Hardware Team subwiki
 
-I think this is a cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro
+A cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro
 
 A few initial ideas to get the ball rolling -- Harry
 
