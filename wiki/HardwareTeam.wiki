@@ -1,6 +1,12 @@
 #summary Hardware Team subwiki
 
-A cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro
+~~A cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro~~
+
+Been there already pedro! it only works with certain graphics chipsets that do ddc, and the intel integrated one in the eeepc doesn't.. nor does whatever ancient nvidea chip I had on an ancient PC in my room! I soldered up a converter a month or so ago to try!
+
+the i2c bridge isn't the hard part, but if people want one for testing then i have a few spare vga plugs for soldering!
+
+*************************************
 
 A few initial ideas to get the ball rolling -- Harry
 
