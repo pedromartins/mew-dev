@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/fushunpoon/dev/code/project/maple/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -85,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -104,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -113,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/simulator/CMakeFiles/progress.make
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/all
+	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder/CMakeFiles/progress.make
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/pathfinder/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/clean
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/pathfinder/clean
 .PHONY : clean
 
 # The main clean target
@@ -129,12 +129,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/pathfinder/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/pathfinder/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -143,48 +143,33 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-simulator/CMakeFiles/sim.dir/rule:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/CMakeFiles/sim.dir/rule
-.PHONY : simulator/CMakeFiles/sim.dir/rule
+experimental/pathfinder/CMakeFiles/test.dir/rule:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/pathfinder/CMakeFiles/test.dir/rule
+.PHONY : experimental/pathfinder/CMakeFiles/test.dir/rule
 
 # Convenience name for target.
-sim: simulator/CMakeFiles/sim.dir/rule
-.PHONY : sim
+test: experimental/pathfinder/CMakeFiles/test.dir/rule
+.PHONY : test
 
 # fast build rule for target.
-sim/fast:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/build
-.PHONY : sim/fast
+test/fast:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/build
+.PHONY : test/fast
 
 # target to build an object file
-map.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.o
-.PHONY : map.o
+test.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.o
+.PHONY : test.o
 
 # target to preprocess a source file
-map.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.i
-.PHONY : map.i
+test.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.i
+.PHONY : test.i
 
 # target to generate assembly for a file
-map.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.s
-.PHONY : map.s
-
-# target to build an object file
-simulator.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.o
-.PHONY : simulator.o
-
-# target to preprocess a source file
-simulator.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.i
-.PHONY : simulator.i
-
-# target to generate assembly for a file
-simulator.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.s
-.PHONY : simulator.s
+test.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.s
+.PHONY : test.s
 
 # Help Target
 help:
@@ -198,13 +183,10 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... sim"
-	@echo "... map.o"
-	@echo "... map.i"
-	@echo "... map.s"
-	@echo "... simulator.o"
-	@echo "... simulator.i"
-	@echo "... simulator.s"
+	@echo "... test"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 .PHONY : help
 
 
