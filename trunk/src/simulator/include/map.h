@@ -1,16 +1,13 @@
 #ifndef MAP_H
 #define MAP_H
 
-#define IS_EMPTY(pos) getElementAt(pos) == EMPTY
-
 #define SIZE_X 10
 #define SIZE_Y 10
 
-/**
- * Map
- *
- * A map is a simplified grid-based repr
- */
+#include <vector2d.h>
+
+using namespace std;
+using namespace mew::core;
 
 /**
  * Enum type for representing a drop zone.
@@ -19,41 +16,48 @@ typedef enum MapElement {
   EMPTY, PIECE, DROPZONE, FORBIDDEN
 } MapElement;
 
-/**
- * An integral position type
- */
-typedef struct Position {
-  int x;
-  int y;
-} Position;
-
-void initMap();
 
 /**
- * Prepares a predefined map.
- * @param mapNum The predefined map's number.
+ * Map
+ *
+ * A map is a simplified grid-based repr
  */
-void initPredefMap(int mapNum);
+class Map : public IGridEntityModel {
+	Map(int mapNum = 0);
+	virtual ~Map() {}
 
+	/**
+	 * Returns the map element at a particular position.
+	 * @param pos the position
+	 */
+	MapElement getElementAt(Vector2di pos){
+		return map[pos.x][pos.y];
+	}
+	MapElement getElementAt(int posx, int posy){
+		return map[posx][posy];
+	}
 
-/**
- * Returns the map element at a particular position.
- * @param pos the position
- */
-MapElement getElementAt(Position pos);
+	/**
+	 * Puts a piece onto the map.
+	 * @param posx The x coordinate
+	 * @param posy The y coordinate
+	 */
+	void putPiece(int posx, int posy) {
+		map[posx][posy] = PIECE;
+	}
 
-/**
- * Places a piece onto the map.
- * @param posx The x coordinate
- * @param posy The y coordinate
- */
-void placePiece(int posx, int posy);
+	/**
+	 * Removes a piece from the map.
+	 * @param posx
+	 * @param posy
+	 */
+	void removePiece(int posx, int posy){
+		map[posx][posy] = EMPTY;
+	}
 
-/**
- * Removes a piece from the map.
- * @param posx
- * @param posy
- */
-void removePiece(int posx, int posy);
+private:
+	MapElement map[SIZE_X][SIZE_Y];
+};
+
 
 #endif //MAP_H
