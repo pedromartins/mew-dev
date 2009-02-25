@@ -1,12 +1,28 @@
 #summary Hardware Team subwiki
 
+[http://www.arduino.cc Arduino website]
+
+Current ToDo list:
+ * think about how to encode & decode the sensor values sent via I2C.
+ * Code a process that asks continuously for data from the sensors (via arduino)
+ * write implementation code for Hok's suggested headerfiles (in mew-dev/src/electronicinterface/include/i2c) or something similar
+ * write code for Arduino that sends data over I2C.
+
+Datasheets
+ * Sharp IR (GP2D12 F 88): http://www.robotshop.ca/PDF/rbsha03_manual.pdf
+ * Compass (HMC6352) http://www.ssec.honeywell.com/magnetic/datasheets/HMC6352.pdf
+ * MaxBotix EZ2 ultrasound: http://www.maxbotix.com/MaxSonar-EZ1__FAQ.html
+ * Motorcontroller MD22: http://www.robot-electronics.co.uk/htm/md22tech.htm
+
+**********************************************
+
 ~~A cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro~~
 
 Been there already pedro! it only works with certain graphics chipsets that do ddc, and the intel integrated one in the eeepc doesn't.. nor does whatever ancient nvidea chip I had on an ancient PC in my room! I soldered up a converter a month or so ago to try!
 
 the i2c bridge isn't the hard part, but if people want one for testing then i have a few spare vga plugs for soldering!
 
-*************************************
+----
 
 A few initial ideas to get the ball rolling -- Harry
 
