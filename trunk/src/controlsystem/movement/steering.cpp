@@ -10,7 +10,7 @@
  * software licence.
  */
 
-#include "../../include/movement/steering.h"
+#include "../include/movement/steering.h"
 
 namespace mew {
 namespace movement {

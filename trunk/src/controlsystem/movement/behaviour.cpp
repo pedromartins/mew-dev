@@ -5,13 +5,4 @@
  *      Author: Hok Shun Poon
  */
 
-#include "../../include/movement/behaviour.h"
-
-behaviour::behaviour() {
-	// TODO Auto-generated constructor stub
-
-}
-
-behaviour::~behaviour() {
-	// TODO Auto-generated destructor stub
-}
+#include "../include/movement/behaviour.h"

@@ -21,17 +21,23 @@
 namespace mew {
 namespace movement{
 
+class Targeter
+{
+
+};
+
+
 /**
- * The steering behaviour is the base class for all dynamic
+ * The steering behaviour is the base class for dynamic
  * steering behaviours.
  */
 class SteeringBehaviour
 {
 public:
 	/**
-	 * The robot that is moving.
+	 * robot that is moving.
 	 */
-	Kinematic *robot;
+	Kinematic *obj;
 
 	/**
 	 * Works out the desired steering and writes it into the given
@@ -54,13 +60,13 @@ public:
 	 * The target may be any vector (i.e. it might be something
 	 * that has no orientation, such as a point in space).
 	 */
-	Vector3 *target;
+	Vector3df *target;
 
 	/**
 	 * The maximum acceleration that can be used to reach the
 	 * target.
 	 */
-	real maxAcceleration;
+	float maxAcceleration;
 
 	/**
 	 * Works out the desired steering and writes it into the given
@@ -70,7 +76,33 @@ public:
 };
 
 /**
- * The seek steering behaviour takes a target and aims in the
+ * The arrive steering behaviour takes a target and aims
+ * for the target at full acceleration, until it gets close
+ * enough to the target, when it should decelerate.
+ */
+class Arrive : public SteeringBehaviour
+{
+	/**
+	 * The target may be any vector (i.e. it might be something
+	 * that has no orientation, such as a point in space).
+	 */
+	Vector3df *target;
+
+	/**
+	 * The maximum acceleration that can be used to reach the
+	 * target.
+	 */
+	float maxAcceleration;
+
+	/**
+	 * Works out the desired steering and writes it into the given
+	 * steering output structure.
+	 */
+	virtual void getSteering(SteeringOutput* output) const;
+};
+
+/**
+ * The flee steering behaviour takes a target and aims in the
  * opposite direction with maximum acceleration.
  */
 class Flee : public Seek
