@@ -23,32 +23,6 @@
 namespace mew {
 namespace core {
 
-/*
- * This is messy, but it saves a function call or code duplication.
- */
-#define EULER_INTEGRATION(duration, velocity, rotation) \
-    position.x += (velocity).x*duration; \
-    position.y += (velocity).y*duration; \
-    orientation += (rotation)*duration; \
-    orientation = real_mod_real(orientation, M_2PI);
-
-/*
- * For this extended Kinematic datatype, it is capable of completing
- * Beeman integration. Error terms are ignored. NOTE: not done for orientation/rotations.
- */
-#define BEEMAN_INTEGRATION(duration, position, velocity, newAcceleration, acceleration, oldAcceleration) \
-	position.x += velocity.x*duration + (2*acceleration.x*duration*duration)/3 \
-					- (oldAcceleration.x*duration*duration)/6; \
-	position.y += veloctiy.y*duration + (2*acceleration.x*duration*duration)/3 \
-					- (oldAcceleration.y*duration*duration)/6; \
-	oldVelocity = velocity; \
-	velocity.x += (newAcceleration.x*duration)/3 + (5*acceleration.x*duration)/6 \
-					- (oldAcceleration.x*duration)/6; \
-	velocity.y += (newAcceleration.y*duration)/3 + (5*acceleration.y*duration)/6 \
-					- (oldAcceleration.y*duration)/6; \
-	oldAccleration = accleration; \
-	acceleration = newAcceleration
-
 /**
  * SteeringOutput
  *

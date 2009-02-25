@@ -33,7 +33,7 @@ class IModel;
  * Extensions of Entity allow them to contain any amount and/or any degree of further information
  * required, such as an image, or special cognitive information.
  *
- * Virtual IEntities, such as waypoints or goal zones on the IModel could be created by the
+ * Virtual Entities, such as waypoints or goal zones on the IModel could be created by the
  * perception system to add information into the model.
  *
  * Unknown Entities may be created, with certain observable characteristics. These characteristics
@@ -48,32 +48,8 @@ class IModel;
  * model, reducing complexity of the system as a whole.
  * How effective the Model is at modelling the real world, depends heavily, of course, on its implementation.
  *
+ * The position is contextual to the Model that contains it.
  */
-
-
-/**
- * Geometry
- *
- * Use the geometry library!!!
- */
-class Geometry {
-public:
-
-	virtual int getHeightAt();
-	virtual bool isCollidingWith(const Vector2df& point) = 0;
-};
-
-/**
- * ShadingModel
- *
- * Provides the heightFunction for geometries, such that areas are filled in different
- * ways, whether it be radial fall-off or solid, or polka-dot.
- */
-class ShadingModel {
-
-};
-
-
 class Entity {
 public:
 	Entity(string name) : name(name) {}
@@ -133,6 +109,99 @@ private:
 
 
 /**
+ * RectangularRoomModel
+ *
+ * The simplest model that can be conceived:
+ * The robot is placed within a rectangular room.
+ *
+ */
+class RectangularRoomModel {
+public:
+	RectangularRoomModel(float widthmm, float breadthmm)
+	: width(widthmm), breadth(breadthmm) {}
+
+private:
+	float width;
+	float breadth;
+};
+
+
+/**
+ * MapElement
+ *
+ * A simple enumeration for a SimpleGridModel.
+ */
+enum MapElement {
+	EMPTY, PIECE, DROPZONE, FORBIDDEN
+};
+
+/**
+ * Orientation
+ *
+ * A simple enumeratoin for a SimpleGridModel
+ */
+enum Orientation {
+	NORTH, WEST, SOUTH, EAST
+};
+
+//                     NORTH  SOUTH   EAST    WEST
+int frontDir[4][2] = { {0,1}, {-1,0}, {0,-1}, {1,0} };
+int dropArea[] = {4,0};
+
+
+/**
+ * SimpleGridModel
+ *
+ * In a simple grid model, the robot and anything IN the grid is
+ * simply represented by some enum value in a 2D array.
+ * NOTE: this is a wrapper around the old simulator model.
+ */
+class SimpleGridModel {
+	SimpleGridModel(){
+
+	}
+
+
+	void initSimulator() {
+		if(!inited) {
+			srand(time(0));
+			initPredefMap(mapNum);
+			placePiece(SIZE_X-1, 0);
+			pos.x = 0;
+			pos.y = 0;
+			orientation = NORTH;
+			grab = FALSE;
+			inited = TRUE;
+		}
+	}
+
+	void fail(char* msg, int fatal) {
+		printf("At (%d,%d):\n", pos.x, pos.y);
+		printf(msg);
+		if(fatal)
+			exit(0);
+	}
+
+	bool inBoard(Position newPos) {
+		return (newPos.x >= 0 && newPos.x < SIZE_X &&
+				newPos.y >= 0 && newPos.y < SIZE_Y);
+	}
+
+	Vector2di inFront() {
+		Vector2di front;
+		int * dir = frontDir[orientation];
+		front.x = pos.x + dir[0];
+		front.y = pos.y + dir[1];
+		return front;
+	}
+
+	void restart() {
+		inited = false;
+		initSimulator();
+	}
+};
+
+/**
  * GridEntityModel
  *
  * An interface to the most basic of World representation models:
@@ -142,7 +211,8 @@ private:
  * ... and stores a container of
  * 'Entities'
  */
-class GridEntityModel<typename C, typename E> {
+template <typename C, typename E>
+class GridEntityModel {
 	GridEntityModel(int cols, int rows){
 		map = new G[cols][rows];
 	}
@@ -159,15 +229,15 @@ class GridEntityModel<typename C, typename E> {
 
 
 	virtual void registerEnt(boost::shared_ptr<E> entity) {
-
+		// TODO register an entity.
 	}
 	virtual void removeEnt(boost::shared_ptr<E> entity) {
-		entiti
+		// TODO remove entity.
 	}
 
 private:
 	C map[][];
-	vector<boost::shared_ptr<E>> entities;
+	// vector<boost::shared_ptr<E>> entities;
 };
 
 /**

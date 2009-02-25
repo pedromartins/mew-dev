@@ -25,6 +25,7 @@
 <pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
 <pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/pathfinder/include" kind="inc" path="" system="true"/>
 <pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/core/include" kind="inc" path="" system="true"/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
@@ -95,13 +96,6 @@
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
 <buildTarget>test</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="sim" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments/>
-<buildTarget>sim</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>

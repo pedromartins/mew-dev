@@ -10,7 +10,7 @@
  * software licence.
  */
 
-#include "../include/kinematic.h"
+#include "include/kinematic.h"
 
 namespace mew {
 namespace core {
@@ -42,26 +42,6 @@ Vector2df Static::getOrientationAsVector() const
 	return Vector2df(cos(orientation),sin(orientation));
 }
 
-/*
- * Uses EULER_INTEGRATION(duration), defined above.
- */
-void Kinematic::integrate(float duration)
-{
-	EULER_INTEGRATION(duration, velocity, rotation);
-}
-
-/*
- * Uses EULER_INTEGRATION(duration), defined above.
- */
-void Kinematic::integrate(const SteeringOutput& steer,
-		float duration)
-{
-	BEEMAN_INTEGRATION(duration, position, velocity, steer.linear, acceleration, oldAcceleration);
-
-	// NON BEEMAN method. Saves me having to store another field.
-	rotation += steer.angular*duration;
-}
-
 
 /* Add and divide used in finding Kinematic means. */
 void Kinematic::operator += (const Kinematic& other)
@@ -70,10 +50,7 @@ void Kinematic::operator += (const Kinematic& other)
 	velocity+=other.velocity;
 	rotation+=other.rotation;
 	orientation+=other.orientation;
-	oldVelocity+=other.oldVelocity;
-	oldRotation+=other.oldRotation;
 	acceleration+=other.acceleration;
-	oldAcceleration+=other.oldAcceleration;
 }
 
 void Kinematic::operator -= (const Kinematic& other)
@@ -82,10 +59,7 @@ void Kinematic::operator -= (const Kinematic& other)
 	velocity-=other.velocity;
 	rotation-=other.rotation;
 	orientation-=other.orientation;
-	oldVelocity-=other.oldVelocity;
-	oldRotation-=other.oldRotation;
 	acceleration-=other.acceleration;
-	oldAcceleration-=other.oldAcceleration;
 }
 
 void Kinematic::operator *= (float f)
@@ -94,10 +68,7 @@ void Kinematic::operator *= (float f)
 	velocity*=f;
 	rotation*=f;
 	orientation*=f;
-	oldVelocity*=f;
-	oldRotation*=f;
 	acceleration*=f;
-	oldAcceleration*=f;
 }
 
 
