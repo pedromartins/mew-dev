@@ -1,2 +1,2 @@
-add_directory(HelloWorld)
-
+add_subdirectory(CVtests)
+add_subdirectory(pathfinder)
