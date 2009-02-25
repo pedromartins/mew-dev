@@ -14,7 +14,9 @@ Datasheets
  * MaxBotix EZ2 ultrasound: http://www.maxbotix.com/MaxSonar-EZ1__FAQ.html
  * Motorcontroller MD22: http://www.robot-electronics.co.uk/htm/md22tech.htm
 
-**********************************************
+----
+older stuff
+----
 
 ~~A cheap way to interface I2C: [http://www.paintyourdragon.com/uc/i2c/index.html] -- Pedro~~
 
