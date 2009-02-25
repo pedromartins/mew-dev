@@ -149,6 +149,9 @@ CMAKE_USE_RELATIVE_PATHS:BOOL=OFF
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to a library.
+CV_PATH:FILEPATH=/usr/lib/libcv.so
+
 //Single output directory for building all executables.
 EXECUTABLE_OUTPUT_PATH:PATH=
 
@@ -162,10 +165,19 @@ HelloWorldProject_SOURCE_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/src/
 LIBRARY_OUTPUT_PATH:PATH=
 
 //Value Computed by CMake
+MEWDEV_BINARY_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/build
+
+//Value Computed by CMake
+MEWDEV_SOURCE_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/src
+
+//Value Computed by CMake
 Project_BINARY_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/build
 
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/src
+
+//Dependencies for target
+sim_LIB_DEPENDS:STATIC=
 
 
 ########################
@@ -264,7 +276,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Advanced flag for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=4
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
 //Advanced flag for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //Advanced flag for variable: CMAKE_OBJDUMP

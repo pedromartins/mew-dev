@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Project-Debug@build</name>
+	<name>MEWDEV-Debug@build</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -109,12 +109,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>HelloWorldProject</name>
-			<type>2</type>
-			<location>/home/fushunpoon/dev/code/project/maple/src/experimental/helloworld</location>
-		</link>
-		<link>
-			<name>Project</name>
+			<name>MEWDEV</name>
 			<type>2</type>
 			<location>/home/fushunpoon/dev/code/project/maple/src</location>
 		</link>
