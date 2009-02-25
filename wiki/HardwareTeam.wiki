@@ -2,7 +2,7 @@
 
 [http://www.arduino.cc Arduino website]
 
-  Current ToDo list:
+Current Todo list:
  * think about how to encode & decode the sensor values sent via I2C.
  * Code a process that asks continuously for data from the sensors (via arduino)
  * write implementation code for Hok's suggested headerfiles (in mew-dev/src/electronicinterface/include/i2c) or something similar
