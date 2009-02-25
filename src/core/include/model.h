@@ -11,6 +11,7 @@
 #define MODEL_H_
 
 #include "core.h"
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -131,30 +132,64 @@ private:
 };
 
 
-class CircularEntity
+/**
+ * GridEntityModel
+ *
+ * An interface to the most basic of World representation models:
+ * A GridEntityModel keeps:
+ *
+ * A 2d array of a particular size, with cells of type G
+ * ... and stores a container of
+ * 'Entities'
+ */
+class GridEntityModel<typename C, typename E> {
+	GridEntityModel(int cols, int rows){
+		map = new G[cols][rows];
+	}
+
+	virtual ~GridEntityModel(){}
+
+	virtual C get(int x, int y) const {
+		return map[x][y];
+	}
+
+	void put(C cell, int x, int y) {
+		map[x][y] = cell;
+	}
 
 
+	virtual void registerEnt(boost::shared_ptr<E> entity) {
+
+	}
+	virtual void removeEnt(boost::shared_ptr<E> entity) {
+		entiti
+	}
+
+private:
+	C map[][];
+	vector<boost::shared_ptr<E>> entities;
+};
 
 /**
  * EntityHeightmapModel
- * 
- * A basic 2D model that works with certain resolution grid, and 
- *  
+ *
+ * A basic 2D model that works with certain resolution grid, and
+ *
  */
-class EntityHeightmapModel {
+class EntityHeightmapModel : public IGridEntityModel<int,IEntity> {
 public:
 	EntityHeightmapModel(int columns, int rows);
 	virtual ~EntityHeightmapModel();
-	
+
 	virtual void registerStaticEntity(StaticEntity *static_ent);
 	virtual void registerKinematicEntity(KinematicEntity *kin_ent);
 
 
-	virutal void removeStaticEntity(StaticEntity *static_ent);
-	virutal void removeKinematicEntity(KinematicEntity *kin_ent);
+	virtual void removeStaticEntity(StaticEntity *static_ent);
+	virtual void removeKinematicEntity(KinematicEntity *kin_ent);
 protected:
 	// Updates the heightmap. Usually called after an addition of
-	// an entity or  
+	// an entity or
 	virtual void updateMap();
 
 
@@ -162,8 +197,7 @@ private:
 	int columns;
 	int height;
 	int rows;
-	int heightmap[][];
-	
+
 	Robot robot; // This is the robot currently holding this model.
 };
 
