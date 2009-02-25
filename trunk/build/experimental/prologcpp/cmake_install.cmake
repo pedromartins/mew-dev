@@ -1,4 +1,4 @@
-# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/experimental
+# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/experimental/prologcpp
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -31,11 +31,4 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-
-IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  INCLUDE("/home/fushunpoon/dev/code/project/maple/build/experimental/helloworld/cmake_install.cmake")
-  INCLUDE("/home/fushunpoon/dev/code/project/maple/build/experimental/prologcpp/cmake_install.cmake")
-
-ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
