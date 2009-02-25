@@ -1,4 +1,4 @@
-# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/simulator
+# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/experimental
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,8 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/fushunpoon/dev/code/project/maple/build/simulator/samples/cmake_install.cmake")
+  INCLUDE("/home/fushunpoon/dev/code/project/maple/build/experimental/CVtests/cmake_install.cmake")
+  INCLUDE("/home/fushunpoon/dev/code/project/maple/build/experimental/pathfinder/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

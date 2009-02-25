@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/fushunpoon/dev/code/project/maple/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -85,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -104,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	cd /home/fushunpoon/dev/code/project/maple/build/simulator && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -113,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/simulator/CMakeFiles/progress.make
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/all
+	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/experimental/CVtests/CMakeFiles/progress.make
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/clean
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/clean
 .PHONY : clean
 
 # The main clean target
@@ -129,12 +129,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -143,48 +143,62 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-simulator/CMakeFiles/sim.dir/rule:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 simulator/CMakeFiles/sim.dir/rule
-.PHONY : simulator/CMakeFiles/sim.dir/rule
+experimental/CVtests/CMakeFiles/contourtest.dir/rule:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/CMakeFiles/contourtest.dir/rule
+.PHONY : experimental/CVtests/CMakeFiles/contourtest.dir/rule
 
 # Convenience name for target.
-sim: simulator/CMakeFiles/sim.dir/rule
-.PHONY : sim
+contourtest: experimental/CVtests/CMakeFiles/contourtest.dir/rule
+.PHONY : contourtest
 
 # fast build rule for target.
-sim/fast:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/build
-.PHONY : sim/fast
+contourtest/fast:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/build
+.PHONY : contourtest/fast
+
+# Convenience name for target.
+experimental/CVtests/CMakeFiles/roitest.dir/rule:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/CVtests/CMakeFiles/roitest.dir/rule
+.PHONY : experimental/CVtests/CMakeFiles/roitest.dir/rule
+
+# Convenience name for target.
+roitest: experimental/CVtests/CMakeFiles/roitest.dir/rule
+.PHONY : roitest
+
+# fast build rule for target.
+roitest/fast:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/build
+.PHONY : roitest/fast
 
 # target to build an object file
-map.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.o
-.PHONY : map.o
+contourtest.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.o
+.PHONY : contourtest.o
 
 # target to preprocess a source file
-map.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.i
-.PHONY : map.i
+contourtest.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.i
+.PHONY : contourtest.i
 
 # target to generate assembly for a file
-map.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/map.s
-.PHONY : map.s
+contourtest.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.s
+.PHONY : contourtest.s
 
 # target to build an object file
-simulator.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.o
-.PHONY : simulator.o
+roitest.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.o
+.PHONY : roitest.o
 
 # target to preprocess a source file
-simulator.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.i
-.PHONY : simulator.i
+roitest.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.i
+.PHONY : roitest.i
 
 # target to generate assembly for a file
-simulator.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f simulator/CMakeFiles/sim.dir/build.make simulator/CMakeFiles/sim.dir/simulator.s
-.PHONY : simulator.s
+roitest.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.s
+.PHONY : roitest.s
 
 # Help Target
 help:
@@ -192,19 +206,20 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... contourtest"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... sim"
-	@echo "... map.o"
-	@echo "... map.i"
-	@echo "... map.s"
-	@echo "... simulator.o"
-	@echo "... simulator.i"
-	@echo "... simulator.s"
+	@echo "... roitest"
+	@echo "... contourtest.o"
+	@echo "... contourtest.i"
+	@echo "... contourtest.s"
+	@echo "... roitest.o"
+	@echo "... roitest.i"
+	@echo "... roitest.s"
 .PHONY : help
 
 

@@ -21,10 +21,10 @@
 <storageModule moduleId="org.eclipse.cdt.core.pathentry">
 <pathentry kind="src" path="MEWDEV"/>
 <pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
-<pathentry include="/usr/include/c++/4.3" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/pathfinder/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
@@ -77,20 +77,6 @@
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
-<target name="sim" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments/>
-<buildTarget>sim</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="HelloWorld" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments/>
-<buildTarget>HelloWorld</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
 <target name="contourtest" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
@@ -109,6 +95,27 @@
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
 <buildTarget>test</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="sim" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>sim</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="sample" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>sample</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="sample2" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>sample2</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
