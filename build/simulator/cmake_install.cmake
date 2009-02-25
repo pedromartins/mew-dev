@@ -1,4 +1,4 @@
-# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/experimental/helloworld
+# Install script for directory: /home/fushunpoon/dev/code/project/maple/src/simulator
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -19,9 +19,12 @@
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 <storageModule moduleId="org.eclipse.cdt.core.pathentry">
-<pathentry kind="src" path="HelloWorldProject"/>
-<pathentry kind="src" path="Project"/>
-<pathentry excluding="HelloWorldProject/|Project/|**/CMakeFiles/" kind="out" path=""/>
+<pathentry kind="src" path="MEWDEV"/>
+<pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
+<pathentry include="/usr/include" kind="inc" path="" system="true"/>
+<pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
+<pathentry include="/usr/include/c++/4.3" kind="inc" path="" system="true"/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
@@ -74,10 +77,38 @@
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
+<target name="sim" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>sim</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
 <target name="HelloWorld" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
 <buildTarget>HelloWorld</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="contourtest" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>contourtest</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="roitest" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>roitest</buildTarget>
+<stopOnError>true</stopOnError>
+<useDefaultCommand>false</useDefaultCommand>
+</target>
+<target name="test" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<buildCommand>/usr/bin/make</buildCommand>
+<buildArguments/>
+<buildTarget>test</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
@@ -109,6 +140,6 @@
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<project id="Project.null.1" name="Project"/>
+<project id="MEWDEV.null.1" name="MEWDEV"/>
 </storageModule>
 </cproject>
