@@ -14,7 +14,7 @@
 #define SIZE_Y 10
 
 
-#include "vector2d.h"
+#include <vector2d.h>
 
 using namespace mew;
 using namespace core;
@@ -23,8 +23,15 @@ using namespace core;
 /**
  * SimulatedRobot
  *
- * Simulated robot is a basic robot designed to work with the
- * simulator
+ * Simulated robot is a basic virtual robot that abides by the rules
+ * of the simulator.
+ *
+ * It can:
+ * moveForward,
+ * pickup,
+ * load another model onto the robot.
+ *
+ * Should be created with a model. The model is updated by the Robot.
  */
 class SimulatedRobot : public BasicRobot {
 	SimulatedRobot(IGridModel *model, Vector2di initial_loc, Orientation orientation);
