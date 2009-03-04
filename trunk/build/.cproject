@@ -18,7 +18,17 @@
 <project-mappings/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-
+<storageModule moduleId="org.eclipse.cdt.core.pathentry">
+<pathentry kind="src" path="MEWDEV"/>
+<pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
+<pathentry include="/usr/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/device/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/electronic/include" kind="inc" path="" system="true"/>
+<pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/simulator/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/pathfinder/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
+</storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
 <target name="all" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
@@ -115,13 +125,6 @@
 <parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-<storageModule moduleId="org.eclipse.cdt.core.pathentry">
-<pathentry include="/usr/include" kind="inc" path="" system="true"/>
-<pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
-<pathentry kind="src" path="MEWDEV"/>
-<pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
 </storageModule>
 </cconfiguration>
 </storageModule>
