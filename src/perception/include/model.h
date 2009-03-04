@@ -16,95 +16,23 @@
 
 using namespace std;
 
-class IModel;
 
 /**
- * Entity
+ * MapElement
  *
- * An Entity is a signficiant, named object inside a particular model.
- *
- * For an entity to be significant, *typically* it has to have at least one of the following:
- *  - a geometric shape when looking top-down
- *  - a particular colour
- *  - a location within the working confines of the IModel that contains the entity.
- *  - a height function that maps any arbitrary location on the model to a height-cost.
- *    This height-cost is calculated by the heightFunction();
- *
- * Extensions of Entity allow them to contain any amount and/or any degree of further information
- * required, such as an image, or special cognitive information.
- *
- * Virtual Entities, such as waypoints or goal zones on the IModel could be created by the
- * perception system to add information into the model.
- *
- * Unknown Entities may be created, with certain observable characteristics. These characteristics
- * may refine over time with more sensor input. Once enough information is gathered,
- * the UnknownEntity may well be replaced with something much more well-known; this is the art of
- * cognition.
- *
- * Notice that one particular entity is very special; and that is the sole Robot entity.
- * The robot's got its own way of using the model and its sensors to update its own position, orientation,
- * velocity and accelerations in the model. The robot object itself is treated as an Entity
- * within the Model. This allows smooth interoperability between the logical robot and the
- * model, reducing complexity of the system as a whole.
- * How effective the Model is at modelling the real world, depends heavily, of course, on its implementation.
- *
- * The position is contextual to the Model that contains it.
+ * A simple enumeration for a SimpleGridModel.
  */
-class Entity {
-public:
-	Entity(string name) : name(name) {}
-	virtual ~Entity();
-
-	virtual Vector2df getPosition() = 0;
-
-	// Calculates the
-	virtual void heightFunction(const Vector2df& position) = 0;
-	virtual Geometry *getGeometry() = 0;
-
-private:
-	string name;
+enum MapElement {
+	EMPTY, PIECE, DROPZONE, FORBIDDEN
 };
 
 /**
- * StaticEntity
+ * Orientation
  *
- * StaticEntities stay still and do not, and cannot move.
+ * A simple enumeratoin for a SimpleGridModel
  */
-class StaticEntity : public Entity {
-public:
-	StaticEntity(): stat() {}
-	virtual ~StaticEntity() {}
-
-	virtual Vector2df getPosition() { return stat->position ; }
-	virtual float getOrientation() { return stat->orientation; }
-
-	Static *getStatic() { return stat; }
-
-private:
-	Static *stat;
-};
-
-/**
- * KinematicEntity
- *
- * KinematicEntities have a position, an orientation, a velocity, and an acceleration
- * associated with them.
- */
-class KinematicEntity : public Entity {
-public:
-	KinematicEntity(): kin() {}
-	virtual ~KinematicEntity() {}
-
-	virtual Vector2df getPosition() { return kin->position ; }
-	virtual float getOrientation() { return kin->orientation; }
-	virtual Vector2df getVelocity() { return kin->velocity; }
-	virtual float getRotation() { return kin->rotation; }
-	virtual Vector2df getAcceleration() { return kin->acceleration; }
-
-	Kinematic *getKinematic() { return kin; }
-
-private:
-	Kinematic *kin;
+enum Orientation {
+	NORTH, WEST, SOUTH, EAST
 };
 
 
@@ -126,24 +54,6 @@ private:
 };
 
 
-/**
- * MapElement
- *
- * A simple enumeration for a SimpleGridModel.
- */
-enum MapElement {
-	EMPTY, PIECE, DROPZONE, FORBIDDEN
-};
-
-/**
- * Orientation
- *
- * A simple enumeratoin for a SimpleGridModel
- */
-enum Orientation {
-	NORTH, WEST, SOUTH, EAST
-};
-
 //                     NORTH  SOUTH    EAST    WEST
 int frontDir[4][2] = { {0,1}, {-1,0}, {0,-1}, {1,0} };
 int dropArea[] = {4,0};
@@ -164,11 +74,62 @@ int dropArea[] = {4,0};
  * updating over time, whereas more dynamic model do require updating
  * over time, because entities don't generally update the model.
  */
-class Model {
+/**
+ * GridModel
+ *
+ * In a simple grid model, the robot and anything IN the grid is
+ * simply represented by some enum value in a 2D array.
+ *
+ * NOTE: this is a wrapper around the old simulator model.
+ */
+class GridModel {
+	GridModel();
 
+	virtual ~GridModel();
 
+	virtual ~Map() {}
+
+	/**
+	 * Returns the map element at a particular position.
+	 * @param pos the position
+	 */
+	MapElement getElementAt(Vector2di pos){
+		return map[pos.x][pos.y];
+	}
+	MapElement getElementAt(int posx, int posy){
+		return map[posx][posy];
+	}
+
+	/**
+	 * Puts a piece onto the map.
+	 * @param posx The x coordinate
+	 * @param posy The y coordinate
+	 */
+	void putPiece(int posx, int posy) {
+		map[posx][posy] = PIECE;
+	}
+
+	/**
+	 * Removes a piece from the map.
+	 * @param posx
+	 * @param posy
+	 */
+	void removePiece(int posx, int posy){
+		map[posx][posy] = EMPTY;
+	}
+
+	/**
+	 * Removes all the pieces.
+	 */
+	void clear() {
+		// TODO
+	}
+
+private:
+	MapElement map[SIZE_X][SIZE_Y];
 
 };
+
 
 
 /**
