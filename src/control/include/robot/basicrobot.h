@@ -55,8 +55,12 @@ class BasicRobot {
 	virtual Vector2di getPosition() = 0;
 
 	/* Sets the current model to be something else entirely. */
-	GridModel *getModel() { return model; }
-	void setModel(GridModel *model) { this->model = model; }
+	GridModel *getModel() {
+		return model;
+	}
+	void setModel(GridModel *model) {
+		this->model = model;
+	}
 private:
 	GridModel *model; // the current world model used.
 };
