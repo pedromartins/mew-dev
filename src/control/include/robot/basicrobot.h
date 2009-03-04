@@ -35,7 +35,7 @@ class BasicRobot {
 	 * Initializes the robot at a particular location
 	 * in the given 2D grid-based model.
 	 */
-	BasicRobot(IGridModel *model, Vector2di initial_loc, Orientation orientation);
+	BasicRobot(GridModel *model, Vector2di initial_loc, Orientation orientation);
 	virtual ~BasicRobot();
 
 	// Move the robot forward one grid square.
@@ -55,10 +55,10 @@ class BasicRobot {
 	virtual Vector2di getPosition() = 0;
 
 	/* Sets the current model to be something else entirely. */
-	IGridModel *getModel() { return model; }
-	void setModel(IGridModel *model) { this->model = model; }
+	GridModel *getModel() { return model; }
+	void setModel(GridModel *model) { this->model = model; }
 private:
-	IGridModel *model; // the current world model used.
+	GridModel *model; // the current world model used.
 };
 
 

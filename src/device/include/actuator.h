@@ -15,6 +15,22 @@
 
 using namespace mew::core;
 
+enum TurnDirection {
+	LEFT = -1,
+	STRAIGHT,
+	RIGHT
+};
+
+
+class ISimpleDriveSystem {
+public:
+	virtual ISimpleDriveSystem();
+
+	// Given a particular state.
+	virtual void moveFoward(int squares) = 0;
+	virtual void turn(TurnDirection dir) = 0;
+};
+
 /**
  * IDriveSystem
  *

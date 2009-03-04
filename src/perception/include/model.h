@@ -85,11 +85,9 @@ int dropArea[] = {4,0};
  * NOTE: this is a wrapper around the old simulator model.
  */
 class GridModel {
-	GridModel();
+	GridModel(int width );
 
 	virtual ~GridModel();
-
-	virtual ~Map() {}
 
 	/**
 	 * Returns the map element at a particular position.

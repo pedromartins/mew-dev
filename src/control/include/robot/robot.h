@@ -17,13 +17,6 @@ namespace core {
 #define ENTITY_TRAVERSAL_UNIFORM 2
 #define ENTITY_TRAVERSAL_UNIFORM_RADIAL 3
 
-enum turn_direction_t {
-	LEFT = -1,
-	STRAIGHT,
-	RIGHT
-};
-
-
 
 /**
  * Robot
