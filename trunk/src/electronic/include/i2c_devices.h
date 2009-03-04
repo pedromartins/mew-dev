@@ -1,8 +1,7 @@
 /*
  * i2c_devices.h
  *
- * This file contains object-oriented wrappers for the i2c device API provided by the
- * electronicsinterface
+ * This file contains object-oriented wrappers for the i2c device API.
  *
  *  Created on: 15-Feb-2009
  *      Author: Hok Shun Poon
@@ -11,9 +10,8 @@
 #ifndef I2C_DEVICES_H_
 #define I2C_DEVICES_H_
 
-#include "actuator.h"
-#include "sensor.h"
-#include <electronicinterface.h>
+#include "electronic.h"
+
 
 /**
  * I2CMotor

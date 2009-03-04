@@ -81,40 +81,6 @@ private:
 	Kinematic *kinematic; // The kinematic which the controller should update?!
 };
 
-/**
- * IMotor
- *
- * Represents a motor with or without an encoder.
- */
-class IMotor {
-	virtual ~IMotor();
-	virtual bool hasEncoder();
-	virtual float getRPM();
-	virtual void setRPM(float rpm);
-};
-
-/**
- * IServo
- *
- * Represents a servomotor.
- */
-class IServo {
-	virtual ~IServo();
-	virtual float getAngle();
-	virtual void setAngle();
-};
-
-/**
- * TempleBuildingClaw
- *
- * Represents the temple building claw.
- * TODO : is this necessary?
- */
- class TempleBuildingClaw {
- 	virtual ~TempleBuildingClaw();
-
-
- };
 
 
 #endif /* ACTUATOR_H_ */
