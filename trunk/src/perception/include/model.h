@@ -54,11 +54,6 @@ private:
 };
 
 
-//                     NORTH  SOUTH    EAST    WEST
-int frontDir[4][2] = { {0,1}, {-1,0}, {0,-1}, {1,0} };
-int dropArea[] = {4,0};
-
-
 /**
  * Model
  *

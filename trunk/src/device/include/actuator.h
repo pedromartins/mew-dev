@@ -24,7 +24,7 @@ enum TurnDirection {
 
 class ISimpleDriveSystem {
 public:
-	virtual ISimpleDriveSystem();
+	virtual ~ISimpleDriveSystem();
 
 	// Given a particular state.
 	virtual void moveFoward(int squares) = 0;

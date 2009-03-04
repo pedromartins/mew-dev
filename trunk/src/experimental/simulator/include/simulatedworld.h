@@ -14,6 +14,9 @@ using namespace mew;
 using namespace core;
 
 
+// the area to drop the block.
+int dropArea[] = {4,0};
+
 /**
  * SimulatedWorld
  *
@@ -74,14 +77,28 @@ class SimulatedWorld {
 	 * Sets the location of the entity pointed to by entity.
 	 */
 	void setLocationOf(Entity *entity, Vector2di location){
+		if (!inBounds(location)) {
+			std::cerr << "SimulatedWorld: OH DEAR! tried to move "
+					"entity to invalid place" << std::endl;
+			return;
+		}
+
+
 		entmap[entity].position = location;
 	}
 
 	/**
 	 * Returns the 'actual' location of the entity.
 	 */
-	Vector2di getOrientationOf(Entity *entity) {
+	Orientation getOrientationOf(Entity *entity) {
 		return entmap[entity].orientation;
+	}
+
+	/**
+	 * Returns the 'actual' location of the entity.
+	 */
+	void setOrientationOf(Entity *entity,Orientation orientation) {
+		entmap[entity].orientation = orientation;
 	}
 
 	/**
