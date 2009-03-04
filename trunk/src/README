@@ -22,6 +22,7 @@ electronics/          Contains the actual implementations of the abstract classe
         	      device layer. Calls the actual low-level sensor/actuator calls.
 
 experimental/	      Contains everything that doesn't fit in the other folders.
+ |- simulator/	      The simulator that will provide the test inputs for the sensors.
 
 perception/	      The perceptionsystem abstracts away the details of perception,
 		      to present a simpler interface.
@@ -38,5 +39,9 @@ These directories fit in the global structure according to the following stack:
  >|   device   |	  |
   |------------|  core	  |
   | electronic |   	  |
-   ----------------------- 
+   -----------------------
+   
+   ^^^^^^^^^^^^^^^^^^^^^^^
+      "simulated world"        
+
 
