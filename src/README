@@ -1,0 +1,42 @@
+
+** SOURCE TREE STRUCTURE! **
+
+control/              The controlsystem abstracts away the details of actuation, to 
+ |		      present a simpler interface geared towards solving problems.
+ |		      Decomposes tasks into calls to device.
+ |
+ |- movement/	      Deals with movement goals
+ |- robot/	      State that is needed for the logic.
+
+core/		      Core contains abstract general purpose things.
+
+decision/	      The decision system is responsible for the higher level
+		      reasoning to plan the sequence of actions that is to be taken.
+
+device/		      Uses the low level electronic calls to provide a higher level
+		      interface for the sensors and actuators. (e.g will contain calls
+		      like goForward(2 metres) ). Will have the low-level logic for
+		      controlling the actuators.
+		
+electronics/          Contains the actual implementations of the abstract classes from
+        	      device layer. Calls the actual low-level sensor/actuator calls.
+
+experimental/	      Contains everything that doesn't fit in the other folders.
+
+perception/	      The perceptionsystem abstracts away the details of perception,
+		      to present a simpler interface.
+
+These directories fit in the global structure according to the following stack:
+
+   ----------------------- 
+  |       decision        |
+  |-----------------------|
+ -|       control         |
+| |-----------------------|
+| |      perception	  |
+| |-----------------------|
+ >|   device   |	  |
+  |------------|  core	  |
+  | electronic |   	  |
+   ----------------------- 
+

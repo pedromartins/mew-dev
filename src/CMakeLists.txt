@@ -7,5 +7,4 @@ include_directories(/usr/include/)
 link_directories(/usr/lib/)
 
 add_subdirectory(experimental)
-add_subdirectory(simulator)
 add_subdirectory(core)
