@@ -1,31 +1,38 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "include/simulatedworld.h"
 
-#include "simulatedworld.h"
+#include <iostream>
 
+using namespace std;
 
-/*
-World::World(int mapNum) {
-	for(int i = 0; i != SIZE_X; i++) {
-		for(j = 0; j != SIZE_Y; j++) {
-			map[i][j] = EMPTY;
-		}
-	}
-	cout << "initMap: Map 0 chosen!" << endl;
+SimulatedWorld::SimulatedWorld(int map)
+{
+	map = new MapElement[DEFAULT_SIZE][DEFAULT_SIZE];
+
+	clear();
+
 	switch(mapNum) {
+	case 0:
+		cout << "World: Blank world created. " << endl;
+		break;
 	case 1:
-		printf("initMap: Map 1 chosen!");
-		int i, j;
-		for(i = 3; i != 6; i++) {
-			for(j = 0; j != SIZE_Y - 1 ; j++) {
+		cout << "World: Preset world 1 created. " << endl;
+
+		for(int i = 3; i != 6; i++) {
+			for(int j = 0; j != SIZE_Y - 1 ; j++) {
 				map[i][j] = FORBIDDEN;
 			}
 		}
+
 		putPiece(9,0);
 		break;
 	default:
-		printf("initMap: No such map available!\n");
+		cout << "ERROR: No such world available!" << endl;
 		exit(0);
 	}
 }
-*/
+
+SimulatedWorld::SimulatedWorld(int width, int height){
+	map = new MapElement[width][height];
+
+	clear();
+}
