@@ -9,7 +9,8 @@
 #define PERCEPTION_H_
 
 // Grand include file for including everything in perception.
-#include "odometry.h"
-#include "meters.h"
+#include "entity.h"
+#include "model.h"
+#include "perceptor.h"
 
 #endif /* PERCEPTION_H_ */
