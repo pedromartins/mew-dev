@@ -24,10 +24,10 @@ class IModel;
  * An Entity is a signficiant, named object inside a particular model.
  *
  * For an entity to be significant, *typically* it has to have at least one of the following:
- *  * a geometric shape when looking top-down
- *  * a particular colour
- *  * a location within the working confines of the IModel that contains the entity.
- *  * a height function that maps any arbitrary location on the model to a height-cost.
+ *  - a geometric shape when looking top-down
+ *  - a particular colour
+ *  - a location within the working confines of the IModel that contains the entity.
+ *  - a height function that maps any arbitrary location on the model to a height-cost.
  *    This height-cost is calculated by the heightFunction();
  *
  * Extensions of Entity allow them to contain any amount and/or any degree of further information
@@ -150,56 +150,26 @@ int dropArea[] = {4,0};
 
 
 /**
- * SimpleGridModel
+ * Model
  *
- * In a simple grid model, the robot and anything IN the grid is
- * simply represented by some enum value in a 2D array.
- * NOTE: this is a wrapper around the old simulator model.
+ * A model is the representation of the world with respect to the
+ * currently running program.
+ *
+ * Entities are REGISTERED with the model, and this registration process
+ * initiates a relationship between the model and entity in this way:
+ *
+ *   ALL registered entities may modify the model in any way it likes.
+ *
+ * The model could well be static, or dynamic. Static models require no
+ * updating over time, whereas more dynamic model do require updating
+ * over time, because entities don't generally update the model.
  */
-class SimpleGridModel {
-	SimpleGridModel(){
-
-	}
+class Model {
 
 
-	void initSimulator() {
-		if(!inited) {
-			srand(time(0));
-			initPredefMap(mapNum);
-			placePiece(SIZE_X-1, 0);
-			pos.x = 0;
-			pos.y = 0;
-			orientation = NORTH;
-			grab = FALSE;
-			inited = TRUE;
-		}
-	}
 
-	void fail(char* msg, int fatal) {
-		printf("At (%d,%d):\n", pos.x, pos.y);
-		printf(msg);
-		if(fatal)
-			exit(0);
-	}
-
-	bool inBoard(Position newPos) {
-		return (newPos.x >= 0 && newPos.x < SIZE_X &&
-				newPos.y >= 0 && newPos.y < SIZE_Y);
-	}
-
-	Vector2di inFront() {
-		Vector2di front;
-		int * dir = frontDir[orientation];
-		front.x = pos.x + dir[0];
-		front.y = pos.y + dir[1];
-		return front;
-	}
-
-	void restart() {
-		inited = false;
-		initSimulator();
-	}
 };
+
 
 /**
  * GridEntityModel
@@ -246,7 +216,7 @@ private:
  * A basic 2D model that works with certain resolution grid, and
  *
  */
-class EntityHeightmapModel : public IGridEntityModel<int,IEntity> {
+class EntityHeightmapModel : public GridEntityModel<int,IEntity> {
 public:
 	EntityHeightmapModel(int columns, int rows);
 	virtual ~EntityHeightmapModel();
