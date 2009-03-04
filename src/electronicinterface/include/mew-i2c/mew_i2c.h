@@ -25,7 +25,7 @@
 //the test servo controller (an arduino)
 
 #define MEW_DEV_SERVO_TEST 0x0F
-
+#define MEW_DEV_ARDUINO_01 0x0E
 
 //this is 8 bit atm
 #define WHEEL_MOTOR_CONTROLLER 0xB0
