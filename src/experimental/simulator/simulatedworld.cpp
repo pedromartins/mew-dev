@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 SimulatedWorld::SimulatedWorld(int map)
 {
 	map = new MapElement[DEFAULT_SIZE][DEFAULT_SIZE];
