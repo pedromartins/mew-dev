@@ -1,20 +1,10 @@
-#ifndef SIM_H
-#define SIM_H
-
-/*
-  mew Robot Simulator - 2009
-  v.0.1 : Initial meeting 21/01/09
- */
-
-#define PROB_FAILURE_PICKUP 0.1
-#define PROB_DROP_MOVING 0.1
-
-// **** MAP KNOWLEDGE ****
-#define SIZE_X 10
-#define SIZE_Y 10
+#ifndef SIMULATED_ROBOT_H
+#define SIMULATED_ROBOT_H
 
 
-#include <vector2d.h>
+
+#include <core.h>
+#include <robot.h>
 
 using namespace mew;
 using namespace core;
@@ -53,16 +43,34 @@ class SimulatedRobot : public BasicRobot {
 
 	/*  Load a different map
     (must be done before starting/reseting) */
-	void loadMap(int i);
+	//void loadMap(int i);
+
+	/**
+	 * Returns true iff the position is on the board.
+	 */
+	bool inBoard(Vector2di newPos) {
+		return (newPos.x >= 0 && newPos.x < SIZE_X &&
+				newPos.y >= 0 && newPos.y < SIZE_Y);
+	}
+
+	/**
+	 * Returns the logical square in front of this simulated robot.
+	 */
+	Vector2di inFront() {
+		Vector2di front; //
+		int * dir = frontDir[orientation];
+		front.x = pos.x + dir[0];
+		front.y = pos.y + dir[1];
+		return front;
+	}
+
 
 private:
-
 	// State:
 	Orientation orientation;
 	int mapNum = 0;
 	bool grabbing = false;
-	bool inited = false;
 
 };
 
-#endif //SIM_H
+#endif //SIMULATED_ROBOT_H

@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "map.h"
+#include "simulatedworld.h"
 
-Map::Map(int mapNum) {
+
+/*
+World::World(int mapNum) {
 	for(int i = 0; i != SIZE_X; i++) {
 		for(j = 0; j != SIZE_Y; j++) {
 			map[i][j] = EMPTY;
@@ -26,3 +28,4 @@ Map::Map(int mapNum) {
 		exit(0);
 	}
 }
+*/
