@@ -5,6 +5,13 @@
 
 #define DEFAULT_SIZE 10
 
+#define OUT_OF_BOARD "The robot went outside of the board!\n"
+#define COLLISION "The robot collided with something!\n"
+#define SUCCESS "Congratulations, task successful!\n Now go play with the simulator code :)\n"
+
+
+
+
 /**
  * SimulatedWorld
  *

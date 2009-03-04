@@ -5,7 +5,7 @@
  *      Author: fushunpoon
  */
 
-#include "include/basicrobot.h"
+#include "include/robot/basicrobot.h"
 
 BasicRobot::BasicRobot() {
 	// TODO Auto-generated constructor stub
