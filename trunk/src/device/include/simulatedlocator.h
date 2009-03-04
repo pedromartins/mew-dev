@@ -8,15 +8,30 @@
 #ifndef SIMULATEDLOCATOR_H_
 #define SIMULATEDLOCATOR_H_
 
-#include <>
+#include <estimator.h>
+#include <entity.h>
+#include <simulatedworld.h>
 
+/**
+ * SimulatedLocator
+ *
+ * A simple locator 'sensor' for a simulated robot.
+ */
 class SimulatedLocator : public ILocator<int> {
 public:
-	SimulatedLocator();
-	virtual ~SimulatedLocator();
-private:
-	SimulatedWorld
+	SimulatedLocator(Entity * entity, SimulatedWorld * world)
+	:entity(entity),world(world){}
 
+	virtual ~SimulatedLocator();
+
+	/** Returns the location */
+	int getLocation() const {
+		return world->getLocationOf(entity);
+	};
+
+private:
+	Entity *entity;
+	SimulatedWorld *world;
 };
 
 #endif /* SIMULATEDLOCATOR_H_ */

@@ -10,7 +10,7 @@
 #ifndef MODEL_H_
 #define MODEL_H_
 
-#include "core.h"
+#include <core.h>
 #include <vector>
 #include <string>
 
@@ -116,7 +116,7 @@ class GridModel {
 	 * @param posx
 	 * @param posy
 	 */
-	void removePiece(int posx, int posy){
+	void removePiece(int posx, int posy) {
 		map[posx][posy] = EMPTY;
 	}
 
