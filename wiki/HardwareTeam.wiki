@@ -13,6 +13,7 @@ Datasheets
  * Compass (HMC6352) http://www.ssec.honeywell.com/magnetic/datasheets/HMC6352.pdf
  * MaxBotix EZ2 ultrasound: http://www.maxbotix.com/MaxSonar-EZ1__FAQ.html
  * Motorcontroller MD22: http://www.robot-electronics.co.uk/htm/md22tech.htm
+ * I2C to USB chip: http://www.technobots.co.uk/Data%20Sheets/3810-005.pdf
 
 ----
 older stuff
