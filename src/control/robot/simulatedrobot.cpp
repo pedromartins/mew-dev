@@ -1,21 +1,5 @@
 
-#include "map.h"
-#include "simulator.h"
-#include <stdlib.h>
-#include <stdio.h>
 #include <time.h>
-
-#define OUT_OF_BOARD "The robot went outside of the board!\n"
-#define COLLISION "The robot collided with something!\n"
-#define SUCCESS "Congratulations, task successful!\n Now go play with the simulator code :)\n"
-
-
-
-
-
-void loadMap(int i) {
-	mapNum = i;
-}
 
 
 /**
