@@ -8,6 +8,8 @@
 #ifndef BASICROBOT_H_
 #define BASICROBOT_H_
 
+#include <entity.h>
+
 /**
  * BasicRobot
  *
@@ -30,7 +32,7 @@
  * then the robot must rely on odometry at all times.
  *
  */
-class BasicRobot {
+class BasicRobot : public Entity {
 	/**
 	 * Initializes the robot at a particular location
 	 * in the given 2D grid-based model.

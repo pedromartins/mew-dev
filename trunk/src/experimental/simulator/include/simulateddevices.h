@@ -56,4 +56,13 @@ private:
 	SimulatedWorld *world;
 };
 
+
+
+class SimulatedClaw : public ISimpleClaw {
+public:
+private:
+
+
+};
+
 #endif /* SIMULATEDDEVICES_H_ */

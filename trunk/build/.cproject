@@ -126,6 +126,7 @@
 <pathentry include="/usr/include/c++/4.3" kind="inc" path="" system="true"/>
 <pathentry base-path="maple" include="src/core/include" kind="inc" path="" system="true"/>
 <pathentry base-path="maple" include="src/perception/include" kind="inc" path="" system="true"/>
+<pathentry base-path="maple" include="src/control/include/robot" kind="inc" path="" system="true"/>
 <pathentry kind="src" path="MEWDEV"/>
 <pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
 </storageModule>

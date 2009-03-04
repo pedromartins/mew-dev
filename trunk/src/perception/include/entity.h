@@ -8,6 +8,8 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
+#include <core.h>
+
 /**
  * Entity
  *
@@ -44,12 +46,6 @@ class Entity {
 public:
 	Entity(string name) : name(name) {}
 	virtual ~Entity();
-
-	virtual Vector2df getPosition() = 0;
-
-	// Calculates the
-	virtual void heightFunction(const Vector2df& position) = 0;
-	virtual Geometry *getGeometry() = 0;
 
 private:
 	string name;
