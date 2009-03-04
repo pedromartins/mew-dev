@@ -11,7 +11,7 @@
 // "/dev/ttyUSB0"
 //you can just grep /dev and have a look!
 
-#define DEVICE_NODE "/dev/ttyUSB1"
+#define DEVICE_NODE "/dev/cu.usbserial-A2001nZa"
 
 void loop();
 
@@ -25,7 +25,7 @@ void loop(){
   int angle;
   for(angle = 135; angle > 50; angle-=5){
     //at the moment the only command is send_byte
-    send_byte(MEW_DEV_SERVO_TEST, angle);
+    send_byte(MEW_DEV_ARDUINO_01, angle);
     sleep(1);
   }
     for(angle = 45; angle < 135; angle+=5){

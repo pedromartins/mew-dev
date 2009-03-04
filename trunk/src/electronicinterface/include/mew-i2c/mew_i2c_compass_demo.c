@@ -14,7 +14,7 @@
 // "/dev/ttyUSB0"
 //you can just grep /dev and have a look!
 
-#define DEVICE_NODE "/dev/ttyUSB0"
+#define DEVICE_NODE "/dev/tty.usbserial-A2001nZa"
 
 uint16_t heading[1];
 
