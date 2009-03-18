@@ -37,3 +37,31 @@ SimulatedWorld::SimulatedWorld(int width, int height){
 
 	clear();
 }
+
+void SimulatedWorld::show() {
+
+	cout << printline("*", width);
+	for( int j = 0; j<height; ++j ) {
+		cout << "*";
+		for (int i = 0; i<width; ++i){
+			switch ( map[j][i] ) {
+			case EMPTY:
+				cout << " ";
+			case PIECE:
+				cout << "O";
+			case DROPZONE:
+				cout << "x";
+			case FORBIDDEN:
+				cout << "F";
+			}
+		}
+		cout << "*" << endl;
+	}
+	cout << printline("*", width) << endl;
+}
+
+void SimulatedWorld::printline(const char *string, int numtimes ) const {
+	for(int i =0; i<width; ++i){
+		cout<<"*" ;
+	}
+}

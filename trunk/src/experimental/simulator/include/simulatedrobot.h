@@ -36,47 +36,38 @@ class SimulatedRobot : public BasicRobot {
 
 	// Get position from the sensors
 	Vector2df getPosition();
+	// Get orientation from sensors.
+	Orientation getOrientation();
 
 	// Is the robot holding something?
 	bool isGrabbing() { return grabbing; }
 
-	// Move the robot forward
+	/**
+	 * DIRECT DRIVE CONTROL METHOD
+	 * Instructs this robot to move forward one square in the
+	 * current orientation, and stop. This is assumed to occur
+	 * instantaneously.
+	 */
 	void moveForward();
 
-	// Pick up what's in *front* of the robot.
+	/**
+	 * DIRECT BUILD CONTROL METHOD
+	 */
 	void pickUp();
 
-	// Turn 45º left or right
-	void turn(int left);
-
-	/*  Load a different map
-    (must be done before starting/reseting) */
-	//void loadMap(int i);
-
 	/**
-	 * Returns true iff the position is on the board.
+	 * DIRECT DRIVE CONTROL METHOD
+	 * Instructs this robot to turn
+	 * Turn 90º left or right.
+	 * this is assumed to occur instantaneously.
 	 */
-	bool inBoard(Vector2di newPos) {
-		return (newPos.x >= 0 && newPos.x < SIZE_X &&
-				newPos.y >= 0 && newPos.y < SIZE_Y);
-	}
-
-	/**
-	 * Returns the logical square in front of this simulated robot.
-	 */
-	Vector2di inFront() {
-		Vector2di front; //
-		int * dir = frontDir[orientation];
-		front.x = pos.x + dir[0];
-		front.y = pos.y + dir[1];
-		return front;
-	}
-
+	void turn(TurnDirection dir);
 
 private:
 	bool grabbing = false;
 	Perceptor *perceptor;
 	ISimpleDriveSystem *drivesystem;
+	ISimpleClaw *claw;
 };
 
 #endif //SIMULATED_ROBOT_H

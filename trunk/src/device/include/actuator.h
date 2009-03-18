@@ -21,14 +21,32 @@ enum TurnDirection {
 	RIGHT
 };
 
+/**
+ * ISimple_______
+ *
+ * The 'simple' series of actutating devices ar mostly designed for very simplistic
+ * actions, that are directly executed by method calls.
+ * This is ideal for simulation environments.
+ *
+ */
 
 class ISimpleDriveSystem {
 public:
-	virtual ~ISimpleDriveSystem();
+	virtual ~ISimpleDriveSystem() {}
 
 	// Given a particular state.
 	virtual void moveFoward(int squares) = 0;
 	virtual void turn(TurnDirection dir) = 0;
+};
+
+
+class ISimpleClaw {
+public:
+	virtual ~ISimpleClaw() {}
+
+	virtual void pickup() = 0;
+private:
+
 };
 
 /**

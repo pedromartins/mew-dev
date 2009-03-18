@@ -16,6 +16,12 @@ class Simulation {
 public:
 	Simulation();
 	virtual ~Simulation();
+
+	void run(); // run the simulation.
+private:
+	GridModel *model;
+	SimulatedRobot *robot;
+	SimulatedWorld *world;
 };
 
 #endif /* SIMULATION_H_ */

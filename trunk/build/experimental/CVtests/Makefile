@@ -170,35 +170,53 @@ roitest/fast:
 	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/build
 .PHONY : roitest/fast
 
-# target to build an object file
-contourtest.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.o
+contourtest.o: contourtest.cpp.o
 .PHONY : contourtest.o
 
-# target to preprocess a source file
-contourtest.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.i
+# target to build an object file
+contourtest.cpp.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.cpp.o
+.PHONY : contourtest.cpp.o
+
+contourtest.i: contourtest.cpp.i
 .PHONY : contourtest.i
 
-# target to generate assembly for a file
-contourtest.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.s
+# target to preprocess a source file
+contourtest.cpp.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.cpp.i
+.PHONY : contourtest.cpp.i
+
+contourtest.s: contourtest.cpp.s
 .PHONY : contourtest.s
 
-# target to build an object file
-roitest.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.o
+# target to generate assembly for a file
+contourtest.cpp.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/contourtest.dir/build.make experimental/CVtests/CMakeFiles/contourtest.dir/contourtest.cpp.s
+.PHONY : contourtest.cpp.s
+
+roitest.o: roitest.cpp.o
 .PHONY : roitest.o
 
-# target to preprocess a source file
-roitest.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.i
+# target to build an object file
+roitest.cpp.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.cpp.o
+.PHONY : roitest.cpp.o
+
+roitest.i: roitest.cpp.i
 .PHONY : roitest.i
 
-# target to generate assembly for a file
-roitest.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.s
+# target to preprocess a source file
+roitest.cpp.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.cpp.i
+.PHONY : roitest.cpp.i
+
+roitest.s: roitest.cpp.s
 .PHONY : roitest.s
+
+# target to generate assembly for a file
+roitest.cpp.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/CVtests/CMakeFiles/roitest.dir/build.make experimental/CVtests/CMakeFiles/roitest.dir/roitest.cpp.s
+.PHONY : roitest.cpp.s
 
 # Help Target
 help:
