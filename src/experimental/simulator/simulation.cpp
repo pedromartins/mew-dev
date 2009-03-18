@@ -5,13 +5,23 @@
  *      Author: fushunpoon
  */
 
-#include "/home/fushunpoon/dev/code/project/maple/src/experimental/simulator/include/simulation.h"
+#include "include/simulation.h"
+#include <perception.h>
+
 
 Simulation::Simulation() {
-	// TODO Auto-generated constructor stub
-
+	world = new SimulatedWorld(1);
+	model = new GridModel(world->getWidth(), world->getHeight());
+	robot = new SimulatedRobot(world, model, Vector2di(0,0), NORTH);
 }
 
 Simulation::~Simulation() {
-	// TODO Auto-generated destructor stub
+	delete robot;
+	delete world;
+}
+
+
+void Simulation::run(){
+	robot->moveForward();
+	world->show();
 }

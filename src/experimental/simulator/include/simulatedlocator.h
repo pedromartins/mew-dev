@@ -16,6 +16,8 @@
  * SimulatedLocator
  *
  * A simple locator 'sensor' for a simulated robot.
+ * It happens that the simulator can tap directly into the world's information
+ * and therefore the location returned is actually perfect.
  */
 class SimulatedLocator : public ILocator<int> {
 public:

@@ -10,19 +10,12 @@
 
 #include <actuator.h>
 
-// Offsets to squares for each direction.
-int frontDir[4][2] = {
-	Vector2di(0,1), // north
-	Vector2di(-1,0),// east
-	Vector2di(0,-1),// south
-	Vector2di(1,0) // west
-};
-
 
 /**
  * SimulatedDriveSystem
  *
  * Will simply move the robot associated herewith in the world.
+ * This happens instantaneously.
  */
 class SimulatedDriveSystem : public ISimpleDriveSystem {
 public:
@@ -33,36 +26,33 @@ public:
 	/**
 	 * Moves the robot forward for a number of squares.
 	 */
-	virtual void moveFoward(int squares){
-		world->setLocationOf(robot,
-				world->getLocationOf(robot)+
-				frontDir[world->getOrientationOf(robot)]*squares
-		);
-	}
+	virtual void moveFoward(int squares);
 
 	/**
 	 * Turns the robot either left, right, or not at all.
 	 */
-	virtual void turn(TurnDirection dir){
-		if (dir != STRAIGHT)
-			world->setOrientationOf(robot,
-					(world->getOrientationOf(robot)+
-					dir)%4
-			);
-	}
+	virtual void turn(TurnDirection dir);
 
 private:
 	SimulatedRobot *robot;
 	SimulatedWorld *world;
 };
 
-
-
+/**
+ * SimulatedClaw
+ *
+ * Carries out the simulated 'pick up' action.
+ */
 class SimulatedClaw : public ISimpleClaw {
 public:
+	SimulatedClaw(SimulatedRobot *robot, SimulatedWorld *world)
+	: robot(robot), world(world){}
+	virtual ~SimulatedClaw();
+
+	virtual void pickup();
 private:
-
-
+	SimulatedRobot *robot;
+	SimulatedWorld *world;
 };
 
 #endif /* SIMULATEDDEVICES_H_ */

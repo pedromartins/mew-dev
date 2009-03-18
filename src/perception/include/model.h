@@ -15,7 +15,8 @@
 #include <string>
 
 using namespace std;
-
+using namespace mew;
+using namespace core;
 
 /**
  * MapElement
@@ -24,6 +25,14 @@ using namespace std;
  */
 enum MapElement {
 	EMPTY, PIECE, DROPZONE, FORBIDDEN
+};
+
+// Offsets to squares for each direction.
+Vector2di frontDir[4] = {
+	Vector2di(0,1), // north
+	Vector2di(-1,0),// east
+	Vector2di(0,-1),// south
+	Vector2di(1,0) // west
 };
 
 /**
@@ -80,7 +89,7 @@ private:
  * NOTE: this is a wrapper around the old simulator model.
  */
 class GridModel {
-	GridModel(int width );
+	GridModel(int width, int height );
 
 	virtual ~GridModel();
 
@@ -114,15 +123,26 @@ class GridModel {
 	}
 
 	/**
+	 * Returns the logical square in front of the given coordinate,
+	 * and orientation
+	 */
+	Vector2di inFront(const Vector2di &vec, Orientation orientation) {
+		return vec.x + frontDir[orientation];
+	}
+
+	/**
 	 * Removes all the pieces.
 	 */
 	void clear() {
-		// TODO
+		for(int i = 0; i<width; ++i){
+			for (j = 0; j < height; ++j) {
+				map[i][j] = EMPTY;
+			}
+		}
 	}
 
 private:
-	MapElement map[SIZE_X][SIZE_Y];
-
+	MapElement map[][];
 };
 
 

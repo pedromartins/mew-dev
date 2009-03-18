@@ -142,6 +142,44 @@ depend:
 	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+electronic/CMakeFiles/mew_i2c.dir/rule:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 electronic/CMakeFiles/mew_i2c.dir/rule
+.PHONY : electronic/CMakeFiles/mew_i2c.dir/rule
+
+# Convenience name for target.
+mew_i2c: electronic/CMakeFiles/mew_i2c.dir/rule
+.PHONY : mew_i2c
+
+# fast build rule for target.
+mew_i2c/fast:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f electronic/CMakeFiles/mew_i2c.dir/build.make electronic/CMakeFiles/mew_i2c.dir/build
+.PHONY : mew_i2c/fast
+
+mew_i2c.o: mew_i2c.c.o
+.PHONY : mew_i2c.o
+
+# target to build an object file
+mew_i2c.c.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f electronic/CMakeFiles/mew_i2c.dir/build.make electronic/CMakeFiles/mew_i2c.dir/mew_i2c.c.o
+.PHONY : mew_i2c.c.o
+
+mew_i2c.i: mew_i2c.c.i
+.PHONY : mew_i2c.i
+
+# target to preprocess a source file
+mew_i2c.c.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f electronic/CMakeFiles/mew_i2c.dir/build.make electronic/CMakeFiles/mew_i2c.dir/mew_i2c.c.i
+.PHONY : mew_i2c.c.i
+
+mew_i2c.s: mew_i2c.c.s
+.PHONY : mew_i2c.s
+
+# target to generate assembly for a file
+mew_i2c.c.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f electronic/CMakeFiles/mew_i2c.dir/build.make electronic/CMakeFiles/mew_i2c.dir/mew_i2c.c.s
+.PHONY : mew_i2c.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -153,7 +191,11 @@ help:
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
+	@echo "... mew_i2c"
 	@echo "... rebuild_cache"
+	@echo "... mew_i2c.o"
+	@echo "... mew_i2c.i"
+	@echo "... mew_i2c.s"
 .PHONY : help
 
 

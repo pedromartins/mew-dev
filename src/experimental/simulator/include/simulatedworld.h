@@ -31,7 +31,7 @@ class SimulatedWorld {
 	 * Creates a default pre-made Simulated world configuration.
 	 */
 	SimulatedWorld(int map = 0);
-	SimulatedWorld(int width, int height);
+	SimulatedWorld(int width = DEFAULT_SIZE, int height = DEFAULT_SIZE);
 	virtual ~SimulatedWorld();
 
 	/**
@@ -83,8 +83,14 @@ class SimulatedWorld {
 			return;
 		}
 
-
 		entmap[entity].position = location;
+	}
+
+	/**
+	 * Returns whether are particular location is empty or not.
+	 */
+	bool isEmpty(Vector2di loc){
+		return map[loc.X][loc.Y] == EMPTY;
 	}
 
 	/**
@@ -126,7 +132,23 @@ class SimulatedWorld {
 		memset(map,EMPTY,width*height*sizeof(MapElement));
 	}
 
+	// prints the current world to screen
+	void show();
+
+	int getWidth() const { return width; }
+	int getHeight() const { return height; }
+
+	/**
+	 * Returns true iff the position is a valid coordinate in this world.
+	 */
+	bool valid(Vector2di newPos) {
+		return (newPos.x >= 0 && newPos.x < width &&
+				newPos.y >= 0 && newPos.y < height);
+	}
+
 private:
+	void printline(const char *string, int numtimes ) const;
+
 	int width;
 	int height;
 	MapElement map[][];

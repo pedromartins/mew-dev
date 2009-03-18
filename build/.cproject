@@ -18,7 +18,13 @@
 <project-mappings/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-
+<storageModule moduleId="org.eclipse.cdt.core.pathentry">
+<pathentry kind="src" path="MEWDEV"/>
+<pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
+<pathentry include="/usr/include" kind="inc" path="" system="true"/>
+<pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/electronic/include" kind="inc" path="" system="true"/>
+</storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
 <target name="all" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
@@ -70,24 +76,17 @@
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
-<target name="contourtest" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<target name="mew_i2c" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
-<buildTarget>contourtest</buildTarget>
+<buildTarget>mew_i2c</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
-<target name="roitest" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<target name="toddles" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
-<buildTarget>roitest</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="test" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments/>
-<buildTarget>test</buildTarget>
+<buildTarget>toddles</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
@@ -115,20 +114,6 @@
 <parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.pathentry">
-<pathentry include="/usr/include" kind="inc" path="" system="true"/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/device/include" kind="inc" path="" system="true"/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/electronic/include" kind="inc" path="" system="true"/>
-<pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/simulator/include" kind="inc" path="" system="true"/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/pathfinder/include" kind="inc" path="" system="true"/>
-<pathentry include="/usr/include/c++/4.3" kind="inc" path="" system="true"/>
-<pathentry base-path="maple" include="src/core/include" kind="inc" path="" system="true"/>
-<pathentry base-path="maple" include="src/perception/include" kind="inc" path="" system="true"/>
-<pathentry base-path="maple" include="src/control/include/robot" kind="inc" path="" system="true"/>
-<pathentry kind="src" path="MEWDEV"/>
-<pathentry excluding="MEWDEV/|**/CMakeFiles/" kind="out" path=""/>
 </storageModule>
 </cconfiguration>
 </storageModule>

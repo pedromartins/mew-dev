@@ -177,6 +177,9 @@ Project_BINARY_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/build
 Project_SOURCE_DIR:STATIC=/home/fushunpoon/dev/code/project/maple/src
 
 //Dependencies for target
+mew_i2c_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
 sim_LIB_DEPENDS:STATIC=
 
 
@@ -276,7 +279,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Advanced flag for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=10
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=4
 //Advanced flag for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //Advanced flag for variable: CMAKE_OBJDUMP
