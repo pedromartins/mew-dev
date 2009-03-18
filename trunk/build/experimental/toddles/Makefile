@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/fushunpoon/dev/code/project/maple/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && D:/dev/tools/build/cmake/bin/cmake-gui.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && /usr/bin/cmake -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && /usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -85,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -104,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	cd /home/fushunpoon/dev/code/project/maple/build/electronic && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /home/fushunpoon/dev/code/project/maple/build/experimental/toddles && /usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -113,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/electronic/CMakeFiles/progress.make
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 electronic/all
+	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles /home/fushunpoon/dev/code/project/maple/build/experimental/toddles/CMakeFiles/progress.make
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/toddles/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fushunpoon/dev/code/project/maple/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 electronic/clean
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/toddles/clean
 .PHONY : clean
 
 # The main clean target
@@ -129,18 +129,80 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 electronic/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/toddles/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 electronic/preinstall
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/toddles/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
 	cd /home/fushunpoon/dev/code/project/maple/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+experimental/toddles/CMakeFiles/toddles.dir/rule:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f CMakeFiles/Makefile2 experimental/toddles/CMakeFiles/toddles.dir/rule
+.PHONY : experimental/toddles/CMakeFiles/toddles.dir/rule
+
+# Convenience name for target.
+toddles: experimental/toddles/CMakeFiles/toddles.dir/rule
+.PHONY : toddles
+
+# fast build rule for target.
+toddles/fast:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/build
+.PHONY : toddles/fast
+
+mew_i2c.o: mew_i2c.c.o
+.PHONY : mew_i2c.o
+
+# target to build an object file
+mew_i2c.c.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/mew_i2c.c.o
+.PHONY : mew_i2c.c.o
+
+mew_i2c.i: mew_i2c.c.i
+.PHONY : mew_i2c.i
+
+# target to preprocess a source file
+mew_i2c.c.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/mew_i2c.c.i
+.PHONY : mew_i2c.c.i
+
+mew_i2c.s: mew_i2c.c.s
+.PHONY : mew_i2c.s
+
+# target to generate assembly for a file
+mew_i2c.c.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/mew_i2c.c.s
+.PHONY : mew_i2c.c.s
+
+toddles.o: toddles.cpp.o
+.PHONY : toddles.o
+
+# target to build an object file
+toddles.cpp.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/toddles.cpp.o
+.PHONY : toddles.cpp.o
+
+toddles.i: toddles.cpp.i
+.PHONY : toddles.i
+
+# target to preprocess a source file
+toddles.cpp.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/toddles.cpp.i
+.PHONY : toddles.cpp.i
+
+toddles.s: toddles.cpp.s
+.PHONY : toddles.s
+
+# target to generate assembly for a file
+toddles.cpp.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/toddles/CMakeFiles/toddles.dir/build.make experimental/toddles/CMakeFiles/toddles.dir/toddles.cpp.s
+.PHONY : toddles.cpp.s
 
 # Help Target
 help:
@@ -154,6 +216,13 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... toddles"
+	@echo "... mew_i2c.o"
+	@echo "... mew_i2c.i"
+	@echo "... mew_i2c.s"
+	@echo "... toddles.o"
+	@echo "... toddles.i"
+	@echo "... toddles.s"
 .PHONY : help
 
 
