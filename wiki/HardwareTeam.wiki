@@ -15,8 +15,8 @@ Datasheets
  * Motorcontroller MD22: http://www.robot-electronics.co.uk/htm/md22tech.htm
  * I2C to USB chip: http://www.technobots.co.uk/Data%20Sheets/3810-005.pdf
    * wiring ([http://www.arduino.cc/playground/Learning/I2C source]):
-   *  Arduino analog input 4 = I2C SDA
-   *  Arduino analog input 5 = I2C SCL 
+   *  Arduino analog input 4 = I2C SDA ->pin closer to +5V on USB->I2C adapter
+   *  Arduino analog input 5 = I2C SCL ->middle pin on USB->I2C adapter
 ----
 older stuff
 ----
