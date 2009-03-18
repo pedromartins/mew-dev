@@ -12,9 +12,10 @@
 
 #include <core.h>
 #include <vector>
-#include <string>
+#include <boost/shared_ptr.hpp>
 
 using namespace std;
+using namespace boost;
 using namespace mew;
 using namespace core;
 
@@ -34,6 +35,9 @@ Vector2di frontDir[4] = {
 	Vector2di(0,-1),// south
 	Vector2di(1,0) // west
 };
+
+// A list of Vectors2dis
+typedef boost::shared_ptr<std::list<Vector2di>> Vector2diList;
 
 /**
  * Orientation
@@ -89,7 +93,30 @@ private:
  * NOTE: this is a wrapper around the old simulator model.
  */
 class GridModel {
-	GridModel(int width, int height );
+
+	/**
+	 * GridSquareNode
+	 *
+	 * An A* wrapper node for a GridModel
+	 */
+	class GridSquareNode : public AStarNode {
+	public:
+		GridSquareNode() : pos() {}
+		GridSquareNode( int px, int py ): pos(px,py) {}
+
+		float getCost( IAStarNode &successor );
+		float heuristic( IAStartNode &nodeGoal );
+		bool isGoal( IAStarNode &nodeGoal );
+		inline bool equals( IAStarNode &rhs );
+		bool getSuccessors( AStarSearch<IAStarNode> *astarsearch, IAStarNode *parent_node );
+
+		Vector2di pos;
+	};
+
+
+	// START of Grid model code.
+
+	GridModel( int width, int height );
 
 	virtual ~GridModel();
 
@@ -141,9 +168,25 @@ class GridModel {
 		}
 	}
 
+	void visualize();
+
 private:
 	MapElement map[][];
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -184,37 +227,6 @@ class GridEntityModel {
 private:
 	C map[][];
 	// vector<boost::shared_ptr<E>> entities;
-};
-
-/**
- * EntityHeightmapModel
- *
- * A basic 2D model that works with certain resolution grid, and
- *
- */
-class EntityHeightmapModel : public GridEntityModel<int,IEntity> {
-public:
-	EntityHeightmapModel(int columns, int rows);
-	virtual ~EntityHeightmapModel();
-
-	virtual void registerStaticEntity(StaticEntity *static_ent);
-	virtual void registerKinematicEntity(KinematicEntity *kin_ent);
-
-
-	virtual void removeStaticEntity(StaticEntity *static_ent);
-	virtual void removeKinematicEntity(KinematicEntity *kin_ent);
-protected:
-	// Updates the heightmap. Usually called after an addition of
-	// an entity or
-	virtual void updateMap();
-
-
-private:
-	int columns;
-	int height;
-	int rows;
-
-	Robot robot; // This is the robot currently holding this model.
 };
 
 #endif /* MODEL_H_ */

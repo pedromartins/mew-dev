@@ -156,20 +156,29 @@ test/fast:
 	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/build
 .PHONY : test/fast
 
-# target to build an object file
-test.o:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.o
+test.o: test.cpp.o
 .PHONY : test.o
 
-# target to preprocess a source file
-test.i:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.i
+# target to build an object file
+test.cpp.o:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.cpp.o
+.PHONY : test.cpp.o
+
+test.i: test.cpp.i
 .PHONY : test.i
 
-# target to generate assembly for a file
-test.s:
-	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.s
+# target to preprocess a source file
+test.cpp.i:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.cpp.i
+.PHONY : test.cpp.i
+
+test.s: test.cpp.s
 .PHONY : test.s
+
+# target to generate assembly for a file
+test.cpp.s:
+	cd /home/fushunpoon/dev/code/project/maple/build && $(MAKE) -f experimental/pathfinder/CMakeFiles/test.dir/build.make experimental/pathfinder/CMakeFiles/test.dir/test.cpp.s
+.PHONY : test.cpp.s
 
 # Help Target
 help:
