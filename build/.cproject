@@ -24,6 +24,7 @@
 <pathentry include="/usr/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
 <pathentry include="/home/fushunpoon/dev/code/project/maple/src/electronic/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/toddles" kind="inc" path="" system="true"/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
@@ -73,13 +74,6 @@
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
 <buildTarget>rebuild_cache</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="mew_i2c" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments/>
-<buildTarget>mew_i2c</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
