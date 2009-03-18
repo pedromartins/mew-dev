@@ -24,7 +24,9 @@
 <pathentry include="/usr/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/include/opencv" kind="inc" path="" system="true"/>
 <pathentry include="/home/fushunpoon/dev/code/project/maple/src/electronic/include" kind="inc" path="" system="true"/>
-<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/toddles" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/simulator/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/experimental/pathfinder/include" kind="inc" path="" system="true"/>
+<pathentry include="/home/fushunpoon/dev/code/project/maple/src/simulator/include" kind="inc" path="" system="true"/>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
@@ -77,10 +79,10 @@
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
-<target name="toddles" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
+<target name="test" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments/>
-<buildTarget>toddles</buildTarget>
+<buildTarget>test</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
