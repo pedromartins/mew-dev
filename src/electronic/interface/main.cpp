@@ -1,5 +1,4 @@
-#include "serial.h"
-#include "sensors.h"
+#include "arduino.h"
 
 #include <iostream>
 
@@ -7,21 +6,14 @@ using namespace std;
 
 int main()
 {
-	int arduino;
-	arduino = serialport_init("/dev/ttyUSB0", 9600);
+	Arduino ard;
+	ard.init();
 
-	IRreadings *irr = NULL;
-	irr = getIRreadings(arduino);
+	int ir[4];
+	ard.getIRreadings((int*)&ir);
 
-
-	//sleep(1);
-
-	cout << irr->ir0 << " " << irr->ir1 << " " << irr->ir2 << " " << irr->ir3 << endl;
-	cout << getCompassreading(arduino) << endl;
-
-
-	serialport_close(arduino);
-	delete irr;
+	cout << "Arduino: Compassheading: " << ard.getCompassreading() << "; IR ranges: ";
+	//cout << irr.ir0 << ", " << irr.ir1 << ", " << irr.ir2 << ", " << irr.ir3 << endl;
 
 	return 0;
 }
