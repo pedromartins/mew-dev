@@ -86,7 +86,7 @@ void sendIrReadings()
 //end IR bit. simply call  sendIRreadings(); as required.
 
 //begin ultrasound
-
+/*
 int usPin = 10;
 
 void sendUltraSoundReadings()
@@ -119,7 +119,7 @@ int microsecondsToCentimeters(long microseconds)
   // object we take half of the distance travelled.
   return microseconds / 29 / 2;
 }
-
+*/
 
 //end ultrasound
 
