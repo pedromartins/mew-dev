@@ -1,17 +1,17 @@
 CFLAGS = -g
 
-sensortest: main.o serial.o sensors.o
-	g++ $(CFLAGS) -o sensortest *.o
+test: main.o serial.o arduino.o
+	g++ $(CFLAGS) -o test *.o
 
 main.o: main.cpp
 	g++ $(CFLAGS) -c main.cpp
 
+arduino.o: arduino.cpp arduino.h
+	g++ $(CFLAGS) -c arduino.cpp
+
 serial.o: serial.cpp serial.h
 	g++ $(CFLAGS) -c serial.cpp
 
-sensors.o: sensors.cpp sensors.h
-	g++ $(CFLAGS) -c sensors.cpp
-
 clean:
 	rm *.o
-	rm sensortest
+	rm test
