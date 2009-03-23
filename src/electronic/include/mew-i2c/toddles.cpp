@@ -12,7 +12,8 @@
 // "/dev/ttyUSB0"
 //you can just grep /dev and have a look!
 
-#define DEVICE_NODE "/dev/ttyUSB0"
+#define DEVICE_NODE "/dev/ttyUSB1"
+#define ARDUINO_NODE "/dev/ttyUSB0"
 
 #define KEY_ESC 27
 #define KEY_J 106
@@ -23,8 +24,8 @@
 #define KEY_SPACE 32
 
 #define STATIONARY 127
-#define MAX_FORWARD 255
-#define MAX_BACKWARD 0
+#define MAX_FORWARD 195
+#define MAX_BACKWARD 60
 
 #include <unistd.h>
 #include <opencv/cv.h>
@@ -32,9 +33,22 @@
 #include <iostream>
 #include <signal.h>
 #include "mew_i2c.h"
+#include "serial.h"
+#include "sensors.h"
+
 
 using namespace std;
 
+
+/**
+ * Orientation
+ *
+ * A simple enumeration for a SimpleGridModel.
+ * Logical north mayn't correspond to magnetic north.
+ */
+enum Orientation {
+	NORTH, WEST, SOUTH, EAST
+};
 
 enum motor_t {
 	LEFT,
@@ -49,6 +63,9 @@ struct power_level_t {
 
 void initCV();
 void endCV();
+
+void initSerial();
+void endSerial();
 
 void loop();
 void findkey();
@@ -79,11 +96,20 @@ void handleCVKeyPresses(power_level_t *pl);
 power_level_t curr_pow = { STATIONARY, STATIONARY };
 
 
-// If 1, then we are running the straightline program.
+// If 1, thend we are running the straightline program.
 int straight_line_program = 0;
 
 // whether we are running the loop
 bool loop_running = true;
+
+// robot state
+// Vector2di pos;
+// Orientation ori;
+int ori_off = 0; // clockwise offset of 'logical north' from magnetic north.
+
+// The arduino ID
+int arduino;
+
 
 CvCapture *cam;
 IplImage *image;
@@ -99,14 +125,22 @@ int main(void){
 
 	init_comms(DEVICE_NODE);
 	initCV(); // initializes CV
+	initSerial();
 
 	updatePowerLevel(&curr_pow);
 
 	loop();
 
+	endSerial();
 	endCV();
 	end_comms();
 	//findkey();
+}
+
+
+void initSerial() {
+	IRreadings *irr = NULL;
+	arduino = serialport_init(ARDUINO_NODE, 9600);
 }
 
 /**
@@ -123,6 +157,10 @@ void initCV() {
 
 void endCV(){
 	cvDestroyAllWindows();
+}
+
+void endSerial(){
+	serialport_close(arduino);
 }
 
 
@@ -240,12 +278,10 @@ void handleEmergencyStopButton(power_level_t *pl){
 	switch(c) {
 	case KEY_SPACE:
 		stop(&curr_pow);
-		curr_pow.left_power_level = STATIONARY;
-		curr_pow.right_power_level = STATIONARY;
+		straight_line_program = false; // stop program from running.
 		break;
 	}
-	
-	straight_line_program = false; // stop program from running.
+
 }
 
 /**
@@ -303,6 +339,20 @@ void truncate_power_level(power_level_t *pl) {
  */
 void sensorInterruption(power_level_t *pl){
 	// TODO: do something meaningful with sensors
+	
+	// namely stop the program.
+	IRreadings *irr = getIRreadings(arduino);
+
+	//sleep(1)
+	if (irr->ir0 < 30) {
+		stop(pl);	
+		straight_line_program = false;
+	}
+	
+	// cout <<  << " " << irr->ir1 << " " << irr->ir2 << " " << irr->ir3 << endl;
+	// cout << getCompassreading(arduino) << endl;
+	
+	delete irr;
 }
 
 
@@ -317,7 +367,7 @@ void sensorInterruption(power_level_t *pl){
  */
 void updatePowerLevel(power_level_t *pl) {
 	setRawPowerLevel(LEFT, pl->left_power_level);
-	setRawPowerLevel(RIGHT, STATIONARY-(pl->right_power_level-STATIONARY));
+	setRawPowerLevel(RIGHT, pl->right_power_level);
 }
 
 /**
