@@ -1,5 +1,3 @@
-#include "mew_i2c.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,6 +7,8 @@
 #include <unistd.h>
 #include <termios.h>
 
+#include "mew_i2c.h"
+
 static int fd;
 
 void init_comms(const char * device_node){
@@ -17,8 +17,10 @@ void init_comms(const char * device_node){
 
 	printf("opening device\n");	
 	//open the device
-	if((fd = open(device_node, O_RDWR | O_NOCTTY)) < 0)
+	if((fd = open(device_node, O_RDWR | O_NOCTTY)) < 0) {
 		perror("error opening device");
+		exit(1);
+	}
 	
 	//set up the serial port attributes
 	tcgetattr(fd, &current_tios); //save the current setting
@@ -41,9 +43,8 @@ void end_comms(){
 }
 
 void send_byte(int addr, char byte_to_send){
-	char* message;
+	char message[3];
 
-	message = malloc(3);
 	//create the message:
 	message[0] = I2C_SGL;
 	message[1] = (addr << 1);
@@ -53,15 +54,12 @@ void send_byte(int addr, char byte_to_send){
 	//write a message
 	if((write(fd, message, 3)) < 0)
 		perror("writing to device");
-
-	free(message);
 }
 
 //could maybe make this a bit safer, byte array!
 void write_byte_to_register(int addr, int reg, char command){
-	char* message;
+	char message[5];
 
-	message = malloc(5);
 	//create the message:
 	message[0] = I2C_CMD;
 	message[1] = (addr); //they didn't specify the address right, no shifting!
@@ -74,7 +72,6 @@ void write_byte_to_register(int addr, int reg, char command){
 	if((write(fd, message, 5)) < 0)
 		perror("writing to device");
 
-	free(message);
 }
 
 

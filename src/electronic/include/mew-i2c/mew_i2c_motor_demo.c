@@ -13,26 +13,29 @@
 
 #define DEVICE_NODE "/dev/ttyUSB1"
 
+#include <unistd.h>
+
+
 void loop();
 
 int main(void){
-  init_comms(DEVICE_NODE);
-  loop();
-  end_comms();
+	init_comms(DEVICE_NODE);
+	loop();
+	end_comms();
 }
 
 void loop(){
-  int speed;
-  for(speed = 130; speed < 240; speed+=5){
-    write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
-    sleep(1);
-  }
-  for(speed = 240; speed > 10; speed-=5){
-    write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
-    sleep(1);
-  }
-  for(speed = 10; speed < 130; speed+=5){
-    write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
-    sleep(1);
-  }
+	int speed;
+	for(speed = 130; speed < 240; speed+=5){
+		write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
+		usleep(1000000);
+	}
+	for(speed = 240; speed > 10; speed-=5){
+		write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
+		usleep(1000000);
+	}
+	for(speed = 10; speed < 130; speed+=5){
+		write_byte_to_register(WHEEL_MOTOR_CONTROLLER, WHEEL_MOTOR_CONTROLLER_LEFT_SPEED, speed);
+		usleep(1000000);
+	}
 }

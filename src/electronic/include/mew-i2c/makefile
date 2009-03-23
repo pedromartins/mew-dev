@@ -1,12 +1,21 @@
-demo:	./build/mew_i2c.o ./build/mew_i2c_demo.o
-	gcc -g -o ./demo ./build/mew_i2c.o ./build/mew_i2c_demo.o
+INCLUDES = -I/usr/include/opencv/ -I.
+LIBS = -lcv -lhighgui
+LIB_PATH = -L/usr/lib/
 
-./build/mew_i2c.o:	mew_i2c.c mew_i2c.h
-	gcc -g -c mew_i2c.c -o ./build/mew_i2c.o
 
-./build/mew_i2c_demo.o:	mew_i2c_demo.c
-	gcc -g -c mew_i2c_demo.c -o ./build/mew_i2c_demo.o
+toddles : toddles.cpp serial.cpp sensors.cpp mew_i2c.c
+	g++ serial.cpp sensors.cpp mew_i2c.c toddles.cpp ${LIBS} -o toddles
+
+#toddles.o:	mew_i2c.o
+#	g++ -c ${INCLUDES} ${LIBS} ${LIB_PATH} -o toddles.o
+
+
+#mew_i2c.o:	mew_i2c.c mew_i2c.h
+#	gcc -g -c mew_i2c.c -o mew_i2c.o
+
+#mew_i2c_demo.o:	mew_i2c_demo.c
+#	gcc -g -c mew_i2c_demo.c -o mew_i2c_demo.o
 
 clean:
-	rm ./build/*
-	rm ./demo
+	rm *.o
+	rm toddles
