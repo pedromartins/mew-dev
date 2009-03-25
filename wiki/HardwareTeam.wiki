@@ -17,6 +17,10 @@ Datasheets
    * wiring ([http://www.arduino.cc/playground/Learning/I2C source]):
    *  Arduino analog input 4 = I2C SDA ->pin closer to +5V on USB->I2C adapter
    *  Arduino analog input 5 = I2C SCL ->middle pin on USB->I2C adapter
+
+The I2C adapter image:
+
+[http://mew-dev.googlecode.com/svn/wiki/images/i2c.jpg]
 ----
 older stuff
 ----
