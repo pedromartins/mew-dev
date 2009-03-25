@@ -93,18 +93,21 @@ void Arduino::init()
 					return;
 				}
 				break;
-			case 'm':		//the motor
+			case 'u':		//the ultrasound arduino
 				if(!arduino[2])
 					arduino[2] = arduino_fd;
 				else
 				{
-					cout << "Error! 2 arduinos claim to control the motors!" << endl;
+					cout << "Error! 2 arduinos claim to read the ultrasound sensors!" << endl;
 					return;
 				}
 				break;
 		}//end switch
 
 	}	//end for loop
+
+	//tell us which arduino is where
+	
 }
 
 //-----------------------------------------------------sensor part
@@ -121,7 +124,7 @@ void Arduino::getIRreadings(int* vals)
 
 	istringstream iss (buf);
 
-	memset(&vals, 0, 4);	//clear the first 4 instances of vals.
+	memset(vals, 0, 4);	//clear the first 4 instances of vals.
 
 	for(int i = 0; i < 4; i++)
 	{
@@ -146,6 +149,28 @@ int Arduino::getCompassreading()
 		return -1;
 
 	return reading;
+}
+
+void Arduino::getUSreadings(int* vals)
+{
+	char buf[128];
+	memset(&buf, 0, 128);
+
+	if(serialport_write(arduino[0], "i;\n") == -1)
+		cout << "An error occured while requesting the IR ranges." << endl;
+
+	usleep(50000);
+	serialport_read_until(arduino[0], (char*)&buf, ';');
+
+	istringstream iss (buf);
+
+	memset(vals, 0, 2);	//clear the first 4 instances of vals.
+
+	for(int i = 0; i < 2; i++)
+	{
+		iss >> vals[i];
+	}
+
 }
 
 //----------------------------------------end of sensor part
