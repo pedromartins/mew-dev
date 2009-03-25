@@ -1,3 +1,4 @@
+#define BAUDRATE 38400
 //compass part
 #include <Wire.h>
 
@@ -59,6 +60,7 @@ byte read_gp2d12_range(byte pin)
     return -1; // invalid value
 
   ret = (byte)( (6787.0 /((float)tmp - 3.0)) - 4.0 );
+
   if(ret > 70)
     return -2;
   else if(ret < 4)
@@ -85,55 +87,16 @@ void sendIrReadings()
 
 //end IR bit. simply call  sendIRreadings(); as required.
 
-//begin ultrasound
-/*
-int usPin = 10;
-
-void sendUltraSoundReadings()
-{
-  long duration;
-  int cm;
-
-  //147microsecs/inch
-
-  // The same pin is used to read the signal from the PING))): a HIGH
-  // pulse whose duration is the time (in microseconds) from the sending
-  // of the ping to the reception of its echo off of an object.
-
-  duration = pulseIn(usPin, HIGH);
-
-  // convert the time into a distance
-  cm = microsecondsToCentimeters(duration);
-
-  Serial.print(cm, DEC);
-  Serial.print("cm");
-  Serial.println();
-
-  delay(100);
-}
-
-int microsecondsToCentimeters(long microseconds)
-{
-  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
-  // The ping travels out and back, so to find the distance of the
-  // object we take half of the distance travelled.
-  return microseconds / 29 / 2;
-}
-*/
-
-//end ultrasound
-
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE);
   
   //initialise IR pins to INPUT
   for(int i = 0; i < 4; i++)
   {
     pinMode(IR_pins[i],INPUT);
   }
-  //ultrasound
-  pinMode(usPin, INPUT);
+
   //init compass stuff
   slaveAddress = HMC6352Address >> 1;   // This results in 0x21 as the address to pass to TWI
   Wire.begin();
@@ -156,6 +119,7 @@ void loop()
     {
       case 'i':
         sendIrReadings();
+        delay(36);    //mi delay
         break;
       case 'c':
         sendCompassReading();
