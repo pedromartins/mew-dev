@@ -15,6 +15,23 @@ Datasheets
 The I2C adapter image:
 
 [http://mew-dev.googlecode.com/svn/wiki/images/i2c.jpg]
+
+----
+Hardware (Arduino) setup
+----
+
+Sensors:
+ * Compass: connect VCC to +3V, GND as appropriate, SDA to ANALOG-IN 4, SCL to ANALOG-IN 5 on the Arduino.
+ * IR's: red wire goes to +5V, black to GND and white to ANALOG-IN 0-3 (positions currently undefined)
+
+Ultrasound (see backside of the sensors for pin names):
+ * Connect GND and +5 appropriately.
+ * Connect AN to ANALOG-IN 0 and 1 on the ultrasound-Arduino (positions currently undefined)
+
+Servos:
+ * Attach shield
+ * Lintel Servo: bottom left (0)
+
 ----
 older stuff
 ----
