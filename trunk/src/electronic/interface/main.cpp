@@ -10,11 +10,11 @@ int main()
 	ard.init();
 
 	//get the IR headings into an array like this:
-	int ir[4];
+	int ir[4] = {-1, -1, -1, -1};
 	ard.getIRreadings((int*)&ir);
 	cout << "Arduino: IR sensors: " << ir[0] << ", " << ir[1] << ", " << ir[2] << ", " << ir[3] << endl;
 
-	int us[2];
+	int us[2] = {-1, -1};
 	ard.getUSreadings((int*)&us);
 	cout << "Arduino: Ultrasound sensors: " << us[0] << ", " << us[1] << endl;
 

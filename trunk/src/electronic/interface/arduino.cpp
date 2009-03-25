@@ -66,7 +66,7 @@ void Arduino::init()
 		//now, ask the arduino which one it is! send it a '?;'
 		serialport_write(arduino_fd, "?;");
 		//let it think... we're not in a hurry since this is initialisation business.
-		usleep(50000);
+		usleep(100000);
 		serialport_read_until(arduino_fd, (char*)&buf, ';');	//get the reply
 
 
