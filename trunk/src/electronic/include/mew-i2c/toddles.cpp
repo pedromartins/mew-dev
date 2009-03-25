@@ -61,11 +61,22 @@ struct power_level_t {
 	int right_power_level;
 };
 
+/**
+ * Forward class declarations for 'Programs'
+ */
+class Program;
+class ForwardAndStopProgram;
+class NavigateAroundObstacleProgram;
+class RemoteCVControlledProgram;
+
 void initCV();
 void endCV();
 
 void initSerial();
 void endSerial();
+
+void initProgram(); // what program should the robot run?
+void endProgram();  // program cleanup code...
 
 void loop();
 void findkey();
@@ -96,8 +107,11 @@ void handleCVKeyPresses(power_level_t *pl);
 power_level_t curr_pow = { STATIONARY, STATIONARY };
 
 
-// If 1, thend we are running the straightline program.
-int straight_line_program = 0;
+
+/**************************
+ * Robot State information
+ **************************/
+Program *prog;
 
 // whether we are running the loop
 bool loop_running = true;
@@ -127,9 +141,11 @@ int main(void){
 	initCV(); // initializes CV
 	initSerial();
 
+
 	updatePowerLevel(&curr_pow);
 
 	loop();
+
 
 	endSerial();
 	endCV();
@@ -166,37 +182,65 @@ void endSerial(){
 
 /**
  * This is the main loop of the robot system.
- * 
+ *
  * 0.1: This loop handled keypresses to control motor power levels
  * 		and displayed the image on the camera.
  * 0.2: This loop should, on execution, make the robot move forwards
  * 		until its IR sensor finds an obstacle, at which point it stops.
- * 
+ *
  */
 void loop() {
 
 	while( loop_running ){
 		// update the webcam image.
 		updateCVImage();
-		
-		// if we are running the straightline program, 
-		if (straight_line_program) {
-			driveForward(&curr_pow); // the actual program output.
-			sensorInterruption(&curr_pow); // if the sensor detects something, stop.
-			handleEmergencyStopButton(&curr_pow); // overriding stopping power level.
-		} else {
-			handleCVKeyPresses(&curr_pow);
-		}
-		
+
+		program->run();
+
 		// update the trackbars to reflect updated curr_pows.
 		updateTrackbars(&curr_pow);
-	
+
 		// send the new power levels.
 		updatePowerLevel(&curr_pow);
-		
+
 	}
 
 }
+
+class Program {
+	void run() = 0;
+};
+
+/**
+ * Makes the robot drive forward and when the sensor detects something in front
+ * it stops the robot entirely.
+ */
+class ForwardAndStopProgram : public Program {
+	void run() {
+		driveForward(&curr_pow); // the actual program output.
+		sensorInterruption(&curr_pow); // if the sensor detects something, stop.
+		handleEmergencyStopButton(&curr_pow); // overriding stopping power level.
+	}
+}
+
+class RemoteCVControlledProgram : public Program {
+	void run() {
+		handleCVKeyPresses(&curr_pow);
+	}
+};
+
+/**
+ * This program rotates the robot around right 90 degrees, moves a pre-defined
+ * amount left, moves a certain amount
+ *
+ * Effectively, this navigates the robot using simple movements around a rectangular
+ * area.
+ */
+class NavigateAroundObstacleProgram : public Program {
+	void run() {
+		handleCVKeyPresses(&curr_pow);
+	}
+};
 
 /*********************************************
  * Helper functions
@@ -205,7 +249,7 @@ void loop() {
 void terminationHandler(int signum) {
 	stop(&curr_pow);
 	updatePowerLevel(&curr_pow);
-	
+
 	endCV();
 	end_comms();
 	cout<< "Dying nicely...! :(" << endl;
@@ -257,11 +301,11 @@ void turnRight(power_level_t *pl) {
 	pl-> left_power_level = MAX_FORWARD;
 	pl-> right_power_level = MAX_BACKWARD;
 }
-	
+
 
 /**
  * Stops the robot.
- */ 
+ */
 void stop(power_level_t *pl) {
 	pl->left_power_level = STATIONARY;
 	pl->right_power_level = STATIONARY;
@@ -274,7 +318,7 @@ void stop(power_level_t *pl) {
 void handleEmergencyStopButton(power_level_t *pl){
 	int c = 0;
 	c = cvWaitKey(400);
-	
+
 	switch(c) {
 	case KEY_SPACE:
 		stop(&curr_pow);
@@ -286,7 +330,7 @@ void handleEmergencyStopButton(power_level_t *pl){
 
 /**
  * For use with loop version 0.1
- * 
+ *
  * Pass in a power level and it would be appropriately changed.
  */
 void handleCVKeyPresses(power_level_t *pl) {
@@ -339,19 +383,19 @@ void truncate_power_level(power_level_t *pl) {
  */
 void sensorInterruption(power_level_t *pl){
 	// TODO: do something meaningful with sensors
-	
+
 	// namely stop the program.
 	IRreadings *irr = getIRreadings(arduino);
 
 	//sleep(1)
 	if (irr->ir0 < 30) {
-		stop(pl);	
+		stop(pl);
 		straight_line_program = false;
 	}
-	
+
 	// cout <<  << " " << irr->ir1 << " " << irr->ir2 << " " << irr->ir3 << endl;
 	// cout << getCompassreading(arduino) << endl;
-	
+
 	delete irr;
 }
 
