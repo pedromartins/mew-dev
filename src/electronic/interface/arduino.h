@@ -31,6 +31,7 @@ public:
 	//... todo: add them
 
 private:
+	bool checkConnection(int a);	//is an arduino connected? e.g. checkConnection(CONTROL);
 	int arduino[NUMOFARDUINOS];		//file descriptors for our 3 arduinos
 				// arduino[0] = sensor arduino
 				// arduino[1] = servo arduino

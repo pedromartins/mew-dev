@@ -110,9 +110,23 @@ void Arduino::init()
 	
 }
 
+//check connection
+bool Arduino::checkConnection(int a)
+{
+	if(arduino[a] <= 0)	//check it's filedescriptor
+	{
+		cout << "Error trying to connecto to Arduino " << a << "! Aborting function call." << endl;
+		return false;
+	}
+	return true;
+}
+
 //-----------------------------------------------------sensor part
 void Arduino::getIRreadings(int* vals)
 {
+	if(!checkConnection(SENSORS))
+		return;
+
 	char buf[128];
 	memset(&buf, 0, 128);
 
@@ -135,6 +149,9 @@ void Arduino::getIRreadings(int* vals)
 
 int Arduino::getCompassreading()
 {
+	if(!checkConnection(SENSORS))
+		return -1;
+
 	char buf[128];
 	memset(&buf, 0, 128);
 
@@ -153,10 +170,13 @@ int Arduino::getCompassreading()
 
 void Arduino::getUSreadings(int* vals)
 {
+	if(!checkConnection(ULTRASOUND))
+		return;
+
 	char buf[128];
 	memset(&buf, 0, 128);
 
-	if(serialport_write(arduino[ULTRASOUND], "i;\n") == -1)
+	if(serialport_write(arduino[ULTRASOUND], "u;\n") == -1)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
@@ -178,10 +198,16 @@ void Arduino::getUSreadings(int* vals)
 //-----------------------------------------------------control part
 
 void Arduino::dropLintel() {
+	if(!checkConnection(CONTROL))
+		return;
+
 	servos_setPos(LINTELSERVO, 15);
 }
 
 void Arduino::resetLintel() {
+	if(!checkConnection(CONTROL))
+		return;
+
 	servos_setPos(LINTELSERVO, 50);
 }
 
