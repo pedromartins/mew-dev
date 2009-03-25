@@ -17,7 +17,7 @@ The I2C adapter image:
 [http://mew-dev.googlecode.com/svn/wiki/images/i2c.jpg]
 
 ----
-Hardware (Arduino) setup
+Hardware setup
 ----
 
 Sensors:
@@ -29,8 +29,11 @@ Ultrasound (see backside of the sensors for pin names):
  * Connect AN to ANALOG-IN 0 and 1 on the ultrasound-Arduino (positions currently undefined)
 
 Servos:
- * Attach shield
+ * Attach shield to Arduino
  * Lintel Servo: bottom left (0)
+
+Motors:
+ * Connect the I2C adapter to the motor controller (black wire: GND, red: +5V, blue with flag: SCL, blue without flag: SDA)
 
 ----
 older stuff
