@@ -14,6 +14,7 @@ public:
 
 	//sensor acquiring functions
 	void getIRreadings(int* buf);	//buf must be an array of 4 integers; this function returns the set of IR sensor values, each in cm.
+	void getUSreadings(int* buf);	//buf must be an array of 2 integers; this function returns the set of Ultrasound sensor values, each in cm.
 	int getCompassreading();	//returns the compass heading in "milli-degrees" (i.e. .1 of a degree)
 
 	//servo control functions
