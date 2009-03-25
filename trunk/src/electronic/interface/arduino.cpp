@@ -12,15 +12,15 @@ using namespace std;
 Arduino::Arduino()
 {
 	//initialise the file descriptors
-	arduino[0] = 0;
-	arduino[1] = 0;
-	arduino[2] = 0;
+	for(int i=0; i<NUMOFARDUINOS; i++) {
+		arduino[i] = 0;
+	}
 }
 
 Arduino::~Arduino()
 {
 	//close all open ttyUSB connections
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
 		if(arduino[i])
 			close(arduino[i]);
@@ -37,7 +37,7 @@ void Arduino::init()
 	ostringstream number;
 	char buf[5];
 
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
 		//build a string that tells us which ttyUSB to connect to.
 		usbadapter = "/dev/ttyUSB";
@@ -47,7 +47,7 @@ void Arduino::init()
 		usbadapter.append(number.str());
 		//ok, the USB adapter has been built.
 
-		arduino_fd = serialport_init(usbadapter.c_str(), 9600);	//open it up
+		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
 
 		//check for errors
 		if(arduino_fd < 0)
@@ -76,8 +76,8 @@ void Arduino::init()
 		switch(buf[0])
 		{
 			case 's':		//sensors
-				if(!arduino[0])
-					arduino[0] = arduino_fd;
+				if(!arduino[SENSORS])
+					arduino[SENSORS] = arduino_fd;
 				else
 				{
 					cout << "Error! 2 arduinos claim to handle sensors!" << endl;
@@ -85,8 +85,8 @@ void Arduino::init()
 				}		
 				break;
 			case 'c':		//the control thingy, i.e. the servos... sorry, only 1 s available
-				if(!arduino[1])				
-					arduino[1] = arduino_fd;
+				if(!arduino[CONTROL])				
+					arduino[CONTROL] = arduino_fd;
 				else
 				{
 					cout << "Error! 2 arduinos claim to control servos!" << endl;
@@ -94,8 +94,8 @@ void Arduino::init()
 				}
 				break;
 			case 'u':		//the ultrasound arduino
-				if(!arduino[2])
-					arduino[2] = arduino_fd;
+				if(!arduino[ULTRASOUND])
+					arduino[ULTRASOUND] = arduino_fd;
 				else
 				{
 					cout << "Error! 2 arduinos claim to read the ultrasound sensors!" << endl;
@@ -116,11 +116,11 @@ void Arduino::getIRreadings(int* vals)
 	char buf[128];
 	memset(&buf, 0, 128);
 
-	if(serialport_write(arduino[0], "i;\n") == -1)
+	if(serialport_write(arduino[SENSORS], "i;\n") == -1)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[0], (char*)&buf, ';');
+	serialport_read_until(arduino[SENSORS], (char*)&buf, ';');
 
 	istringstream iss (buf);
 
@@ -138,11 +138,11 @@ int Arduino::getCompassreading()
 	char buf[128];
 	memset(&buf, 0, 128);
 
-	if(serialport_write(arduino[0], "c;\n") == -1)
+	if(serialport_write(arduino[SENSORS], "c;\n") == -1)
 		cout << "An Error occured while requesting the compass reading." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[0], (char*)&buf, ';');
+	serialport_read_until(arduino[SENSORS], (char*)&buf, ';');
 
 	int reading = atoi((char*)&buf);
 	if(reading == 0 || buf == "0")
@@ -156,11 +156,11 @@ void Arduino::getUSreadings(int* vals)
 	char buf[128];
 	memset(&buf, 0, 128);
 
-	if(serialport_write(arduino[0], "i;\n") == -1)
+	if(serialport_write(arduino[ULTRASOUND], "i;\n") == -1)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[0], (char*)&buf, ';');
+	serialport_read_until(arduino[ULTRASOUND], (char*)&buf, ';');
 
 	istringstream iss (buf);
 
@@ -174,3 +174,71 @@ void Arduino::getUSreadings(int* vals)
 }
 
 //----------------------------------------end of sensor part
+
+//-----------------------------------------------------control part
+
+void Arduino::dropLintel() {
+	servos_setPos(LINTELSERVO, 15);
+}
+
+void Arduino::resetLintel() {
+	servos_setPos(LINTELSERVO, 50);
+}
+
+void Arduino::servos_setPos(char servoNum, int inAngle)
+{
+	//Moves a servo to specified angle.
+	int angle = inAngle;
+
+	if(angle > 180) angle = 180; //Constrain angle to within servo limits
+	if(angle < 0) angle = 0;
+	
+	//Write command string to the serial port
+	serialport_writebyte(arduino[CONTROL],'s');
+	serialport_writebyte(arduino[CONTROL],'c');
+	serialport_writeubyte(arduino[CONTROL],servoNum);
+	serialport_writebyte(arduino[CONTROL],'m');
+	serialport_writeubyte(arduino[CONTROL],0);
+	serialport_writeubyte(arduino[CONTROL],angle);
+	serialport_writebyte(arduino[CONTROL],';');
+}
+
+void Arduino::servos_setMin(int servoNum, int inNum)
+{
+	//Changes a servos minimum pulse length (in uSeconds)
+	
+	int LSByte, MSByte;
+
+	LSByte = inNum%256;
+	MSByte = (inNum-LSByte)/256;
+
+	//Write command string to the serial port
+	serialport_writebyte(arduino[CONTROL],'s');
+	serialport_writebyte(arduino[CONTROL],'c');
+	serialport_writeubyte(arduino[CONTROL],servoNum);
+	serialport_writebyte(arduino[CONTROL],'n');
+	serialport_writeubyte(arduino[CONTROL],MSByte);
+	serialport_writeubyte(arduino[CONTROL],LSByte);
+	serialport_writebyte(arduino[CONTROL],';');
+}
+
+void Arduino::servos_setMax(int servoNum, int inNum)
+{
+	//Changes a servos maximum pulse length (in uSeconds)
+	
+	int LSByte, MSByte;
+
+	LSByte = inNum%256;
+	MSByte = (inNum-LSByte)/256;
+
+	//Write command string to the serial port
+	serialport_writebyte(arduino[CONTROL],'s');
+	serialport_writebyte(arduino[CONTROL],'c');
+	serialport_writeubyte(arduino[CONTROL],servoNum);
+	serialport_writebyte(arduino[CONTROL],'x');
+	serialport_writeubyte(arduino[CONTROL],MSByte);
+	serialport_writeubyte(arduino[CONTROL],LSByte);
+	serialport_writebyte(arduino[CONTROL],';');
+}
+
+//-----------------------------------------------------end of control part

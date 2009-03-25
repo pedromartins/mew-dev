@@ -21,6 +21,14 @@ int serialport_writebyte( int fd, char b)
     return 0;
 }
 
+int serialport_writeubyte( int fd, unsigned char b) //unsigned
+{
+    int n = write(fd,&b,1);
+    if( n!=1)
+        return -1;
+    return 0;
+}
+
 int serialport_write(int fd, const char* str)
 {
     int len = strlen(str);

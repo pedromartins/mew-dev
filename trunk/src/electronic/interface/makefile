@@ -1,4 +1,4 @@
-CFLAGS =# -g
+CFLAGS = -g
 
 test: main.o serial.o arduino.o
 	g++ $(CFLAGS) -o test *.o

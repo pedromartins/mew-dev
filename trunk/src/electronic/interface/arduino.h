@@ -3,6 +3,12 @@
 
 #include "serial.h"
 
+
+#define BAUDRATE 38400
+#define LINTELSERVO 0
+
+enum {SENSORS, CONTROL, ULTRASOUND, NUMOFARDUINOS};
+
 class Arduino
 {
 public:
@@ -18,13 +24,22 @@ public:
 	int getCompassreading();	//returns the compass heading in "milli-degrees" (i.e. .1 of a degree)
 
 	//servo control functions
+	void dropLintel(); //Servo num defined above
+	void resetLintel();
+
+	
 	//... todo: add them
 
 private:
-	int arduino[3];		//file descriptors for our 3 arduinos
+	int arduino[NUMOFARDUINOS];		//file descriptors for our 3 arduinos
 				// arduino[0] = sensor arduino
 				// arduino[1] = servo arduino
 				// arduino[2] = motor arduino
+
+	//servo control functions
+	void servos_setPos(char servoNum, int inAngle);
+	void servos_setMax(int servoNum, int inNum);
+	void servos_setMin(int servoNum, int inNum);
 
 };
 
