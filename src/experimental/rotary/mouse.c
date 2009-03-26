@@ -29,7 +29,7 @@ void counting_thread_function(){
 		perror("opening file");
 		return;
 	}
-	
+
 	while(1){
 		read(mouse_fd, e, 3);
 		if(e[2] < 128){ //we only want forwards
@@ -38,7 +38,6 @@ void counting_thread_function(){
 			pthread_mutex_unlock(&delta_mutex);
 		}
 	}
-
 }
 
 void calculating_thread_function(){
