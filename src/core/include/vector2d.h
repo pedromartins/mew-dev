@@ -7,94 +7,175 @@
 namespace mew {
 namespace core {
 
-template <class T>
-class Vector2d
+
+#include <math.h>
+
+
+template <typename T>
+struct vector2
 {
-public:
-	//! Default constructor (null vector)
-	Vector2d() : X(0), Y(0) {}
-	//! Constructor with two different values
-	Vector2d(T nx, T ny) : X(nx), Y(ny) {}
-	//! Constructor with the same value for both members
-	explicit Vector2d(T n) : X(n), Y(n) {}
-	//! Copy constructor
-	Vector2d(const Vector2d<T>& other) : X(other.X), Y(other.Y) {}
+	T x, y;
 
-	// operators
+	//! trivial ctor
+	vector2<T>() {}
 
-	Vector2d<T> operator-() const { return Vector2d<T>(-X, -Y); }
+	//! setting ctor
+	vector2<T>(const T x0, const T y0): x(x0), y(y0) {}
 
-	Vector2d<T>& operator=(const Vector2d<T>& other) { X = other.X; Y = other.Y; return *this; }
+	//! array indexing
+	T &operator [](unsigned int i)
+	{   return *(&x+i);   }
 
-	Vector2d<T> operator+(const Vector2d<T>& other) const { return Vector2d<T>(X + other.X, Y + other.Y); }
-	Vector2d<T>& operator+=(const Vector2d<T>& other) { X+=other.X; Y+=other.Y; return *this; }
-	Vector2d<T> operator+(const T v) const { return Vector2d<T>(X + v, Y + v); }
-	Vector2d<T>& operator+=(const T v) { X+=v; Y+=v; return *this; }
+	//! array indexing
+	const T &operator [](unsigned int i) const
+	{	return *(&x+i);   }
 
-	Vector2d<T> operator-(const Vector2d<T>& other) const { return Vector2d<T>(X - other.X, Y - other.Y); }
-	Vector2d<T>& operator-=(const Vector2d<T>& other) { X-=other.X; Y-=other.Y; return *this; }
-	Vector2d<T> operator-(const T v) const { return Vector2d<T>(X - v, Y - v); }
-	Vector2d<T>& operator-=(const T v) { X-=v; Y-=v; return *this; }
+	//! function call operator
+	void operator ()(const T x0, const T y0)
+	{	x= x0; y= y0;	}
 
-	Vector2d<T> operator*(const Vector2d<T>& other) const { return Vector2d<T>(X * other.X, Y * other.Y); }
-	Vector2d<T>& operator*=(const Vector2d<T>& other) { X*=other.X; Y*=other.Y; return *this; }
-	Vector2d<T> operator*(const T v) const { return Vector2d<T>(X * v, Y * v); }
-	Vector2d<T>& operator*=(const T v) { X*=v; Y*=v; return *this; }
+	//! test for equality
+	bool operator==(const vector2<T> &v)
+	{	return (x==v.x && y==v.y);	}
 
-	Vector2d<T> operator/(const Vector2d<T>& other) const { return Vector2d<T>(X / other.X, Y / other.Y); }
-	Vector2d<T>& operator/=(const Vector2d<T>& other) { X/=other.X; Y/=other.Y; return *this; }
-	Vector2d<T> operator/(const T v) const { return Vector2d<T>(X / v, Y / v); }
-	Vector2d<T>& operator/=(const T v) { X/=v; Y/=v; return *this; }
+	//! test for inequality
+	bool operator!=(const vector2<T> &v)
+	{	return (x!=v.x || y!=v.y);	}
 
-	bool operator<=(const Vector2d<T>&other) const { return X<=other.X && Y<=other.Y; }
-	bool operator>=(const Vector2d<T>&other) const { return X>=other.X && Y>=other.Y; }
-
-	bool operator<(const Vector2d<T>&other) const { return X<other.X && Y<other.Y; }
-	bool operator>(const Vector2d<T>&other) const { return X>other.X && Y>other.Y; }
-
-	bool operator==(const Vector2d<T>& other) const { return equals(other); }
-	bool operator!=(const Vector2d<T>& other) const { return !equals(other); }
-
-	T squareMagnitude() { return X*X + Y*Y; }
-	T magnitude() { return sqrt( squareMagnitude() ); }
-	// Normalize this vector to a unit vector. Cannot guarantee unit vector if type T is too coarse.
-	void normalize(){ T mag = magnitude(); X/=mag; Y/=mag; }
-
-	// Dot product
-	T dot(Vector2d<T> other) { return (X*other.X)+(Y*other.Y); }
-	
-	float getOrientation() const { return atan2(Y, X); }
-
-	static Vector2df getOrientationAsVector(float orientation) const	{
-		return Vector2df(cos(orientation),sin(orientation));
-	}
-
-	// functions
-
-	//! Checks if this vector equals the other one.
-	/** Takes floating point rounding errors into account.
-	\param other Vector to compare with.
-	\return True if the two vector are (almost) equal, else false. */
-	bool equals(const Vector2d<T>& other) const
+	//! set to value
+	const vector2<T> &operator =(const vector2<T> &v)
 	{
-		return core::equals(X, other.X) && core::equals(Y, other.Y);
+		x= v.x; y= v.y;
+		return *this;
 	}
 
-	//! X coordinate of vector.
-	T X;
-	//! Y coordinate of vector.
-	T Y;
+	//! negation
+	const vector2<T> operator -(void) const
+	{	return vector2<T>(-x, -y);	}
+
+	//! addition
+	const vector2<T> operator +(const vector2<T> &v) const
+	{	return vector2<T>(x+v.x, y+v.y);	}
+
+	//! subtraction
+	const vector2<T> operator -(const vector2<T> &v) const
+	{   return vector2<T>(x-v.x, y-v.y);	}
+
+	//! uniform scaling
+	const vector2<T> operator *(const T num) const
+	{
+		vector2<T> temp(*this);
+		return temp*=num;
+	}
+
+	//! uniform scaling
+	const vector2<T> operator /(const T num) const
+	{
+		vector2<T> temp(*this);
+		return temp/=num;
+	}
+
+	//! addition
+	const vector2<T> &operator +=(const vector2<T> &v)
+	{
+		x+=v.x;	y+=v.y;
+		return *this;
+	}
+
+	//! subtraction
+	const vector2<T> &operator -=(const vector2<T> &v)
+	{
+		x-=v.x;	y-=v.y;
+		return *this;
+	}
+
+	//! uniform scaling
+	const vector2<T> &operator *=(const T num)
+	{
+		x*=num;	y*=num;
+		return *this;
+	}
+
+	//! uniform scaling
+	const vector2<T> &operator /=(const T num)
+	{
+		x/=num;	y/=num;
+		return *this;
+	}
+
+	//! dot product
+	T operator *(const vector2<T> &v) const
+	{	return x*v.x + y*v.y;	}
 };
 
-template<class S, class T>
-Vector2d<T> operator*(const S scalar, const Vector2d<T>& vector) { return vector*scalar; }
 
-//! Typedef for f32 2d vector.
-typedef Vector2d<float> Vector2df;
-//! Typedef for integer 2d vector.
-typedef Vector2d<int> Vector2di;
-//! Typedef for double 2d vector.
-typedef Vector2d<double> Vector2dd;
+// macro to make creating the ctors for derived vectors easier
+#define VECTOR2_CTORS(name, type)   \
+	/* trivial ctor */				\
+	name() {}						\
+	/* down casting ctor */			\
+	name(const vector2<type> &v): vector2<type>(v.x, v.y) {}	\
+	/* make x,y combination into a vector */					\
+	name(type x0, type y0): vector2<type>(x0, y0) {}
+
+
+
+	struct vector2i: public vector2<int>
+	{
+		VECTOR2_CTORS(vector2i, int)
+	};
+
+
+	struct vector2ui: public vector2<unsigned int>
+	{
+		VECTOR2_CTORS(vector2ui, unsigned int)
+	};
+
+
+	struct vector2f: public vector2<float>
+	{
+		VECTOR2_CTORS(vector2f, float)
+
+		//! gets the length of this vector squared
+		float length_squared() const
+		{	return (float)(*this * *this);   }
+
+		//! gets the length of this vector
+		float length() const
+		{	return (float)sqrt(*this * *this);   }
+
+		//! normalizes this vector
+		void normalize()
+		{	*this/=length();	}
+
+		//! returns the normalized vector
+		vector2f normalized() const
+		{   return  *this/length();  }
+
+		//! reflects this vector about n
+		void reflect(const vector2f &n)
+		{
+			vector2f orig(*this);
+			project(n);
+			*this= *this*2 - orig;
+		}
+
+		//! projects this vector onto v
+		void project(const vector2f &v)
+		{	*this= v * (*this * v)/(v*v);	}
+
+		//! returns this vector projected onto v
+		vector2f projected(const vector2f &v)
+		{   return v * (*this * v)/(v*v);	}
+
+		//! computes the angle between 2 arbitrary vectors
+		static inline float angle(const vector2f &v1, const vector2f &v2)
+		{   return acosf((v1*v2) / (v1.length()*v2.length()));  }
+
+		//! computes the angle between 2 normalized arbitrary vectors
+		static inline float angle_normalized(const vector2f &v1, const vector2f &v2)
+		{   return acosf(v1*v2);  }
+	};
 
 
 } /// END of namespace core
