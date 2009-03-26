@@ -8,7 +8,6 @@ struct mouse_data {
   int32_t right_mouse_y_delta;
 };
 
-void counting_thread_function();
 void init_mouse_encoder();
 struct mouse_data* get_latest_vector();
 
