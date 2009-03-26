@@ -25,7 +25,7 @@ pthread_mutex_t delta_mutex = PTHREAD_MUTEX_INITIALIZER;
 void counting_thread_function(){
 
 	//the third byte of this fd is the movement in the y axis
-	if((mouse_fd = open("/dev/input/mouse1", O_RDONLY)) < 0){
+	if((mouse_fd = open("/dev/input/mouse2", O_RDONLY)) < 0){
 		perror("opening file");
 		return;
 	}
