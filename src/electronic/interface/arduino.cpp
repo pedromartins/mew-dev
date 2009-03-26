@@ -37,7 +37,7 @@ void Arduino::init()
 	ostringstream number;
 	char buf[5];
 
-	for(int i = 0; i < NUMOFARDUINOS; i++)
+	for(int i = 0; i < 1/*NUMOFARDUINOS*/; i++)
 	{
 		//build a string that tells us which ttyUSB to connect to.
 		usbadapter = "/dev/ttyUSB";
@@ -46,6 +46,7 @@ void Arduino::init()
 		number << i;
 		usbadapter.append(number.str());
 		//ok, the USB adapter has been built.
+		usleep(500000);
 
 		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
 
@@ -63,12 +64,13 @@ void Arduino::init()
 
 		memset(&buf, 0, 5);	//clear our buffer before we write anything into it.
 
+		usleep(500000);
 		//now, ask the arduino which one it is! send it a '?;'
 		serialport_write(arduino_fd, "?;");
 		//let it think... we're not in a hurry since this is initialisation business.
-		usleep(100000);
+		usleep(500000);
 		serialport_read_until(arduino_fd, (char*)&buf, ';');	//get the reply
-
+		usleep(500000);
 
 		//sort the arduino into the right place in the array. Make sure, that only 1 servo is assigned to each task,
 		// just in case somebody programmed an arduino wrongly.
