@@ -11,7 +11,7 @@
  */
 
 
-enum motor_t {
+enum left_right_t {
 	MOTOR_LEFT = 1,
 	MOTOR_RIGHT
 };
@@ -23,19 +23,19 @@ enum motor_t {
  * @param motor The motor to query the speed for.
  * @return The speed of the motors in RPM.
  */
-float get_motor_speed(motor_t motor);
+float get_motor_speed(left_right_t motor);
 
 /**
  * Retrieves the maximum speed of the specified motor.
  * @param motor
  */
-float get_motor_max_speed(motor_t motor);
+float get_motor_max_speed(left_right_t motor);
 
 /**
  * Retrieves the maximum angular acceleration of the specified motor.
  * @param motor
  */
-float get_motor_max_angular_acceleration(motor_t motor);
+float get_motor_max_angular_acceleration(left_right_t motor);
 
 /**
  * Sets and maintains the angular velocity of the motor specified by motor.
@@ -43,6 +43,6 @@ float get_motor_max_angular_acceleration(motor_t motor);
  * @param motor Can be one of MOTOR_LEFT or MOTOR_RIGHT. Other motor numbers are allowed.
  * @param rpm	Revolutions per minute.
  */
-void set_motor_speed(motor_t motor, float rpm);
+void set_motor_speed(left_right_t motor, float rpm);
 
 #endif
