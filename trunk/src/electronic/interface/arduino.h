@@ -4,10 +4,10 @@
 #include "serial.h"
 
 
-#define BAUDRATE 9600
+#define BAUDRATE 38400
 #define LINTELSERVO 0
 
-enum {SENSORS, CONTROL, ULTRASOUND, NUMOFARDUINOS};
+enum {SENSORS, CONTROL, ULTRASOUND, NUMOFARDUINOS}; //This list must agree with arduinoNames in arduino.cpp
 
 class Arduino
 {

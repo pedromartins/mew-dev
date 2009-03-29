@@ -9,6 +9,11 @@
 
 using namespace std;
 
+const char *arduinoNames[NUMOFARDUINOS] = // Must agree with the enum in arduino.h
+{	"/dev/arduino_A7006SQw", //Sensors
+	"/dev/arduino_A7006S82", //Control
+	"/dev/arduino_A9005aVz"}; //Ultrasound
+
 Arduino::Arduino()
 {
 	//initialise the file descriptors
@@ -37,15 +42,11 @@ void Arduino::init()
 	ostringstream number;
 	char buf[5];
 
-	for(int i = 0; i < 1/*NUMOFARDUINOS*/; i++)
+	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
-		//build a string that tells us which ttyUSB to connect to.
-		usbadapter = "/dev/ttyUSB";
-		number.str("");//clear
-
-		number << i;
-		usbadapter.append(number.str());
-		//ok, the USB adapter has been built.
+		//Fetch adapter name
+		usbadapter = arduinoNames[i];
+		
 		usleep(500000);
 
 		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
@@ -61,10 +62,12 @@ void Arduino::init()
 		{
 			cout << "Communication with " << usbadapter << " established!" << endl;
 		}
+		
+		arduino[i] = arduino_fd;
+	}
+		/*memset(&buf, 0, 5);	//clear our buffer before we write anything into it.
 
-		memset(&buf, 0, 5);	//clear our buffer before we write anything into it.
-
-		usleep(500000);
+		 usleep(500000);
 		//now, ask the arduino which one it is! send it a '?;'
 		serialport_write(arduino_fd, "?;");
 		//let it think... we're not in a hurry since this is initialisation business.
@@ -109,7 +112,7 @@ void Arduino::init()
 	}	//end for loop
 
 	//tell us which arduino is where
-	
+	*/
 }
 
 //check connection
@@ -117,7 +120,7 @@ bool Arduino::checkConnection(int a)
 {
 	if(arduino[a] <= 0)	//check it's filedescriptor
 	{
-		cout << "Error trying to connecto to Arduino " << a << "! Aborting function call." << endl;
+		cout << "Error trying to connect to  " << arduinoNames[a] << "! Aborting function call." << endl;
 		return false;
 	}
 	return true;
@@ -137,7 +140,7 @@ void Arduino::getIRreadings(int* vals)
 
 	usleep(50000);
 	serialport_read_until(arduino[SENSORS], (char*)&buf, ';');
-
+	//cout << "Arduino printed " << buf << endl;
 	istringstream iss (buf);
 
 	memset(vals, 0, 4);	//clear the first 4 instances of vals.
