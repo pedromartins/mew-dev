@@ -21,7 +21,7 @@ void sendUltrasoundReadings()
 void setup() {
  pinMode(0, INPUT); // Switch signalpin ANALOG-0 to input
  pinMode(1, INPUT); // Switch signalpin ANALOG-1 to input
- Serial.begin(38400);                  
+ Serial.begin(BAUDRATE);                  
 }
 
 byte incomingByte = 0;
