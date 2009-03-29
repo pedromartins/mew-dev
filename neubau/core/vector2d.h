@@ -119,12 +119,12 @@ std::ostream& operator <<(std::ostream& os, const Vector2<T> &v){
 template <typename U>
 std::ostream& operator<< (std::ostream& ostr, const Vector2<U>& vect)
 {
-  ostr << "(" << vect.x << "," << vect.y << ")";
-  return ostr;
+	ostr << "(" << vect.x << "," << vect.y << ")";
+	return ostr;
 }
 
 // macro to make creating the ctors for derived vectors easier
-#define Vector2_CTORS(name, type)   \
+#define Vector2_CONSTRUCTORS(name, type)   \
 	/* trivial ctor */				\
 	name() {}						\
 	/* down casting ctor */			\
@@ -134,62 +134,108 @@ std::ostream& operator<< (std::ostream& ostr, const Vector2<U>& vect)
 
 
 
-	struct Vector2di: public Vector2<int>
+struct Vector2di: public Vector2<int>
+{
+	Vector2_CONSTRUCTORS(Vector2di, int)
+};
+
+struct Vector2dd: public Vector2<double>
+{
+	Vector2_CONSTRUCTORS(Vector2dd, double);
+
+
+	//! gets the length of this vector squared
+	double length_squared() const
+	{	return (double)(*this * *this);   }
+
+	//! gets the length of this vector
+	double length() const
+	{	return (double)sqrt(*this * *this);   }
+
+	//! normalizes this vector
+	void normalize()
+	{	*this/=length();	}
+
+	//! returns the normalized vector
+	Vector2dd normalized() const
+	{   return  *this/length();  }
+
+	//! reflects this vector about n
+	void reflect(const Vector2dd &n)
 	{
-		Vector2_CTORS(Vector2di, int)
-	};
+		Vector2dd orig(*this);
+		project(n);
+		*this= *this*2 - orig;
+	}
+
+	//! projects this vector onto v
+	void project(const Vector2dd &v)
+	{	*this= v * (*this * v)/(v*v);	}
+
+	//! returns this vector projected onto v
+	Vector2dd projected(const Vector2dd &v)
+	{   return v * (*this * v)/(v*v);	}
+
+	//! computes the angle between 2 arbitrary vectors
+	static inline double angle(const Vector2dd &v1, const Vector2dd &v2)
+	{   return acosf((v1*v2) / (v1.length()*v2.length()));  }
+
+	//! computes the angle between 2 normalized arbitrary vectors
+	static inline double angle_normalized(const Vector2dd &v1, const Vector2dd &v2)
+	{   return acosf(v1*v2);  }
+};
 
 
-	struct Vector2ui: public Vector2<unsigned int>
+struct Vector2ui: public Vector2<unsigned int>
+{
+	Vector2_CONSTRUCTORS(Vector2ui, unsigned int)
+};
+
+
+struct Vector2df: public Vector2<float>
+{
+	Vector2_CONSTRUCTORS(Vector2df, float)
+
+	//! gets the length of this vector squared
+	float length_squared() const
+	{	return (float)(*this * *this);   }
+
+	//! gets the length of this vector
+	float length() const
+	{	return (float)sqrt(*this * *this);   }
+
+	//! normalizes this vector
+	void normalize()
+	{	*this/=length();	}
+
+	//! returns the normalized vector
+	Vector2df normalized() const
+	{   return  *this/length();  }
+
+	//! reflects this vector about n
+	void reflect(const Vector2df &n)
 	{
-		Vector2_CTORS(Vector2ui, unsigned int)
-	};
+		Vector2df orig(*this);
+		project(n);
+		*this= *this*2 - orig;
+	}
 
+	//! projects this vector onto v
+	void project(const Vector2df &v)
+	{	*this= v * (*this * v)/(v*v);	}
 
-	struct Vector2df: public Vector2<float>
-	{
-		Vector2_CTORS(Vector2df, float)
+	//! returns this vector projected onto v
+	Vector2df projected(const Vector2df &v)
+	{   return v * (*this * v)/(v*v);	}
 
-		//! gets the length of this vector squared
-		float length_squared() const
-		{	return (float)(*this * *this);   }
+	//! computes the angle between 2 arbitrary vectors
+	static inline float angle(const Vector2df &v1, const Vector2df &v2)
+	{   return acosf((v1*v2) / (v1.length()*v2.length()));  }
 
-		//! gets the length of this vector
-		float length() const
-		{	return (float)sqrt(*this * *this);   }
-
-		//! normalizes this vector
-		void normalize()
-		{	*this/=length();	}
-
-		//! returns the normalized vector
-		Vector2df normalized() const
-		{   return  *this/length();  }
-
-		//! reflects this vector about n
-		void reflect(const Vector2df &n)
-		{
-			Vector2df orig(*this);
-			project(n);
-			*this= *this*2 - orig;
-		}
-
-		//! projects this vector onto v
-		void project(const Vector2df &v)
-		{	*this= v * (*this * v)/(v*v);	}
-
-		//! returns this vector projected onto v
-		Vector2df projected(const Vector2df &v)
-		{   return v * (*this * v)/(v*v);	}
-
-		//! computes the angle between 2 arbitrary vectors
-		static inline float angle(const Vector2df &v1, const Vector2df &v2)
-		{   return acosf((v1*v2) / (v1.length()*v2.length()));  }
-
-		//! computes the angle between 2 normalized arbitrary vectors
-		static inline float angle_normalized(const Vector2df &v1, const Vector2df &v2)
-		{   return acosf(v1*v2);  }
-	};
+	//! computes the angle between 2 normalized arbitrary vectors
+	static inline float angle_normalized(const Vector2df &v1, const Vector2df &v2)
+	{   return acosf(v1*v2);  }
+};
 
 
 #endif
