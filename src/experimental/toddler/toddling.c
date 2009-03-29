@@ -58,4 +58,6 @@ int main(){
   set_drive_motor_power(HALF_FORWARD, HALF_FORWARDS);
   
   sleep(3); //and we are hopefully around the box!
+  
+  set_drive_motor_power(STOP, STOP);
 }
