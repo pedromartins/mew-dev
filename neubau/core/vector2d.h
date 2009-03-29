@@ -119,8 +119,7 @@ std::ostream& operator <<(std::ostream& os, const Vector2<T> &v){
 template <typename U>
 std::ostream& operator<< (std::ostream& ostr, const Vector2<U>& vect)
 {
-  ostr << "x component : " << vect.x << "\n";
-  ostr << "y component : " << vect.y << "\n";
+  ostr << "(" << vect.x << "," << vect.y << ")";
   return ostr;
 }
 
