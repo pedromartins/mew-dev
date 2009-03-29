@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define DRIVE_MOTOR_DEVICE_NODE "/dev/ttyUSB0"
+
 /*******************************
  *usb-i2c serial module commands
  *******************************/
