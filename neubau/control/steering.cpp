@@ -16,7 +16,7 @@ void Seek::getSteering(SteeringOutput* output)
 	// If there is no direction, do nothing
 	if (output->linear.squareMagnitude() > 0)
 	{
-		output->linear.normalise();
+		output->linear.normalize();
 		output->linear *= maxAcceleration;
 	}
 }
@@ -30,7 +30,7 @@ void Flee::getSteering(SteeringOutput* output)
 	// If there is no direction, do nothing
 	if (output->linear.squareMagnitude() > 0)
 	{
-		output->linear.normalise();
+		output->linear.normalize();
 		output->linear *= maxAcceleration;
 	}
 }
@@ -49,11 +49,11 @@ void Wander::getSteering(SteeringOutput* output)
 		internal_target.x += volatility;
 	}
 
-	Vector2dd offset = *target - robot->position;
+	Vector2df offset = *target - robot->position;
 	real angle;
-	if (offset.x*offset.x + offset.z*offset.z > 0) {
+	if (offset.x*offset.x + offset.y*offset.y > 0) {
 		// Work out the angle to the target from the robot
-		angle = real_atan2(offset.z, offset.x);
+		angle = atan2(offset.y, offset.x);
 	}
 	else
 	{
@@ -63,58 +63,59 @@ void Wander::getSteering(SteeringOutput* output)
 
 	// Move the target to the boundary of the volatility circle.
 	internal_target = robot->position;
-	internal_target.x += volatility * real_cos(angle);
-	internal_target.z += volatility * real_sin(angle);
+	internal_target.x += volatility * cos(angle);
+	internal_target.y += volatility * sin(angle);
 
 	// Add the turn to the target
-	internal_target.x += randomBinomial(turnSpeed);
-	internal_target.z += randomBinomial(turnSpeed);
+	// TODO!! RANDOM vectors?!
+	// internal_target.x += randomBinomial(turnSpeed);
+	// internal_target.y += randomBinomial(turnSpeed);
 
 	Seek::getSteering(output);
 }
-
-void AvoidSphere::getSteering(SteeringOutput* output)
-{
-	// Clear the output, in case we don't write to it later.
-	output->clear();
-
-	// Make sure we're moving
-	if (robot->velocity.squareMagnitude() > 0)
-	{
-		// Find the distance from the line we're moving along to the obstacle.
-		Vector2dd movementNormal = robot->velocity.unit();
-		Vector2dd characterToObstacle = obstacle->position - robot->position;
-
-		real distanceSquared = characterToObstacle * movementNormal;
-		distanceSquared = characterToObstacle.squareMagnitude() -
-		distanceSquared*distanceSquared;
-
-		// Check for collision
-		real radius = obstacle->radius + avoidMargin;
-		if (distanceSquared < radius*radius)
-		{
-			// Find how far along our movement vector the closest pass is
-			real distanceToClosest = characterToObstacle * movementNormal;
-
-			// Make sure this isn't behind us and is closer than our lookahead.
-			if (distanceToClosest > 0 && distanceToClosest < maxLookahead)
-			{
-				// Find the closest point
-				Vector2dd closestPoint =
-					robot->position + movementNormal*distanceToClosest;
-
-				// Find the point of avoidance
-				internal_target =
-					obstacle->position +
-					(closestPoint - obstacle->position).unit() *
-					(obstacle->radius + avoidMargin);
-
-				// Seek this point
-				Seek::getSteering(output);
-			}
-		}
-	}
-}
+//
+//void AvoidSphere::getSteering(SteeringOutput* output)
+//{
+//	// Clear the output, in case we don't write to it later.
+//	output->clear();
+//
+//	// Make sure we're moving
+//	if (robot->velocity.squareMagnitude() > 0)
+//	{
+//		// Find the distance from the line we're moving along to the obstacle.
+//		Vector2dd movementNormal = robot->velocity.unit();
+//		Vector2dd characterToObstacle = obstacle->position - robot->position;
+//
+//		real distanceSquared = characterToObstacle * movementNormal;
+//		distanceSquared = characterToObstacle.squareMagnitude() -
+//		distanceSquared*distanceSquared;
+//
+//		// Check for collision
+//		real radius = obstacle->radius + avoidMargin;
+//		if (distanceSquared < radius*radius)
+//		{
+//			// Find how far along our movement vector the closest pass is
+//			real distanceToClosest = characterToObstacle * movementNormal;
+//
+//			// Make sure this isn't behind us and is closer than our lookahead.
+//			if (distanceToClosest > 0 && distanceToClosest < maxLookahead)
+//			{
+//				// Find the closest point
+//				Vector2dd closestPoint =
+//					robot->position + movementNormal*distanceToClosest;
+//
+//				// Find the point of avoidance
+//				internal_target =
+//					obstacle->position +
+//					(closestPoint - obstacle->position).unit() *
+//					(obstacle->radius + avoidMargin);
+//
+//				// Seek this point
+//				Seek::getSteering(output);
+//			}
+//		}
+//	}
+//}
 
 void BlendedSteering::getSteering(SteeringOutput *output)
 {

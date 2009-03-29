@@ -32,8 +32,10 @@
  */
 
 #include "core.h"
+#include "steeringoutput.h"
+#include <vector>
 
-typedef double real;
+typedef float real;
 
 /**
  * The steering behaviour is the base class for all dynamic
@@ -154,30 +156,30 @@ public:
  * returns a steering output (it flees the obstacle), otherwise the
  * steering output will be zero.
  */
-class AvoidSphere : public SeekWithInternalTarget
-{
-public:
-	/**
-	 * The spherical obstacle we're avoiding.
-	 */
-	Sphere *obstacle;
-
-	/**
-	 * By how much do we want to avoid the collision?
-	 */
-	real avoidMargin;
-
-	/**
-	 * How far ahead do we want to look for collisions?
-	 */
-	real maxLookahead;
-
-	/**
-	 * Works out the desired steering and writes it into the given
-	 * steering output structure.
-	 */
-	virtual void getSteering(SteeringOutput* output);
-};
+//class AvoidSphere : public SeekWithInternalTarget
+//{
+//public:
+//	/**
+//	 * The spherical obstacle we're avoiding.
+//	 */
+//	Sphere *obstacle;
+//
+//	/**
+//	 * By how much do we want to avoid the collision?
+//	 */
+//	real avoidMargin;
+//
+//	/**
+//	 * How far ahead do we want to look for collisions?
+//	 */
+//	real maxLookahead;
+//
+//	/**
+//	 * Works out the desired steering and writes it into the given
+//	 * steering output structure.
+//	 */
+//	virtual void getSteering(SteeringOutput* output);
+//};
 
 /**
  * Blended steering takes a set of steering behaviours and generates an

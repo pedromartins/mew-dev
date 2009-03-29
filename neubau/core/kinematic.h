@@ -17,7 +17,7 @@ struct Kinematic : public Static
 	/**
 	 * The linear velocity.
 	 */
-	Vector2dd velocity;
+	Vector2df velocity;
 
 	/**
 	 * The angular velocity.
@@ -38,7 +38,7 @@ struct Kinematic : public Static
 	 * @param position The position in space of the Kinematic.
 	 * @param velocity The linear velocity of the Kinematic.
 	 */
-	Kinematic(const Vector2dd& position, const Vector2dd& velocity)
+	Kinematic(const Vector2df& position, const Vector2df& velocity)
 	: Static(position), velocity(velocity), rotation(0)
 	{}
 
@@ -49,7 +49,7 @@ struct Kinematic : public Static
 	 * @param loc The static of the Kinematic.
 	 * @param velocity The linear velocity of the Kinematic.
 	 */
-	Kinematic(const Static& loc, const Vector2dd& velocity)
+	Kinematic(const Static& loc, const Vector2df& velocity)
 	: Static(loc), velocity(velocity), rotation(0)
 	{}
 
@@ -72,8 +72,8 @@ struct Kinematic : public Static
 	 * @param velocity The linear velocity of the Kinematic.
 	 * @param avel The angular velocity of the Kinematic.
 	 */
-	Kinematic(const Vector2dd& position, double orientation,
-			const Vector2dd& velocity, double avel)
+	Kinematic(const Vector2df& position, double orientation,
+			const Vector2df& velocity, double avel)
 	: Static(position, orientation),
 	velocity(velocity), rotation(avel)
 	{}

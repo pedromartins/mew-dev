@@ -15,7 +15,7 @@ struct Static
 	/**
 	 * The position in 3 space.
 	 */
-	Vector2dd position;
+	Vector2df position;
 
 	/**
 	 * The orientation, as a euler angle in radians around the
@@ -32,14 +32,14 @@ struct Static
 	/**
 	 * Creates a static at the given position with no rotation.
 	 */
-	Static(const Vector2dd& position)
+	Static(const Vector2df& position)
 	: position(position), orientation(0)
 	{}
 
 	/**
 	 * Creates a static with the given position and orientation.
 	 */
-	Static(const Vector2dd& position, double orientation)
+	Static(const Vector2df& position, double orientation)
 	: position(position), orientation(orientation)
 	{}
 
@@ -95,13 +95,13 @@ struct Static
 	 * Sets the orientation of this static so it points along
 	 * the given velocity vector.
 	 */
-	void setOrientationFromVelocity(const Vector2dd& velocity);
+	void setOrientationFromVelocity(const Vector2df& velocity);
 
 	/**
 	 * Returns a unit vector in the direction of the current
 	 * orientation.
 	 */
-	Vector2dd getOrientationAsVector() const;
+	Vector2df getOrientationAsVector() const;
 
 	/**
 	 * Fills the passed matrix with the Static's transformation.
