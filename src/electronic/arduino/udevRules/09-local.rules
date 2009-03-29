@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", ATTRS{product}=="FT232R USB UART", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="arduino_$ATTR{serial}"
