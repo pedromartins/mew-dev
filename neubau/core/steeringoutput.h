@@ -1,3 +1,8 @@
+#ifndef STEERING_OUTPUT_H_
+#define STEERING_OUTPUT_H_
+
+#include "vector2d.h"
+
 /**
  * SteeringOutput is a movement requested by the steering system.
  *
@@ -9,8 +14,7 @@
  * should be thought of as linear and angular acceleration.
  */
 template <typename T,typename O>
-struct SteeringOutput
-{
+struct SteeringOutput {
 	/**
 	 * The linear component of the steering action.
 	 */
@@ -89,3 +93,5 @@ struct SteeringOutput
 		return double_sqrt(squareMagnitude());
 	}
 };
+
+#endif

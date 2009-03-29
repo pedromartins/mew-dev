@@ -168,9 +168,16 @@ struct Vector2dd: public Vector2<double>
 		*this= *this*2 - orig;
 	}
 
+	//! clears this vector
+	void clear() {
+		x = 0;
+		y = 0;
+	}
+
 	//! projects this vector onto v
 	void project(const Vector2dd &v)
 	{	*this= v * (*this * v)/(v*v);	}
+
 
 	//! returns this vector projected onto v
 	Vector2dd projected(const Vector2dd &v)
@@ -218,6 +225,12 @@ struct Vector2df: public Vector2<float>
 		Vector2df orig(*this);
 		project(n);
 		*this= *this*2 - orig;
+	}
+
+	//! clears this vector
+	void clear() {
+		x = 0;
+		y = 0;
 	}
 
 	//! projects this vector onto v

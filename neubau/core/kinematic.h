@@ -1,101 +1,99 @@
 #ifndef KINEMATIC_H_
 #define KINEMATIC_H_
 
-#include "steeringoutput.h"
-
+#include "static.h"
 
 /**
  * Represents the position and movement of a character or other object.
  *
- * Kinematic<T,O> extends static to add the first derivative of both
+ * Kinematic extends static to add the first derivative of both
  * position and orientation: velocity and rotation. Rotation
  * consists of angular velocity about the positive z axis (the
- * first derivative of orientation in the Static<T,O> structure), this
+ * first derivative of orientation in the Static structure), this
  * will be altered to be a full 3D angular velocity in due course.
  */
-template<typename T,typename O>
-struct Kinematic<T,O> : public Static<T,O>
+struct Kinematic : public Static
 {
 	/**
 	 * The linear velocity.
 	 */
-	Vector2d<T> velocity;
+	Vector2dd velocity;
 
 	/**
 	 * The angular velocity.
 	 */
-	O rotation;
+	double rotation;
 
 	/**
-	 * Creates a new Kinematic<T,O> with zeroed data.
+	 * Creates a new Kinematic with zeroed data.
 	 */
 	Kinematic()
-	: Static<T,O>(), velocity(), rotation(0)
+	: Static(), velocity(), rotation(0)
 	{}
 
 	/**
-	 * Creates a new Kinematic<T,O> with the given linear components
+	 * Creates a new Kinematic with the given linear components
 	 * and no rotation or orientation.
 	 *
-	 * @param position The position in space of the Kinematic<T,O>.
-	 * @param velocity The linear velocity of the Kinematic<T,O>.
+	 * @param position The position in space of the Kinematic.
+	 * @param velocity The linear velocity of the Kinematic.
 	 */
-	Kinematic(const Vector2d<T>& position, const Vector2d<T>& velocity)
-	: Static<T,O>(position), velocity(velocity), rotation(0)
+	Kinematic(const Vector2dd& position, const Vector2dd& velocity)
+	: Static(position), velocity(velocity), rotation(0)
 	{}
 
 	/**
-	 * Creates a new Kinematic<T,O> with the given static and linear
-	 * velocity. The Kinematic<T,O> has no rotation.
+	 * Creates a new Kinematic with the given static and linear
+	 * velocity. The Kinematic has no rotation.
 	 *
-	 * @param loc The static of the Kinematic<T,O>.
-	 * @param velocity The linear velocity of the Kinematic<T,O>.
+	 * @param loc The static of the Kinematic.
+	 * @param velocity The linear velocity of the Kinematic.
 	 */
-	Kinematic(const Static<T,O>& loc, const Vector2d<T>& velocity)
-	: Static<T,O>(loc), velocity(velocity), rotation(0)
+	Kinematic(const Static& loc, const Vector2dd& velocity)
+	: Static(loc), velocity(velocity), rotation(0)
 	{}
 
 	/**
-	 * Creates a new Kinematic<T,O> with the given static and no
+	 * Creates a new Kinematic with the given static and no
 	 * linear or rotational velocity.
 	 *
-	 * @param loc The static of the Kinematic<T,O>.
+	 * @param loc The static of the Kinematic.
 	 */
-	Kinematic(const Static<T,O>& loc)
-	: Static<T,O>(loc), velocity(), rotation(0)
+	Kinematic(const Static& loc)
+	: Static(loc), velocity(), rotation(0)
 	{}
 
 	/**
-	 * Creates a new Kinematic<T,O> with the given position,
+	 * Creates a new Kinematic with the given position,
 	 * orientation, velocity and rotational velocity.
 	 *
-	 * @param position The position of the Kinematic<T,O>.
-	 * @param orientation The orientation of the Kinematic<T,O>.
-	 * @param velocity The linear velocity of the Kinematic<T,O>.
-	 * @param avel The angular velocity of the Kinematic<T,O>.
+	 * @param position The position of the Kinematic.
+	 * @param orientation The orientation of the Kinematic.
+	 * @param velocity The linear velocity of the Kinematic.
+	 * @param avel The angular velocity of the Kinematic.
 	 */
-	Kinematic<T,O>(const Vector2d<T>& position, double orientation,
-			const Vector2d<T>& velocity, double avel)
-	: Static<T,O>(position, orientation),
+	Kinematic(const Vector2dd& position, double orientation,
+			const Vector2dd& velocity, double avel)
+	: Static(position, orientation),
 	velocity(velocity), rotation(avel)
 	{}
 
 	/**
-	 * Zeros the static and velocity of this Kinematic<T,O>.
+	 * Zeros the static and velocity of this Kinematic.
 	 */
 	void clear()
 	{
-		Static<T,O>::clear();
+		Static::clear();
 		velocity.clear();
 		rotation = 0.0f;
 	}
 
 	/**
-	 * Checks that the given Kinematic<T,O> is equal to this.
+	 * Checks that the given Kinematic is equal to this.
 	 * Kinematics are equal if their statics, velocities and
 	 * rotations are equal.
 	 */
-	bool operator == (const Kinematic<T,O>& other) const
+	bool operator == (const Kinematic& other)
 	{
 		return position == other.position &&
 		orientation == other.orientation &&
@@ -104,11 +102,11 @@ struct Kinematic<T,O> : public Static<T,O>
 	}
 
 	/**
-	 * Checks that the given Kinematic<T,O> is unequal to this.
+	 * Checks that the given Kinematic is unequal to this.
 	 * Kinematics are unequal if any of their statics,
 	 * velocities or rotations are unequal.
 	 */
-	bool operator != (const Kinematic<T,O>& other) const
+	bool operator != (const Kinematic& other)
 	{
 		return position != other.position ||
 		orientation != other.orientation ||
@@ -117,23 +115,23 @@ struct Kinematic<T,O> : public Static<T,O>
 	}
 
 	/**
-	 * Checks that the given Kinematic<T,O> is less than this.  A
-	 * Kinematic<T,O> is less than another Kinematic<T,O> if its position
-	 * along the x-axis is less than that of the other Kinematic<T,O>.
+	 * Checks that the given Kinematic is less than this.  A
+	 * Kinematic is less than another Kinematic if its position
+	 * along the x-axis is less than that of the other Kinematic.
 	 */
-	bool operator < (const Kinematic<T,O>& other) const
+	bool operator < (const Kinematic& other) const
 	{
 		return position.x < other.position.x;
 	}
 
 	/**
-	 * Sets the value of this Kinematic<T,O> to the given static.
-	 * The velocity components of the Kinematic<T,O> are left
+	 * Sets the value of this Kinematic to the given static.
+	 * The velocity components of the Kinematic are left
 	 * unchanged.
 	 *
-	 * @param other The Static<T,O> to set the Kinematic<T,O> to.
+	 * @param other The Static to set the Kinematic to.
 	 */
-	Kinematic<T,O>& operator = (const Static<T,O>& other)
+	Kinematic& operator = (const Static& other)
 	{
 		orientation = other.orientation;
 		position = other.position;
@@ -142,11 +140,11 @@ struct Kinematic<T,O> : public Static<T,O>
 
 	/**
 	 * Copies (by assignment) all the attributes of the given
-	 * Kinematic<T,O>.
+	 * Kinematic.
 	 *
-	 * @param other Reference to Kinematic<T,O> to copy.
+	 * @param other Reference to Kinematic to copy.
 	 */
-	Kinematic<T,O>& operator = (const Kinematic<T,O>& other)
+	Kinematic& operator = (const Kinematic& other)
 	{
 		orientation = other.orientation;
 		position = other.position;
@@ -156,19 +154,19 @@ struct Kinematic<T,O> : public Static<T,O>
 	}
 
 	/**
-	 * Modifies the value of this Kinematic<T,O> by adding the given
-	 * Kinematic<T,O>.  Additions are performed by component.
+	 * Modifies the value of this Kinematic by adding the given
+	 * Kinematic.  Additions are performed by component.
 	 */
-	void operator += (const Kinematic<T,O>&);
+	void operator += (const Kinematic&);
 
 	/**
-	 * Modifies the value of this Kinematic<T,O> by subtracting the
-	 * given Kinematic<T,O>.  Subtractions are performed by component.
+	 * Modifies the value of this Kinematic by subtracting the
+	 * given Kinematic.  Subtractions are performed by component.
 	 */
-	void operator -= (const Kinematic<T,O>&);
+	void operator -= (const Kinematic&);
 
 	/**
-	 * Scales the Kinematic<T,O> by the given value.  All components
+	 * Scales the Kinematic by the given value.  All components
 	 * are scaled, including rotations and orientations, this is
 	 * normally not what you want. To scale only the linear
 	 * components, use the *= operator on the position and
@@ -179,65 +177,7 @@ struct Kinematic<T,O> : public Static<T,O>
 	void operator *= (double f);
 
 	/**
-	 * Performs a forward Euler integration of the Kinematic<T,O> for
-	 * the given duration.  This applies the Kinematic<T,O>'s velocity
-	 * and rotation to its position and orientation.
-	 *
-	 * \note All of the integrate methods in this class are
-	 * designed to provide a simple mechanism for updating
-	 * position. They are not a substitute for a full physics
-	 * engine that can correctly resolve collisions and
-	 * constraints.
-	 *
-	 * @param duration The number of simulation seconds to
-	 * integrate over.
-	 */
-	void integrate(double duration);
-
-	/**
-	 * Perfoms a forward Euler integration of the Kinematic<T,O> for
-	 * the given duration, applying the given acceleration.
-	 * Because the integration is Euler, all the acceleration is
-	 * applied to the velocity at the end of the time step.
-	 *
-	 * \note All of the integrate methods in this class are designed
-	 * to provide a simple mechanism for updating position. They are
-	 * not a substitute for a full physics engine that can correctly
-	 * resolve collisions and constraints.
-	 *
-	 * @param steer The acceleration to apply over the
-	 * integration.  @param duration The number of simulation
-	 * seconds to integrate over.
-	 */
-	void integrate(const SteeringOutput& steer, double duration);
-
-	/**
-	 * Perfoms a forward Euler integration of the Kinematic<T,O> for the given
-	 * duration, applying the given acceleration and drag.
-	 * Because the integration is Euler, all the acceleration is applied to
-	 * the velocity at the end of the time step.
-	 *
-	 * \note All of the integrate methods in this class are designed
-	 * to provide a simple mechanism for updating position. They are
-	 * not a substitute for a full physics engine that can correctly
-	 * resolve collisions and constraints.
-	 *
-	 * @param steer The acceleration to apply over the integration.
-	 *
-	 * @param drag The anisotropic drag to apply. The force
-	 * component of the SteeringOutput is interpreted as linear drag
-	 * coefficients in each direction, and torque component is
-	 * interpreted as the rotational drag.
-	 *
-	 * @param duration The number of simulation seconds to
-	 * integrate over.
-	 */
-	void integrate(const SteeringOutput& steer,
-			const SteeringOutput& drag,
-			double duration);
-
-	/**
-	 * Trims the speed of the Kinematic<T,O> to be no more than that
+	 * Trims the speed of the Kinematic to be no more than that
 	 * given.
 	 */
 	void trimMaxSpeed(double speed);
