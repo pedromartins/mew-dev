@@ -1,6 +1,6 @@
 //sends ultrasound readings. Connect ultarsound sensor's analogue outputs to pins 0 and 1
 
-#define BAUDRATE 38400
+#define BAUDRATE 9600
 
 void sendUltrasoundReadings()
 {
@@ -11,17 +11,16 @@ void sendUltrasoundReadings()
   readings[0] *= 1.24;
   readings[1] *= 1.24;
   
-  Serial.print(readings[0], DEC);
-  Serial.print(" ");
-  Serial.print(readings[1], DEC);
-  Serial.print(";");
+  Serial.println(readings[0], DEC);
+  Serial.println(readings[1], DEC);
 }
 
 
 void setup() {
  pinMode(0, INPUT); // Switch signalpin ANALOG-0 to input
  pinMode(1, INPUT); // Switch signalpin ANALOG-1 to input
- Serial.begin(BAUDRATE);                  
+ Serial.begin(BAUDRATE);        
+ Serial.flush();          
 }
 
 byte incomingByte = 0;

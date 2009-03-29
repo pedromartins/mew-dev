@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include "drive_motor.h"
 #include "arduino.h"
+#include <iostream>
 
 /*
  * This is an almost-not-quite-psuedo-code version
@@ -28,39 +29,48 @@ int rotation;
 
 int IR_readings[4];
 
-Arduino arduino;
+Arduinos arduino;
 
 int main(){
-  arduino.init();
+  arduino.open(SENSORS);
   init_drive_motor();
   set_drive_motor_power(HALF_FORWARDS, HALF_FORWARDS);
   
   do{
-    arduino.getIRreadings(IR_readings);
+    arduino.getIR(IR_readings);
+	usleep(50000);
+	cout << IR_readings[0] << endl;
   }
   while( IR_readings[0] > 30);
   
   //start to spin clockwise on the spot
   set_drive_motor_power(HALF_FORWARDS, HALF_BACKWARDS);
-
+  sleep(1);
   //and rotate 90 degrees
   rotation = 0;
-  initial_heading = arduino.getCompassreading();
+  initial_heading = arduino.getCompass();
+  cout << "initial_heading is " << initial_heading << endl;
+  usleep(50000);
+
   while(rotation < 900){
-    current_heading = arduino.getCompassreading();
+    current_heading = arduino.getCompass();
+    cout << "current_heading is " << current_heading << endl;
     if(current_heading > initial_heading){
       rotation = current_heading - initial_heading;
     }
     else{
       rotation = 3600 - ( initial_heading - current_heading);
     }
+	cout << "Rotations is " << rotation << endl;
   }
-  
+ cin.get();
   //forwards again
   set_drive_motor_power(HALF_FORWARDS, HALF_FORWARDS);
 
   do{
-    arduino.getIRreadings(IR_readings);
+    arduino.getIR(IR_readings);
+	usleep(50000);
+	cout << IR_readings[0] << endl;
   }
   while( IR_readings[1] > 30); //should be the left sensor
 
@@ -72,9 +82,9 @@ int main(){
   set_drive_motor_power(HALF_BACKWARDS, HALF_FORWARDS);
   
   rotation = 0;
-  current_heading = arduino.getCompassreading();
+  current_heading = arduino.getCompass();
   while(rotation < 900){
-    current_heading = arduino.getCompassreading();
+    current_heading = arduino.getCompass();
     if(current_heading > initial_heading){
       rotation = 3600 - ( current_heading - initial_heading);
     }
