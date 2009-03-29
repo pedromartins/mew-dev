@@ -28,7 +28,7 @@ Arduino::~Arduino()
 	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
 		if(arduino[i])
-			close(arduino[i]);
+			serialport_close(arduino[i]);
 	}
 }
 
@@ -40,7 +40,8 @@ void Arduino::init()
 	//various more or less temporary variables
 	string usbadapter, error;
 	ostringstream number;
-	char buf[5];
+	char buf[128];
+
 
 	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
@@ -49,6 +50,8 @@ void Arduino::init()
 		
 		usleep(500000);
 
+		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
+		serialport_close(arduino_fd);
 		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
 
 		//check for errors
@@ -64,6 +67,7 @@ void Arduino::init()
 		}
 		
 		arduino[i] = arduino_fd;
+		serialport_read_until(arduino[i], buf, '!');
 	}
 		/*memset(&buf, 0, 5);	//clear our buffer before we write anything into it.
 
@@ -135,19 +139,22 @@ void Arduino::getIRreadings(int* vals)
 	char buf[128];
 	memset(&buf, 0, 128);
 
-	if(serialport_write(arduino[SENSORS], "i;\n") == -1)
+	if(serialport_writebyte(arduino[SENSORS], 'i') == -1)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[SENSORS], (char*)&buf, ';');
-	//cout << "Arduino printed " << buf << endl;
-	istringstream iss (buf);
-
+	stringstream ss; 
 	memset(vals, 0, 4);	//clear the first 4 instances of vals.
+
+	//cout << "Arduino printed " << buf << endl;
+
 
 	for(int i = 0; i < 4; i++)
 	{
-		iss >> vals[i];
+		serialport_read_until(arduino[SENSORS], buf, '\n');
+		cout << "Buffer is " << buf << endl;
+		ss << buf;
+		ss >> vals[i];
 	}
 
 }
@@ -158,17 +165,17 @@ int Arduino::getCompassreading()
 		return -1;
 
 	char buf[128];
-	memset(&buf, 0, 128);
+	memset(buf, 0, 128);
 
-	if(serialport_write(arduino[SENSORS], "c;\n") == -1)
+	if(serialport_writebyte(arduino[SENSORS], 'c') == -1)
 		cout << "An Error occured while requesting the compass reading." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[SENSORS], (char*)&buf, ';');
+	serialport_read_until(arduino[SENSORS], buf, '\n');
 
-	int reading = atoi((char*)&buf);
-	if(reading == 0 || buf == "0")
-		return -1;
+	int reading = atoi(buf);
+	/*if(reading == 0 || buf == "0")
+		return -1;*/
 
 	return reading;
 }
@@ -177,23 +184,25 @@ void Arduino::getUSreadings(int* vals)
 {
 	if(!checkConnection(ULTRASOUND))
 		return;
-
+	cout << "in getUS" << endl;
 	char buf[128];
-	memset(&buf, 0, 128);
+	memset(buf, 0, 128);
 
-	if(serialport_write(arduino[ULTRASOUND], "u;\n") == -1)
+	usleep(50000);
+	if(serialport_writebyte(arduino[ULTRASOUND], 'u') == -1)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
-	serialport_read_until(arduino[ULTRASOUND], (char*)&buf, ';');
 
-	istringstream iss (buf);
-
-	memset(vals, 0, 2);	//clear the first 4 instances of vals.
-
+	stringstream ss;
+	cout << "after ss" << endl;
 	for(int i = 0; i < 2; i++)
 	{
-		iss >> vals[i];
+		cout << "in loop " << i << endl;
+		serialport_read_until(arduino[ULTRASOUND], buf, '\n');
+		cout << "Buffer is " << buf << endl;
+		ss << buf;
+		ss >> vals[i];
 	}
 
 }
@@ -231,7 +240,7 @@ void Arduino::servos_setPos(char servoNum, int inAngle)
 	serialport_writebyte(arduino[CONTROL],'m');
 	serialport_writeubyte(arduino[CONTROL],0);
 	serialport_writeubyte(arduino[CONTROL],angle);
-	serialport_writebyte(arduino[CONTROL],';');
+//	serialport_writebyte(arduino[CONTROL],';');
 }
 
 void Arduino::servos_setMin(int servoNum, int inNum)
@@ -250,7 +259,7 @@ void Arduino::servos_setMin(int servoNum, int inNum)
 	serialport_writebyte(arduino[CONTROL],'n');
 	serialport_writeubyte(arduino[CONTROL],MSByte);
 	serialport_writeubyte(arduino[CONTROL],LSByte);
-	serialport_writebyte(arduino[CONTROL],';');
+//	serialport_writebyte(arduino[CONTROL],';');
 }
 
 void Arduino::servos_setMax(int servoNum, int inNum)
@@ -269,7 +278,7 @@ void Arduino::servos_setMax(int servoNum, int inNum)
 	serialport_writebyte(arduino[CONTROL],'x');
 	serialport_writeubyte(arduino[CONTROL],MSByte);
 	serialport_writeubyte(arduino[CONTROL],LSByte);
-	serialport_writebyte(arduino[CONTROL],';');
+//	serialport_writebyte(arduino[CONTROL],';');
 }
 
 //-----------------------------------------------------end of control part

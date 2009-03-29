@@ -1,4 +1,4 @@
-#define BAUDRATE 38400
+#define BAUDRATE 9600
 //compass part
 #include <Wire.h>
 
@@ -35,8 +35,7 @@ void sendCompassReading()
 
   headingValue = headingData[0]*256 + headingData[1];  // Put the MSB and LSB together
   
-  Serial.print(headingValue);
-  Serial.print(";");
+  Serial.println(headingValue, DEC);
 }
 
 //end compass
@@ -56,17 +55,19 @@ byte read_gp2d12_range(byte pin)
   byte ret;  //return value
   tmp = analogRead(pin);
   
-  if (tmp < 3)
-    return -1; // invalid value
+  /*if (tmp < 3)
+    return -1; // invalid value*/
 
   ret = (byte)( (6787.0 /((float)tmp - 3.0)) - 4.0 );
 
-  if(ret > 70)
+  /*if(ret > 70)
     return -2;
   else if(ret < 4)
     return -3;
   else
-    return ret;
+    return ret;*/
+	
+  return ret;
 } 
 
 void sendIrReadings()
@@ -79,10 +80,8 @@ void sendIrReadings()
   
   for(int i = 0; i < 4; i++)
   {
-    Serial.print(distance[i], DEC);
-    Serial.print(" ");
+    Serial.println(distance[i], DEC);
   }
-  Serial.print(";");
 }
 
 //end IR bit. simply call  sendIRreadings(); as required.
@@ -102,6 +101,8 @@ void setup()
   Wire.begin();
   
    pinMode(13, OUTPUT);      // sets the digital pin as output
+
+ Serial.flush();
 
 }
 
@@ -124,9 +125,6 @@ void loop()
       case 'c':
         sendCompassReading();
         break;
-      case ';':
-        //stop command.. not really necessary
-        break;
       case '?':
         Serial.print("s;");//identiy as sensor arduino
         break;
@@ -134,6 +132,4 @@ void loop()
         break;
     }
   }
-  
-  //sendUltraSoundReadings();
  }

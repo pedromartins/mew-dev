@@ -2,6 +2,8 @@
 
 #include <SoftwareServo.h>
 
+#define BAUDRATE 9600
+
 SoftwareServo servos[12];
 signed int instructionData, i;
 
@@ -13,7 +15,7 @@ unsigned char stringIn[5]; //Holds the command sequence
 
 void setup()
 {
-	Serial.begin(38400); //Initialise the serial
+	Serial.begin(BAUDRATE); //Initialise the serial
 	for(i=0; i<12; i++) { 
 		servos[i].attach(i+2); //Attach each servo
 	}
@@ -29,7 +31,7 @@ void loop()
 			stringIn[stringInLength] = inByte; //Store into a string
 			stringInLength++;
 
-			if(stringInLength >= 5) { //Whole command data has been stored
+			if(stringInLength >= 4) { //Whole command data has been stored
 				servoNum = stringIn[0];
 
 				instructionData = 256*stringIn[2] + stringIn[3]; //Extract instruction data
