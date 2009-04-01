@@ -1,10 +1,9 @@
-#include "arduino.h"
+#include <electronic/arduino.h>
 #include <iostream>
 
 using namespace std;
 
-int main()
-{
+int main(int argc, char ** argv) {
 	//initialise arduino's
 	Arduino ard;
 	ard.init();
@@ -24,7 +23,7 @@ int main()
 	//read the compass like this:
 	cout << "Arduino: Compassheading: " << ard.getCompassreading() << "; " << endl;
 
-	
+
 	//Servo small test
 	cout << "Resetting Lintel" << endl;
 	ard.resetLintel();

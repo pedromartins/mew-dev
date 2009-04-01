@@ -31,9 +31,9 @@
  * opposite direction to slow-down.
  */
 
-#include "core.h"
-#include "steeringoutput.h"
+#include <core/core.h>
 #include <vector>
+#include "steeringoutput.h"
 
 typedef float real;
 

@@ -19,6 +19,7 @@ void goForwardUntil(bool (*cond)(void)) {
   ds.setPowerLevel(0.0, 0.0);
 }
 
+
 int main() {
   goForwardUntil(&frontIRcond);
   return 0;

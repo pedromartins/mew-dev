@@ -2,7 +2,7 @@
 #define STEERING_OUTPUT_H_
 
 #include "math.h"
-#include "core.h"
+#include <core/core.h>
 
 /**
  * SteeringOutput is a movement requested by the steering system.

@@ -7,20 +7,22 @@
 
 #include "actuator.h"
 
+#include <electronic/mew_i2c.h>
+
 DriveSystem::DriveSystem() {
-  init_comms(DEVICE_NODE);
+	init_comms(DEVICE_NODE);
 }
 
 DriveSystem::~DriveSystem(){
-  end_comms();
+	end_comms();
 }
 
 void DriveSystem::setRawPowerLevel(motor_t motor, int raw_power_level) {
-  write_byte_to_register(
-			 WHEEL_MOTOR_CONTROLLER,
-			 motor == LEFT ?
-			 WHEEL_MOTOR_CONTROLLER_LEFT_SPEED:
-			 WHEEL_MOTOR_CONTROLLER_RIGHT_SPEED,
-			 raw_power_level);
+	write_byte_to_register(
+			WHEEL_MOTOR_CONTROLLER,
+			motor == LEFT ?
+					WHEEL_MOTOR_CONTROLLER_LEFT_SPEED:
+			WHEEL_MOTOR_CONTROLLER_RIGHT_SPEED,
+			raw_power_level);
 }
 

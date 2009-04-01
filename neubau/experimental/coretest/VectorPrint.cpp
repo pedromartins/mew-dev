@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "core.h"
-#include "control.h"
+#include <core/core.h>
+#include <control/control.h>
 
 using namespace std;
 
@@ -9,8 +9,7 @@ using namespace std;
 bool closeEnough(Static *s, Vector2df *target);
 void updateState(Kinematic *state, SteeringOutput *output, float dt);
 
-int main()
-{
+int main() {
 	// Let us trace the movements of a Kinematic point towards 0,0.
 	// Let us start at 9,9, with a strong acceleration downwards.
 
