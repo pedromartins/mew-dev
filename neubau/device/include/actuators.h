@@ -10,13 +10,14 @@
 
 #include "mew-i2c.h"
 
+#define DEVICE_NODE "/dev/ttyUSB1"
+
 class DriveSystem {
 public:
 	DriveSystem() {
-		init_comms();
+		init_comms(DEVICE_NODE);
 	}
 	virtual ~DriveSystem();
-
 
 	enum motor_t {
 		LEFT,
@@ -41,16 +42,6 @@ public:
 
 		setRawPowerLevel(LEFT, (int)((powerlevel+1)*127.5));
 		setRawPowerLevel(RIGHT, (int)((powerlevel+1)*127.5));
-	}
-
-
-	/**
-	 * Updates the motors' raw power level based on the given logical
-	 * power level.
-	 */
-	void updatePowerLevel(power_level_t *pl) {
-		setRawPowerLevel(LEFT, pl->left_power_level);
-		setRawPowerLevel(RIGHT, pl->right_power_level);
 	}
 
 	/**
