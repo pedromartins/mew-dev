@@ -1,6 +1,6 @@
 
-#include "actuators.h"
-#include "sensors.h"
+#include "actuator.h"
+#include "sensor.h"
 
 DriveSystem ds;
 IRSensor is;
