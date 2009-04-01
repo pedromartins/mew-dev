@@ -1,7 +1,4 @@
 
-#ifndef CONTROL_H_
-#define CONTROL_H_
-
 #include "actuators.h"
 #include "sensors.h"
 
