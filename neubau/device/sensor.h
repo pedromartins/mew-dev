@@ -15,6 +15,7 @@ using namespace std;
 
 class Sensor {
 public:
+	virtual ~Sensor(){}
 
 	bool operator < (int n) { return getReading() < n; }
 	bool operator > (int n) { return getReading() > n; }
@@ -33,7 +34,7 @@ public:
 			cerr << "Error: Oh dear, invalid IRsensor number provided in constructor" <<endl;
 		}
 	}
-	virtual ~IRSensor();
+	virtual ~IRSensor(){}
 
 protected:
 
@@ -57,7 +58,7 @@ public:
 			cerr << "Error: Oh dear, invalid USsensor number provided in constructor" <<endl;
 		}
 	}
-	virtual ~USSensor();
+	virtual ~USSensor(){}
 
 protected:
 
@@ -78,7 +79,7 @@ private:
 class Compass :public Sensor {
 public:
 	Compass(Arduino *ard): ard(ard){}
-	virtual ~Compass();
+	virtual ~Compass() {}
 
 
 	virtual int getReading() {

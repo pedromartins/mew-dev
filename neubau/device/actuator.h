@@ -8,6 +8,7 @@
 #ifndef ACTUATOR_H_
 #define ACTUATOR_H_
 
+// under electronic
 #include "mew_i2c.h"
 
 #define DEVICE_NODE "/dev/ttyUSB1"
@@ -17,7 +18,9 @@ public:
 	DriveSystem() {
 		init_comms(DEVICE_NODE);
 	}
-	virtual ~DriveSystem();
+	virtual ~DriveSystem(){
+		end_comms();
+	}
 
 	enum motor_t {
 		LEFT,

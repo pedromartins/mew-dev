@@ -5,7 +5,7 @@
  *      Author: fushunpoon
  */
 
-#include "include/steering.h"
+#include "steering.h"
 
 void Seek::getSteering(SteeringOutput* output)
 {

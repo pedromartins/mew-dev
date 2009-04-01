@@ -5,13 +5,5 @@
  *      Author: fushunpoon
  */
 
-#include "include/actuators.h"
+#include "actuator.h"
 
-DriveSystem::DriveSystem() {
-	// TODO Auto-generated constructor stub
-
-}
-
-DriveSystem::~DriveSystem() {
-	// TODO Auto-generated destructor stub
-}

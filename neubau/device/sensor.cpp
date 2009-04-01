@@ -5,8 +5,5 @@
  *      Author: fushunpoon
  */
 
-#include "include/sensor.h"
+#include "sensor.h"
 
-IRSensor::~IRSensor() {
-	// TODO Auto-generated destructor stub
-}
