@@ -1,14 +1,14 @@
-
-#include "actuator.h"
-#include "sensor.h"
-#include "arduino.h"
+#include <unistd.h>
+#include <device/actuator.h>
+#include <device/sensor.h>
+#include <electronic/arduino.h>
 
 Arduino * ar = new Arduino();
 DriveSystem ds;
 IRSensor is(ar, 0);
 
 bool frontIRcond() {
-  return is < 30;
+	return is < 30;
 }
 
 void goForwardUntil(bool (*cond)(void)) {

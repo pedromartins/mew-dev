@@ -9,7 +9,7 @@
 #define ACTUATOR_H_
 
 // under electronic
-#include "mew_i2c.h"
+#include <electronic/mew_i2c.h>
 
 #define DEVICE_NODE "/dev/ttyUSB1"
 
