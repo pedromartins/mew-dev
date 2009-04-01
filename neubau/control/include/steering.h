@@ -44,6 +44,8 @@ typedef float real;
 class SteeringBehaviour
 {
 public:
+	SteeringBehaviour(Kinematic *robot) : robot(robot) {}
+
 	/**
 	 * The robot who is moving.
 	 */
@@ -64,6 +66,9 @@ public:
 class Seek : public SteeringBehaviour
 {
 public:
+	Seek(Kinematic *state, Vector2df *target)
+	: SteeringBehaviour(state), target(target){}
+
 	/**
 	 * The target may be any vector (i.e. it might be something
 	 * that has no orientation, such as a point in space).
@@ -105,6 +110,9 @@ public:
 class SeekWithInternalTarget : public Seek
 {
 protected:
+	SeekWithInternalTarget(Kinematic *state, Vector2df *target)
+	: Seek(state, target){}
+
 	/**
 	 * Holds the actual target we're aiming for. This can be written
 	 * to by sub-classes (whereas the 'target' member cannot because
@@ -116,7 +124,7 @@ protected:
 	 * Creates a new behaviour and target. This method is protected
 	 * because this class isn't meant to be instantiated directly.
 	 */
-	SeekWithInternalTarget();
+	// SeekWithInternalTarget();
 };
 
 /**
@@ -190,6 +198,7 @@ class BlendedSteering : public SteeringBehaviour
 public:
 	/**
 	 * Holds a steering behaviour with its associated weight.
+	 * Some sotr of nested class :/
 	 */
 	struct BehaviourAndWeight
 	{
@@ -213,6 +222,13 @@ public:
 	 * steering output structure.
 	 */
 	virtual void getSteering(SteeringOutput* output);
+
+	/**
+	 * Adds a behaviour to this blended steering.
+	 */
+	void addBehaviour() {
+		behaviours
+	}
 };
 
 /**

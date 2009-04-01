@@ -35,11 +35,11 @@ void Flee::getSteering(SteeringOutput* output)
 	}
 }
 
-SeekWithInternalTarget::SeekWithInternalTarget()
-{
-	// Make the target pointer point at our internal target.
-	target = &internal_target;
-}
+//SeekWithInternalTarget::SeekWithInternalTarget()
+//{
+//	// Make the target pointer point at our internal target.
+//	target = &internal_target;
+//}
 
 void Wander::getSteering(SteeringOutput* output)
 {
