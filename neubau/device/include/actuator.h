@@ -8,7 +8,7 @@
 #ifndef ACTUATOR_H_
 #define ACTUATOR_H_
 
-#include "mew-i2c.h"
+#include "mew_i2c.h"
 
 #define DEVICE_NODE "/dev/ttyUSB1"
 
