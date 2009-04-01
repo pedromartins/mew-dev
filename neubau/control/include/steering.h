@@ -226,9 +226,6 @@ public:
 	/**
 	 * Adds a behaviour to this blended steering.
 	 */
-	void addBehaviour() {
-		behaviours
-	}
 };
 
 /**
