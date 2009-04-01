@@ -5,8 +5,8 @@
  *      Author: fushunpoon
  */
 
-#ifndef ACTUATORS_H_
-#define ACTUATORS_H_
+#ifndef ACTUATOR_H_
+#define ACTUATOR_H_
 
 #include "mew-i2c.h"
 
