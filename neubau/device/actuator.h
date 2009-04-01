@@ -15,12 +15,8 @@
 
 class DriveSystem {
 public:
-	DriveSystem() {
-		init_comms(DEVICE_NODE);
-	}
-	virtual ~DriveSystem(){
-		end_comms();
-	}
+  DriveSystem();
+  ~DriveSystem();
 
 	enum motor_t {
 		LEFT,
@@ -52,14 +48,8 @@ public:
 	 *
 	 * Sends out a byte to the mew-i2c motors. This is a raw power level.
 	 */
-	void setRawPowerLevel(motor_t motor, int raw_power_level) {
-		write_byte_to_register(
-				WHEEL_MOTOR_CONTROLLER,
-				motor == LEFT ?
-				WHEEL_MOTOR_CONTROLLER_LEFT_SPEED:
-				WHEEL_MOTOR_CONTROLLER_RIGHT_SPEED,
-				raw_power_level);
-	}
+	void setRawPowerLevel(motor_t motor, int raw_power_level);
+
 private:
 };
 

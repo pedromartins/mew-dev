@@ -1,23 +1,25 @@
 
 #include "actuator.h"
 #include "sensor.h"
+#include "arduino.h"
 
+Arduino * ar = new Arduino();
 DriveSystem ds;
-IRSensor is;
+IRSensor is(ar, 0);
 
 bool frontIRcond() {
   return is < 30;
 }
 
-void goForwardUntil(bool *cond(void)) {
-  ds->setPowerLevel(1.0, 0.0);
+void goForwardUntil(bool (*cond)(void)) {
+  ds.setPowerLevel(1.0, 0.0);
   while(!cond()) {
-    usleep(10000)
+    usleep(10000);
   }
-  ds->setPowerLevel(0.0, 0.0);
+  ds.setPowerLevel(0.0, 0.0);
 }
 
 int main() {
-  goForwardUntil(&frontIRCond);
+  goForwardUntil(&frontIRcond);
   return 0;
 }
