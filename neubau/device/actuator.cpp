@@ -17,7 +17,7 @@ DriveSystem::~DriveSystem(){
 	end_comms();
 }
 
-void setPowerLevel(float powerlevel, float ratio){
+void DriveSystem::setPowerLevel(float powerlevel, float ratio){
 	float left_power_level;
 	float right_power_level;
 
@@ -29,14 +29,14 @@ void setPowerLevel(float powerlevel, float ratio){
 		right_power_level = powerlevel;
 	}
 
-	setRawPowerLevel(LEFT, (int)((powerlevel+1)*127.5));
-	setRawPowerLevel(RIGHT, (int)((powerlevel+1)*127.5));
+	setRawPowerLevel(DriveSystem::LEFT, (int)((powerlevel+1)*127.5));
+	setRawPowerLevel(DriveSystem::RIGHT, (int)((powerlevel+1)*127.5));
 }
 
 void DriveSystem::setRawPowerLevel(motor_t motor, int raw_power_level) {
 	write_byte_to_register(
 			WHEEL_MOTOR_CONTROLLER,
-			motor == LEFT ?
+			motor == DriveSystem::LEFT ?
 					WHEEL_MOTOR_CONTROLLER_LEFT_SPEED:
 			WHEEL_MOTOR_CONTROLLER_RIGHT_SPEED,
 			raw_power_level);

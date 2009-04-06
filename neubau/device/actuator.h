@@ -10,6 +10,9 @@
 
 #define DEVICE_NODE "/dev/ttyUSB1"
 
+/**
+ *
+ */
 class DriveSystem {
 public:
 	DriveSystem();
@@ -20,6 +23,9 @@ public:
 		RIGHT
 	};
 
+	/**
+	 * Stops the current drive system
+	 */
 	void inline stop() {
 		setPowerLevel(0.0,0.0);
 	}

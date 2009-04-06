@@ -1,0 +1,93 @@
+
+The Architecture Document
+------------------------------------
+This document describes the architecture of the project, and 
+directory tree structure used to enable the building of the system
+in ordinance with the architecture in a modular way.
+
+
+
+The Stack Diagram
+--------------------------
+For descriptions of rthe individual layers, refer to the
+'SOURCE TREE STRUCTURE!!' section.
+
+   ----------------------- 
+  |       decision        |  <- Prolog rule-based decision making
+  |-----------------------| - - - -
+ -|       control         |  <- High-level algorithms, direct control, actuates actuators 
+| |-----------------------|
+| |      perception       |  <- World model, robot state, and update mechanisms
+| |-----------------------|
+ >|   device   |          | <- (device) abstract devices, low-level algorithms
+  |------------|  core    |  <- Vector class, search algorithms 
+  | electronic |          | <- (electronic) C serial/i2c communications functions
+  -------------------------
+  |       hardware        |  <- Arduinos, motors, servos, IR/US/compass/optical sensors 
+   -----------------------
+       the real world        <- ... !!!
+
+
+SOURCE TREE STRUCTURE!!! (by Pedro, originally!)
+-----------------------
+
+ /            The Project's source code ROOT. In CMake, this is
+ |            ${NEUBAU_SOURCE_DIR}. The name of the root is determined by the
+ |            developer when the source tree is checked out from SVN.
+ |
+build/        This is the default build directory. In CMake,
+ |            this is ${NEUBAU_BINARY_DIR}. 
+ |
+control/      The controlsystem abstracts away the details of actuation, to
+ |            present a simpler interface geared towards solving problems.
+ |            Decomposes tasks into calls to devices.
+ |
+ |- movement/ Deals with movement goals
+ |- robot/	  State that is needed for the logic.
+ |
+core/		  Core contains abstract general purpose things.
+ |
+decision/     The decision system is responsible for the higher level
+ |            reasoning to plan the sequence of actions that is to be taken.
+ |
+device/       (Also: driver layer) Uses electronic or simulated layer calls
+ |            to provide a higher level interface for the sensors and actuators.
+ |            (e.g will contain calls like goForward(2 metres) ).
+ |            Will have the low-level logic for controlling the actuators.
+ |
+electronics/  Implementations of low-level physical device communications protocols.
+ |            Uses basic serial communications interfaces to provide a meaningful
+ |            interface to users of the hardware devices.
+ |
+experimental/ Experimental features that need to be tested individually to ensure
+ |            their full functionality before integrating it with the larger system.
+ |
+ |- virtual/  Provides totally virtualized device, electronic and hardware layers.
+ |            These are essentially mock-up classes to ensure this architecture
+ |            works.
+ |            Gives us the so called 'simulated world' layer that may entirely
+ |            replace the 'electronic' layer if need be. Abstract devices should
+ |            still work.
+ |
+perception/   Keeps an internal model of the external world and a robot state.
+ |            Provides a logic unit that uses information extracted from perceptive
+ |            devices (such as sensors and actuator feedback) to update the stored
+ |            states. This will happen periodically or upon request, so that
+ |            higher logic (control and making decisions [goal generation])
+ |            may make the best decisions.  
+ |
+test/         Keeps test source code for unit tests for each of the layers.
+ |- control   The directory structure of test will mimick that of the top-level
+ |- core      main direcories, so that tests could be put into their respective
+ |- decision  and corresponding directories.
+ |- .
+ |- .
+ |- .
+ 
+In each of the main source directories, CMakeLists.txt and DartTestfile.txt are 
+kept, so that the building tool CMake and its testing utility CTest can be exeucted
+after the entire project is made.
+
+These directories fit in the global structure according to the following stack:
+
+

@@ -50,7 +50,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="experimental/coretest/VectorPrint.cpp|electronic/main.cpp|CMakeLists.txt|experimental/CMakeLists.txt|experimental/coretest/CMakeLists.txt|core/CMakeLists.txt" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="build|experimental/coretest/VectorPrint.cpp|electronic/main.cpp|CMakeLists.txt|experimental/CMakeLists.txt|experimental/coretest/CMakeLists.txt|core/CMakeLists.txt" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>

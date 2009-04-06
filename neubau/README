@@ -1,0 +1,96 @@
+
+
+Guys and Gals!
+
+Welcome to the Neubau project.
+This source tree is built based on new principles that I find may increase the
+ease of use of the source-tree for the mew-robotics project that we had.
+
+From experience, we (I!) managed to introduce a very complicated structure
+that nobody really wanted, things never integrated well (we had to copy code
+in a temporary location to make a build) and basically, it was build-hell.
+
+It's a more advanced than the older source  
+The main principles of the Neubau project is this:
+
+- simple build system via CMake and 1-2 line configuration files
+- working build, ALWAYS.
+- no Makefiles, ever.
+
+- tested code to ensure libraries and units work as intended.
+- NO include directories
+
+
+Don't worry, it might sound like I'm throwing away everything you currently know
+and replacing it with some complicated system, but it really is quite simple.
+
+In fact, you'll need to know two new commands, and that's about it. No worrying
+about building ever again.
+
+N.B: We aren't using Eclipse CDT build anymore, due to difficulties working
+with multiple build targets.
+
+
+The build system we're using is called CMake. It comes with a testing tool called
+CTest
+
+Use CMake!
+------------------------
+CMake GENERATES makefiles. It looks at the CMakeLists.txt files in the directory
+tree which describes to CMake the targets that need to be built, and it chugs
+out a lot of configuration files in a BUILD TREE.
+ 
+To build everything related to this project, simply follow the following steps
+on a Linux system:
+
+cd build  # enter our build directory.
+cmake ../ # run cmake on the source directory (which is the parent of the build dir)
+make      # run the usual 'make' on the generated makefiles!
+
+
+If your shell complains that you don't have cmake installed, run 
+
+sudo apt-get install cmake
+
+...
+Hopefully you won't get any errors on the make. If you get errors from CMake,
+stop, fix your CMakeLists.txt files and then try cmake again.
+make then builds all the binaries into the build/ folder. 
+
+
+Configuring CMakeLists.txt files
+-----------------------------------
+CMakeLists.txt are like meta-makefiles: they describe how CMake should make
+its makefiles. Consult the CMake wiki, or other CMakeLists files, or me,
+to see how CMakeLists.txt work.
+
+
+
+
+Using CTest!
+----------------------------
+CTest is a module of CMake that runs tests after making, and reports which tests
+failed and which tests succeeded.
+
+Test programs (or test executables, or test CASES) are normal programs that have their
+own main() functions as per any C++ file, and they return 0 on test PASS
+and returns 1 on test FAILURE.
+
+Unlike traditional test tools, there's no notion of a test suite. We simply put
+test cases in their separate directories, as needed.
+
+The 'test' directory should look something like this:
+ 
+test/
+ |- testcore
+ |- test
+
+Each test case should be named 'Testxxx.cpp', with a fairly descriptive file name.
+
+
+
+Previously encountered problems:
+-------------------------------------
+* Both CMake AND Eclipse gives linker errors due to the fact that files are
+  named .c. Name ALL files .cpp despite them being C-files, please!
+  
