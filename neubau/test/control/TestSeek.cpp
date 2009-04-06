@@ -1,3 +1,10 @@
+/*
+ * TestSeek.cpp
+ *
+ *  Created on: 06-Apr-2009
+ *      Author: fushunpoon
+ */
+
 #include <iostream>
 
 #include <core/core.h>

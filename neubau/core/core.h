@@ -8,9 +8,11 @@
 #ifndef CORE_H_
 #define CORE_H_
 
-#include "vector2d.h"
-#include "static.h"
+#include "float.h"
+#include "floating.h"
 #include "kinematic.h"
+#include "static.h"
+#include "vector2d.h"
 
 
 #endif /* CORE_H_ */

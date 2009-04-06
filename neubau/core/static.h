@@ -13,7 +13,7 @@
 struct Static
 {
 	/**
-	 * The position in 3 space.
+	 * The position in 2D Euclidean space.
 	 */
 	Vector2df position;
 

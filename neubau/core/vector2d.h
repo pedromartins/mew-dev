@@ -1,12 +1,35 @@
-// Copyright (C) 2009 Hok Shun Poon
-
 // Defines a 2-D vector type.
+// adapted from the AI for Games programming book from Millington.
 
 #ifndef VECTOR2D_H_
 #define VECTOR2D_H_
 
-#include <math.h>
+#include "floating.h"
 #include <ostream>
+
+/**
+ * Parametized equivalence function with specializations with floating-point equivalence
+ * with some arbitrary tolerance.
+ * @param a
+ * @param b
+ * @return
+ */
+template<typename T>
+static inline bool equalsT(T a, T b) {
+	return a == b;
+}
+
+// Specialized equivalence for floating point and double precision numbers.
+template <>
+inline bool equalsT<float>(float a, float b) {
+	return fequals(a,b);
+}
+
+template <>
+inline bool equalsT<double>(double a, double b) {
+	return equals(a,b);
+}
+
 
 /**
  * Holds a vector in 2 dimensions. This class has a whole series
@@ -39,7 +62,7 @@ private:
     T _pad;
 
 public:
-    /** The default constructor creates a zero vector. */
+    /** The default constructor creates a zero vector, no matter wehat type it is. */
     Vector2d<T>() : x(0), y(0) {}
 
     /**
@@ -52,12 +75,12 @@ public:
      * with the Y axis pointing up and the X axis pointing right.
      */
     /* @{ */
-    const static Vector2d<T> UP;
-    const static Vector2d<T> RIGHT;
-    const static Vector2d<T> OUT_OF_SCREEN;
-    const static Vector2d<T> DOWN;
-    const static Vector2d<T> LEFT;
-    const static Vector2d<T> INTO_SCREEN;
+    // const static Vector2d<T> UP;
+    // const static Vector2d<T> RIGHT;
+    // const static Vector2d<T> OUT_OF_SCREEN;
+    // const static Vector2d<T> DOWN;
+    // const static Vector2d<T> LEFT;
+    // const static Vector2d<T> INTO_SCREEN;
     /* @} */
 
     /**
@@ -66,12 +89,12 @@ public:
      * These are convenience unit-vectors in the basis directions.
      */
     /* @{ */
-    const static Vector2d<T> X;
-    const static Vector2d<T> Y;
+    // const static Vector2d<T> X;
+    // const static Vector2d<T> Y;
     /* @} */
 
     /** A zero length vector. */
-    const static Vector2d<T> ZERO;
+    // const static Vector2d<T> ZERO;
 
 
     /**
@@ -134,8 +157,7 @@ public:
     /** Checks if the two vectors have identical components. */
     bool operator==(const Vector2d<T>& other) const
     {
-        return x == other.x &&
-            y == other.y;
+        return equalsT<T>(x,other.x) && equalsT<T>(y,other.y);
     }
 
     /** Checks if the two vectors have non-identical components. */
@@ -246,7 +268,7 @@ public:
      * Calculates and returns the scalar product of this vector
      * with the given vector.
      */
-    T scalarProduct(const Vector2d<T> &vector) const
+    T dot(const Vector2d<T> &vector) const
     {
         return x*vector.x + y*vector.y;
     }
@@ -287,7 +309,7 @@ public:
         T l = magnitude();
         if (l > 0)
         {
-            (*this) *= ((T)1)/l;
+            (*this) *= ((T)1)/l; // clever use of the this pointer!
         }
     }
 
@@ -336,23 +358,17 @@ public:
 	friend std::ostream& operator<<(std::ostream&, const Vector2d<U> &);
 };
 
-/*
-template <typename T>
-std::ostream& operator <<(std::ostream& os, const Vector2<T> &v){
-	return os << "(" << v.x <<"," << v.y << ")";
-}*/
 
-// global function. should work!
 template <typename U>
 std::ostream& operator<< (std::ostream& ostr, const Vector2d<U>& vect)
 {
-	ostr << "(" << vect.x << "," << vect.y << ")";
-	return ostr;
+	return ostr << "(" << vect.x << "," << vect.y << ")";
 }
 
 typedef Vector2d<int> Vector2di;
 typedef Vector2d<float> Vector2df;
 typedef Vector2d<double> Vector2dd;
+
 
 #endif
 

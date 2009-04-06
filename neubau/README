@@ -6,6 +6,20 @@ Welcome to the Neubau project.
 This source tree is built based on new principles that I find may increase the
 ease of use of the source-tree for the mew-robotics project that we had.
 
+Contents
+---------------------
+ 1. Introduction
+ 2. Prerequisites for building
+ 3. Use CMake!
+   - configuring CMakelists.txt files
+ 4. Use CTest!
+ 5. Use CppUnit!
+ 6. Previously encountered problems
+
+
+
+Introduction
+--------------------
 From experience, we (I!) managed to introduce a very complicated structure
 that nobody really wanted, things never integrated well (we had to copy code
 in a temporary location to make a build) and basically, it was build-hell.
@@ -31,8 +45,16 @@ N.B: We aren't using Eclipse CDT build anymore, due to difficulties working
 with multiple build targets.
 
 
+Prerequisites for building
+-----------------------------
+To build Neubau, you will need:
+- cmake (bundled with it, ctest)
+- make
+- a c++ compiler such as g++
+- cppunit (for some unit tests to be compiled)
+
 The build system we're using is called CMake. It comes with a testing tool called
-CTest
+CTest.
 
 Use CMake!
 ------------------------
@@ -86,6 +108,13 @@ test/
  |- test
 
 Each test case should be named 'Testxxx.cpp', with a fairly descriptive file name.
+
+
+Using CppUnit!
+------------------------------
+CTest provides us a means of running many tests, but doesn't give us many means
+of making meaningful error messages, so it is advised that you use some sort of
+unit testing library such as CppUnit.
 
 
 

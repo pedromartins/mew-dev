@@ -1,0 +1,2 @@
+/usr/bin/ar cr libdevice.a  CMakeFiles/device.dir/actuator.cpp.o CMakeFiles/device.dir/sensor.cpp.o 
+/usr/bin/ranlib libdevice.a 

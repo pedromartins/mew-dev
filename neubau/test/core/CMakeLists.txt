@@ -1,0 +1,3 @@
+add_executable(TestVector2d TestVector2d.cpp)
+target_link_libraries(TestVector2d core)
+add_test(TestVector2d TestVector2d)

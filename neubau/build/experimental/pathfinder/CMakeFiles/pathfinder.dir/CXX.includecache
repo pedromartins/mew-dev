@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+/home/fushunpoon/dev/code/workspace/Neubau/experimental/pathfinder/findpath.cpp
+stlastar.h
+/home/fushunpoon/dev/code/workspace/Neubau/experimental/pathfinder/stlastar.h
+iostream
+-
+math.h
+-
+
+/home/fushunpoon/dev/code/workspace/Neubau/experimental/pathfinder/fsa.h
+string.h
+-
+stdio.h
+-
+
+/home/fushunpoon/dev/code/workspace/Neubau/experimental/pathfinder/stlastar.h
+iostream
+-
+stdio.h
+-
+assert.h
+-
+algorithm
+-
+set
+-
+vector
+-
+fsa.h
+/home/fushunpoon/dev/code/workspace/Neubau/experimental/pathfinder/fsa.h
+

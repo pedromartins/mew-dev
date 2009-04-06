@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+../electronic/arduino.h
+serial.h
+../electronic/serial.h
+
+../electronic/mew_i2c.h
+stdint.h
+-
+
+../electronic/serial.h
+
+/home/fushunpoon/dev/code/workspace/Neubau/device/actuator.cpp
+actuator.h
+/home/fushunpoon/dev/code/workspace/Neubau/device/actuator.h
+electronic/mew_i2c.h
+-
+
+/home/fushunpoon/dev/code/workspace/Neubau/device/actuator.h
+
+/home/fushunpoon/dev/code/workspace/Neubau/device/sensor.cpp
+sensor.h
+/home/fushunpoon/dev/code/workspace/Neubau/device/sensor.h
+
+/home/fushunpoon/dev/code/workspace/Neubau/device/sensor.h
+electronic/arduino.h
+-
+iostream
+-
+
