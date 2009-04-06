@@ -1,2 +1,0 @@
-/usr/bin/ar cr libelectronic.a  CMakeFiles/electronic.dir/mew_i2c.cpp.o CMakeFiles/electronic.dir/arduino.cpp.o CMakeFiles/electronic.dir/serial.cpp.o 
-/usr/bin/ranlib libelectronic.a 

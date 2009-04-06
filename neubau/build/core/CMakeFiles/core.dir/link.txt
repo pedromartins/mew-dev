@@ -1,2 +1,0 @@
-/usr/bin/ar cr libcore.a   
-/usr/bin/ranlib libcore.a 

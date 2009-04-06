@@ -1,2 +1,0 @@
-/usr/bin/ar cr libcontrol.a  CMakeFiles/control.dir/steering.cpp.o 
-/usr/bin/ranlib libcontrol.a 
