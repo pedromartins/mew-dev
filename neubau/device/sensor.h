@@ -27,7 +27,7 @@ public:
 	virtual int getReading() = 0;
 };
 
-class IRSensor :public Sensor {
+class IRSensor : public Sensor {
 public:
 	IRSensor(Arduino *ard, int num): ard(ard), num(num){
 		if (num <= 0 || num > 3 ) {
@@ -51,7 +51,7 @@ private:
 };
 
 
-class USSensor :public Sensor {
+class USSensor : public Sensor {
 public:
 	USSensor(Arduino *ard, int num): ard(ard), num(num){
 		if (num <= 0 || num > 1 ) {

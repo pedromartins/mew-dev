@@ -27,14 +27,15 @@ Arduino::~Arduino()
 	//close all open ttyUSB connections
 	for(int i = 0; i < NUMOFARDUINOS; i++)
 	{
-		if(arduino[i])
+		if(arduino[i]) {
 			serialport_close(arduino[i]);
+		}
 	}
 }
 
 void Arduino::init()
 {
-	//figure out which arduino is which. 0=sensor, 1=servo, 2=motor
+	// figure out which arduino is which. 0=sensor, 1=servo, 2=motor
 	int arduino_fd = 0;	//temporary one
 
 	//various more or less temporary variables
@@ -47,7 +48,7 @@ void Arduino::init()
 	{
 		//Fetch adapter name
 		usbadapter = arduinoNames[i];
-		
+
 		usleep(500000);
 
 		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
@@ -65,7 +66,7 @@ void Arduino::init()
 		{
 			cout << "Communication with " << usbadapter << " established!" << endl;
 		}
-		
+
 		arduino[i] = arduino_fd;
 		serialport_read_until(arduino[i], buf, '!');
 	}
@@ -91,10 +92,10 @@ void Arduino::init()
 				{
 					cout << "Error! 2 arduinos claim to handle sensors!" << endl;
 					return;
-				}		
+				}
 				break;
 			case 'c':		//the control thingy, i.e. the servos... sorry, only 1 s available
-				if(!arduino[CONTROL])				
+				if(!arduino[CONTROL])
 					arduino[CONTROL] = arduino_fd;
 				else
 				{
@@ -143,7 +144,7 @@ void Arduino::getIRreadings(int* vals)
 		cout << "An error occured while requesting the IR ranges." << endl;
 
 	usleep(50000);
-	stringstream ss; 
+	stringstream ss;
 	memset(vals, 0, 4);	//clear the first 4 instances of vals.
 
 	//cout << "Arduino printed " << buf << endl;
@@ -232,7 +233,7 @@ void Arduino::servos_setPos(char servoNum, int inAngle)
 
 	if(angle > 180) angle = 180; //Constrain angle to within servo limits
 	if(angle < 0) angle = 0;
-	
+
 	//Write command string to the serial port
 	serialport_writebyte(arduino[CONTROL],'s');
 	serialport_writebyte(arduino[CONTROL],'c');
@@ -246,7 +247,7 @@ void Arduino::servos_setPos(char servoNum, int inAngle)
 void Arduino::servos_setMin(int servoNum, int inNum)
 {
 	//Changes a servos minimum pulse length (in uSeconds)
-	
+
 	int LSByte, MSByte;
 
 	LSByte = inNum%256;
@@ -265,7 +266,7 @@ void Arduino::servos_setMin(int servoNum, int inNum)
 void Arduino::servos_setMax(int servoNum, int inNum)
 {
 	//Changes a servos maximum pulse length (in uSeconds)
-	
+
 	int LSByte, MSByte;
 
 	LSByte = inNum%256;

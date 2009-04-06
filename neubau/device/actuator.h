@@ -8,38 +8,27 @@
 #ifndef ACTUATOR_H_
 #define ACTUATOR_H_
 
-
 #define DEVICE_NODE "/dev/ttyUSB1"
 
 class DriveSystem {
 public:
-  DriveSystem();
-  ~DriveSystem();
+	DriveSystem();
+	~DriveSystem();
 
 	enum motor_t {
 		LEFT,
 		RIGHT
 	};
 
+	void inline stop() {
+		setPowerLevel(0.0,0.0);
+	}
+
 	/**
 	 * powerlevel ranges from -1 to 1
 	 * ratio ranges from -1 to 1 also.
 	 */
-	void setPowerLevel(float powerlevel, float ratio){
-		float left_power_level;
-		float right_power_level;
-
-		if (ratio > 0) {
-			left_power_level = powerlevel;
-			right_power_level = powerlevel*(1-2*ratio);
-		} else {
-			left_power_level = powerlevel*(2*ratio+1);
-			right_power_level = powerlevel;
-		}
-
-		setRawPowerLevel(LEFT, (int)((powerlevel+1)*127.5));
-		setRawPowerLevel(RIGHT, (int)((powerlevel+1)*127.5));
-	}
+	void setPowerLevel(float powerlevel, float ratio);
 
 	/**
 	 * setRawPowerLevel

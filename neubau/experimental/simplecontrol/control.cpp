@@ -12,15 +12,15 @@ bool frontIRcond() {
 }
 
 void goForwardUntil(bool (*cond)(void)) {
-  ds.setPowerLevel(1.0, 0.0);
-  while(!cond()) {
-    usleep(10000);
-  }
-  ds.setPowerLevel(0.0, 0.0);
+	ds.setPowerLevel(1.0, 0.0);
+	while(!cond()) {
+		usleep(10000);
+	}
+	ds.setPowerLevel(0.0, 0.0);
 }
 
 
 int main() {
-  goForwardUntil(&frontIRcond);
-  return 0;
+	goForwardUntil(&frontIRcond);
+	return 0;
 }
