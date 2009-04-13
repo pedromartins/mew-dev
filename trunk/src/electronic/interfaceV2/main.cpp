@@ -8,18 +8,13 @@ int main (int argc, char **argv)
 {
 	int IRVals[4];
 
-	Arduinos ourArds;
+	arduino_t ourArds;
 	ourArds.open(SENSORS);
-
+	ourArds.debugVal = 4;
+	ourArds.setCompassHandler();
 	while(1) {
-	ourArds.getIR(IRVals);
-
-	for(int i = 0; i < 4; i++) 
-		cout << IRVals[i] << " ";
-	cout << ourArds.getCompass();
-	cout << endl;
-
-	usleep(100000);
+		usleep(100000);
+		cout << "Compass heading is " << ourArds.getBigHeading() << endl;
 	}
 	return 0;
 }
