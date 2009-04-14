@@ -7,25 +7,32 @@ If it looks like a lot of work, don't worry!! It's nowhere as complicated as it 
 I've moved everything around once again- re-decided which functionality goes where, etc.
 With a bit of explanation, everybody should understand what's going on.
  
- * [Overview]
-  * [ControlSystem]
-   * [Movement]
-    * [SteeringBehaviours]
-    * [BehaviourArbitration]
-   * [Build]
-  * [DecisionSystem]
-  * [PerceptionSystem]
-   * [WorldModelling]
-   * [Localization]
-    * [Odometric]
-    * [Sensory]
-     * [ComputerVision]
-     * [IRSensors]
-     * [UltrasoundSensors]
-  * [DeviceLayer]
-  * [ElectronicInterface]
-  * [Simulator]
-   * [Programs]
-   * [VirtualSensors] ??
+ * [Overview] A description of how the project is layed out, and where resources can be found
+ * [GettingStarted] Useful information to get started with development here
+
+ * [SourceTreeStructure]
+
+ * [Decision] Generates high-level goals by searching problem space. No planning :/
+ * [Control] Controls the robot's actuators with given information to achieve or finitely fail at achieving goals. Lower-level planning is done here.
+  * [Movement] Movement algorithms are used here.
+   * [SteeringBehaviours] Advanced (and not necessarily practical) approach to movement
+    * [BehaviourArbitration] Combines outputs of steering behaviours to produce a final output
+  * [Build] Control algorithms for the claw (currently). Very simplistic.
+ * [Perception] The robot's interpretation of the world and itself. Keeps robot and world state, and processes incoming data from sensors to provide
+  * [WorldModelling] Representation of the world and problem space.
+  * [Localization]
+   * [Odometric] Dead reckoning techniques with limited information about change of distance from initial position
+ * [Device] The virtualized device layer (or drivers layer) provides hardware abstraction
+  * [Actuator]
+   * [DriveSystem]
+   * [Claw]
+  * [Sensory]
+   * [ComputerVision]
+   * [IRSensors]
+   * [UltrasoundSensors]
+ * [Electronic] The electronic layer deals with low-level communication with hardware
+ * [Core] Common classes, useful data structures and generalized algorithms used throughout the project are housed in core
+ * [Virtual] A virtual replacement of the real world and hardware, to provide a simple testing platform. Interfacing with robot frameworks and simulators can be done here.
+
  * SoftwareTeamResources
  * CodingConventions
