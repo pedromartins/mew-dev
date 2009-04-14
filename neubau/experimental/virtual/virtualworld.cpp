@@ -1,67 +1,80 @@
+/*
+ * virtualworld.cpp
+ *
+ *  Created on: 04-Mar-2009
+ *      Author: fushunpoon
+ */
+
 #include "virtualworld.h"
 
 #include <iostream>
 
 using namespace std;
 
+/*
+ * STATIC INITIALIZATION
+ */
+Vector2di VirtualWorld::dOffsets[] = {
+		Vector2di(0,-1), // NORTH
+		Vector2di(-1,0), // WEST
+		Vector2di(0,1), // SOUTH
+		Vector2di(1,0)	 // EAST
+};
 
-VirtualWorld::VirtualWorld(int map)
-{
-	map = new MapElement[DEFAULT_SIZE][DEFAULT_SIZE];
 
-	clear();
-
-	switch(mapNum) {
-	case 0:
-		cout << "World: Blank world created. " << endl;
-		break;
-	case 1:
-		cout << "World: Preset world 1 created. " << endl;
-
-		for(int i = 3; i != 6; i++) {
-			for(int j = 0; j != SIZE_Y - 1 ; j++) {
-				map[i][j] = FORBIDDEN;
-			}
-		}
-
-		putPiece(9,0);
-		break;
-	default:
-		cout << "ERROR: No such world available!" << endl;
-		exit(0);
-	}
-}
-
-VirtualWorld::VirtualWorld(int width, int height){
-	map = new MapElement[width][height];
-
+VirtualWorld::VirtualWorld(const int width, const int height)
+: width(width), height(height){
+	arr = new_2DArr<MapElement>(width, height);
 	clear();
 }
 
-void VirtualWorld::show() {
+VirtualWorld::~VirtualWorld() {
+	delete_2DArr(arr,width);
+}
 
-	cout << printline("*", width);
-	for( int j = 0; j<height; ++j ) {
-		cout << "*";
-		for (int i = 0; i<width; ++i){
-			switch ( map[j][i] ) {
+//print a layout of the map in ASCII ART, so that you can see what's going on.
+ostream& operator << (ostream& os, const VirtualWorld& world) {
+	/// XXX Do we need this?!
+	Vector2di pos;
+	MapElement me;
+	string content;
+
+	// for every row
+	for(pos.y = 0; pos.y < world.height; pos.y++) {
+		printf("%.2d:", pos.y);
+
+		// for every column
+		for(pos.x = 0; pos.x < world.width; pos.x++) {
+			content = "";
+			me = world.getElementAt(pos);
+			switch(me)
+			{
 			case EMPTY:
-				cout << " ";
+				// Content can stay empty.
+				break;
 			case PIECE:
-				cout << "O";
+				content += "O";
+				break;
 			case DROPZONE:
-				cout << "x";
+				content += "_";
+				break;
 			case FORBIDDEN:
-				cout << "F";
+				content += "X";
+				break;
+			default:
+				content += "?";
 			}
-		}
-		cout << "*" << endl;
-	}
-	cout << printline("*", width) << endl;
-}
 
-void VirtualWorld::printline(const char *string, int numtimes ) const {
-	for(int i =0; i<width; ++i){
-		cout<<"*" ;
+			os << "[";
+			os.fill(' '); os.width(2);
+			os << right << content;
+			os << "]";
+		}
+		os << endl;
+	}
+
+	os << "Registered entities: " << endl;
+	for(EntityMap::const_iterator i = world.entmap.begin(); i!=world.entmap.end(); ++i ) {
+		// os << *(i->first) << "," << *(i->second) << endl;
 	}
 }

@@ -21,7 +21,8 @@ include_directories(${NEUBAU_SOURCE_DIR})
 link_directories(${NEUBAU_BINARY_DIR}/core
 				${NEUBAU_BINARY_DIR}/control
 				${NEUBAU_BINARY_DIR}/device
-				${NEUBAU_BINARY_DIR}/electronic)
+				${NEUBAU_BINARY_DIR}/electronic
+				${NEUBAU_BINARY_DIR}/experimental/virtual)
 
 add_subdirectory(control)
 add_subdirectory(core)

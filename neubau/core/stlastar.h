@@ -23,6 +23,9 @@ given where due.
 
 */
 
+#ifndef STLASTAR_H
+#define STLASTAR_H
+
 // used for text debugging
 #include <iostream>
 #include <stdio.h>
@@ -42,10 +45,6 @@ using namespace std;
 // Fixed size memory allocator can be disabled to compare performance
 // Uses std new and delete instead if you turn it off
 #define USE_FSA_MEMORY 1
-
-// disable warning that debugging information has lines that are truncated
-// occurs in stl headers
-#pragma warning( disable : 4786 )
 
 
 /**
@@ -757,5 +756,5 @@ private: // data
 };
 
 
-
+#endif // STLASTAR_H
 

@@ -1,5 +1,5 @@
 /*
- * actuators.cpp
+ * actuator.cpp
  *
  *  Created on: 01-Apr-2009
  *      Author: fushunpoon
@@ -8,7 +8,11 @@
 #include "actuator.h"
 
 #include <electronic/mew_i2c.h>
+#include <iostream>
 
+using namespace std;
+
+/*
 DriveSystem::DriveSystem() {
 	init_comms(DEVICE_NODE);
 }
@@ -41,4 +45,15 @@ void DriveSystem::setRawPowerLevel(motor_t motor, int raw_power_level) {
 			WHEEL_MOTOR_CONTROLLER_RIGHT_SPEED,
 			raw_power_level);
 }
+*/
 
+void SimpleDifferentialDrive::moveFoward(int squares) {
+	/// TODO! Might look like the code above, but I don't know how
+	/// you might want to measure the distance of squares.
+	cerr << "Not implemented!!!" << endl;
+}
+
+void SimpleDifferentialDrive::turn(TurnDirection dir) {
+	/// TODO!
+	cerr << "Not implemented!!!" << endl;
+}

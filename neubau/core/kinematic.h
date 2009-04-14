@@ -9,10 +9,15 @@
  * Kinematic extends static to add the first derivative of both
  * position and orientation: velocity and rotation. Rotation
  * consists of angular velocity about the positive z axis (the
- * first derivative of orientation in the Static structure), this
+ * first derivative of orientation in the Staticff structure), this
  * will be altered to be a full 3D angular velocity in due course.
+ *
+ * Kinematic will use single floating point precision for both
+ * position and rotation.
  */
-struct Kinematic : public Static
+typedef Static<float,float> Staticff;
+
+struct Kinematic : public Staticff
 {
 	/**
 	 * The linear velocity.
@@ -22,13 +27,13 @@ struct Kinematic : public Static
 	/**
 	 * The angular velocity.
 	 */
-	double rotation;
+	float rotation;
 
 	/**
 	 * Creates a new Kinematic with zeroed data.
 	 */
 	Kinematic()
-	: Static(), velocity(), rotation(0)
+	: Staticff(), velocity(), rotation(0)
 	{}
 
 	/**
@@ -39,7 +44,7 @@ struct Kinematic : public Static
 	 * @param velocity The linear velocity of the Kinematic.
 	 */
 	Kinematic(const Vector2df& position, const Vector2df& velocity)
-	: Static(position), velocity(velocity), rotation(0)
+	: Staticff(position), velocity(velocity), rotation(0)
 	{}
 
 	/**
@@ -49,8 +54,8 @@ struct Kinematic : public Static
 	 * @param loc The static of the Kinematic.
 	 * @param velocity The linear velocity of the Kinematic.
 	 */
-	Kinematic(const Static& loc, const Vector2df& velocity)
-	: Static(loc), velocity(velocity), rotation(0)
+	Kinematic(const Staticff& loc, const Vector2df& velocity)
+	: Staticff(loc), velocity(velocity), rotation(0)
 	{}
 
 	/**
@@ -59,8 +64,8 @@ struct Kinematic : public Static
 	 *
 	 * @param loc The static of the Kinematic.
 	 */
-	Kinematic(const Static& loc)
-	: Static(loc), velocity(), rotation(0)
+	Kinematic(const Staticff& loc)
+	: Staticff(loc), velocity(), rotation(0)
 	{}
 
 	/**
@@ -74,7 +79,7 @@ struct Kinematic : public Static
 	 */
 	Kinematic(const Vector2df& position, double orientation,
 			const Vector2df& velocity, double avel)
-	: Static(position, orientation),
+	: Staticff(position, orientation),
 	velocity(velocity), rotation(avel)
 	{}
 
@@ -83,7 +88,7 @@ struct Kinematic : public Static
 	 */
 	void clear()
 	{
-		Static::clear();
+		Staticff::clear();
 		velocity.clear();
 		rotation = 0.0f;
 	}
@@ -129,9 +134,9 @@ struct Kinematic : public Static
 	 * The velocity components of the Kinematic are left
 	 * unchanged.
 	 *
-	 * @param other The Static to set the Kinematic to.
+	 * @param other The Staticff to set the Kinematic to.
 	 */
-	Kinematic& operator = (const Static& other)
+	Kinematic& operator = (const Staticff& other)
 	{
 		orientation = other.orientation;
 		position = other.position;

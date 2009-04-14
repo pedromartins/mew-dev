@@ -1,27 +1,32 @@
 #ifndef STATIC_H_
 #define STATIC_H_
 
+#include <iostream>
 #include "vector2d.h"
+
+using namespace std;
 
 /**
  * Represents the static of a robot or other object.
  *
- * A static consists of a position and orientation. Position is
- * stored as a vector, rotation is a planar rotation about the y
- * axis. This will be altered to be a quaternion in due course.
+ * A static consists of a position and orientation.
+ * Position is stored as a vector of type P,
+ * Orientation is stored as a single value of type O.
  */
-struct Static
+template <typename P, typename O>
+class Static
 {
+public:
 	/**
 	 * The position in 2D Euclidean space.
 	 */
-	Vector2df position;
+	Vector2d<P> position;
 
 	/**
 	 * The orientation, as a euler angle in radians around the
 	 * positive y axis (i.e. up) from the positive z axis.
 	 */
-	double orientation;
+	O orientation;
 
 	/**
 	 * Creates a new static with a 0 position and orientation.
@@ -32,14 +37,14 @@ struct Static
 	/**
 	 * Creates a static at the given position with no rotation.
 	 */
-	Static(const Vector2df& position)
+	Static(const Vector2d<P>& position)
 	: position(position), orientation(0)
 	{}
 
 	/**
 	 * Creates a static with the given position and orientation.
 	 */
-	Static(const Vector2df& position, double orientation)
+	Static(const Vector2d<P>& position, O orientation)
 	: position(position), orientation(orientation)
 	{}
 
@@ -47,7 +52,7 @@ struct Static
 	 * Creates a static with the position vector given as
 	 * components and the given orientation.
 	 */
-	Static(double x, double y, double orientation)
+	Static(P x, P y, O orientation)
 	: position(x, y), orientation(orientation)
 	{}
 
@@ -94,19 +99,37 @@ struct Static
 	/**
 	 * Sets the orientation of this static so it points along
 	 * the given velocity vector.
+	 * TODO this is not a good definition! Write this method over!
+	 * @param velocity
 	 */
-	void setOrientationFromVelocity(const Vector2df& velocity);
+	void setOrientationFromVelocity(const Vector2d<P>& velocity){
+		// if x becomes 0, then we have either positive or negative infinity for y/x
+		// giving atan thereof a value of 1 and -1 respectivity.
+		// orientation = atan2(velocity.y,velocity.x);
+	}
 
 	/**
-	 * Returns a unit vector in the direction of the current
-	 * orientation.
+	 * Gets the current orientation and finds a unit vector pointing
+	 * in the same direction on the x,y plane.
+	 * TODO this is not a good definition! Write this method over!
+	 * @return
 	 */
-	Vector2df getOrientationAsVector() const;
+	inline Vector2d<P> getOrientationAsVector() const {
+		// return Vector2d<P>(cos(orientation),sin(orientation));
+		return Vector2d<P>(0,0);
+	}
 
 	/**
 	 * Fills the passed matrix with the Static's transformation.
         void retrieveTM(Matrix& m);
 	 */
+	template<typename X,typename Y>
+	friend ostream& operator << (ostream& os, const Static<X,Y>& rhs);
 };
+
+template<typename X,typename Y>
+ostream& operator << (ostream& os, const Static<X,Y>& rhs) {
+	os << "P: " << rhs.position << ", O:" << rhs.orientation;
+}
 
 #endif

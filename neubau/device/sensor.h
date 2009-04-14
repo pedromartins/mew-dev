@@ -13,6 +13,17 @@
 
 using namespace std;
 
+
+/**
+ * A single sensor must provide at least a single sensor
+ * reading.
+ * Operators have been overloaded for convenience.
+ *
+ * getReading() for each of the sensors is expected to return
+ * the latest possible reading from the physical sensor:
+ * if it has been polled too frequently, it is getReading's
+ * responsibility to return a buffered value for the time being.
+ */
 class Sensor {
 public:
 	virtual ~Sensor(){}
@@ -26,6 +37,11 @@ public:
 
 	virtual int getReading() = 0;
 };
+
+
+/************************************
+ * Series of Arduino-based devices
+ **/
 
 class IRSensor : public Sensor {
 public:

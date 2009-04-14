@@ -3,8 +3,9 @@
 #include <device/sensor.h>
 #include <electronic/arduino.h>
 
+/*
 Arduino * ar = new Arduino();
-DriveSystem ds;
+IDriveSystem ds;
 IRSensor is(ar, 0);
 
 bool frontIRcond() {
@@ -24,3 +25,11 @@ int main() {
 	goForwardUntil(&frontIRcond);
 	return 0;
 }
+*/
+
+int main() {
+	return 0;
+}
+
+/// TODO How might we control our robot, now that we have these separate
+/// classes for motors, sensors, and things?

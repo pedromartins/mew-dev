@@ -33,6 +33,12 @@ int main() {
 	v2.clear();
 	assert( v2 == zero);
 
+	// Test unit vector actually returns a UNIT vector.
+	assert( fequals(v1.unit().magnitude(),1.0f) );
+
+	// Test the unit vector of a zero vector is a zero vector.
+	assert( zero.unit() == zero );
+
 	return 0;
 }
 
