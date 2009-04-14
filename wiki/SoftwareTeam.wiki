@@ -2,10 +2,14 @@
 #labels Phase-Design,Phase-Requirements
 
 Welcome to the Software Team subwiki.
-I have broken down some of the main areas to be tackled.
-If it looks like a lot of work, don't worry!! It's nowhere as complicated as it sounds =]
-I've moved everything around once again- re-decided which functionality goes where, etc.
-With a bit of explanation, everybody should understand what's going on.
+
+Looks complicated, right? Hah well, don't despair. The pages put on this wiki are here more as a road-map and a general map so that we know 'where' we are, and what part of the software the code you write fit into.
+
+I do recommend reading the GettingStarted page if you're completely lost.
+
+
+You may see some references to the "Old Tree" - well, that refers to {{{svn/trunk}}}. However, that tree is rather dirty and outdated.
+A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everything *working* can be put in there. The principles underlying the being of this tree can be found in SourceTreeStructure, which every developer should adhere to and respect.
  
  * [Overview] A description of how the project is layed out, and where resources can be found
  * [GettingStarted] Useful information to get started with development here
