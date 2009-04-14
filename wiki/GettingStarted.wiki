@@ -1,0 +1,154 @@
+#summary How to get started with the code, and not be lost!
+
+Guys and Gals!
+
+Welcome to the Neubau project.
+This source tree is built based on new principles that I find may increase the
+ease of use of the source-tree for the mew-robotics project that we had.
+
+=Contents=
+ # Introduction
+ # Prerequisites for building
+ # Building using CMake!
+   - configuring CMakelists.txt files
+ # Use CTest!
+ # Use CppUnit!
+ # Do everything with one command!
+ # Previously encountered problems
+
+
+=Introduction=
+From experience, we (I!) managed to introduce a very complicated structure
+that nobody really wanted, things never integrated well (we had to copy code
+in a temporary location to make a build) and basically, it was build-hell.
+
+It's a more advanced than the older source  
+The main principles of the Neubau project is this:
+
+ * simple build system via CMake and 1-2 line configuration files
+ * working build, ALWAYS. SERIOUSLY, DON'T BREAK THE BUILD!!!
+ * no Makefiles, ever.
+
+ * tested code to ensure libraries and units work as intended.
+ * NO include directories
+
+Don't worry, it might sound like I'm throwing away everything you currently know
+and replacing it with some complicated system, but it really is quite simple.
+
+In fact, you'll need to know two new commands, and that's about it. No worrying
+about building ever again.
+
+N.B: We aren't using Eclipse CDT build anymore, due to difficulties working
+with multiple build targets.
+
+=Prerequisites for building=
+To build Neubau, you will need:
+ * {{{svn}}} Subversion control system client
+ * {{{cmake}}} (bundled with it, {{{ctest}}}) A build makefile management system
+ * {{{make}}} A build management system
+ * {{{g++}}} A C++ compiler
+ * cppunit (for some unit tests to be compiled)
+
+The build system we're using is called CMake. It comes with a testing tool called
+CTest.
+
+== Step by Step... ==
+1) Check out the source tree
+Run the following command
+
+{{{
+svn checkout https://mew-dev.googlecode.com/svn/neubau/ <dir-name> --username <yourusername>
+}}}
+
+where {{{dir-name}}} is the directory you want to have the source-tree under
+and {{{<yourusername>}}} is your Google Code username
+
+2) Build the project
+The project consists of different types of binaries: libraries, and test applications. All of these are built at the same time by CMake when it is invoked. Read on to find out how to build the project with CMake.
+
+3) Edit files
+Editing source files can be done by any IDE or text-editor of choice. Eclipse is recommended.
+
+
+=Building using CMake!=
+With configuration files already in the source-tree, building Neubau cannot be easier.
+CMake GENERATES makefiles. It looks at the CMakeLists.txt files in the directory
+tree which describes to CMake the targets that need to be built, and it chugs
+out a lot of configuration files in a BUILD TREE.
+ 
+To build everything related to this project, simply follow the following steps
+on a Linux system:
+
+{{{
+cd build  # enter our build directory.
+cmake ../ # run cmake on the source directory (which is the parent of the build dir)
+make      # run the usual 'make' on the generated makefiles!
+}}}
+
+If your shell complains that you don't have cmake installed, run 
+{{{
+sudo apt-get install cmake
+}}}
+...
+Hopefully you won't get any errors on the make. If you get errors from CMake,
+stop, fix your CMakeLists.txt files and then try cmake again.
+make then builds all the binaries into the build/ folder. 
+
+
+==Configuring CMakeLists.txt files==
+CMakeLists.txt are like meta-makefiles: they describe how CMake should make
+its makefiles. Consult the CMake wiki, or other CMakeLists files, or me,
+to see how CMakeLists.txt work.
+
+
+=Using CTest!=
+CTest is a module of CMake that runs tests after making, and reports which tests
+failed and which tests succeeded.
+
+Test programs (or test executables, or test CASES) are normal programs that have their
+own main() functions as per any C++ file, and they return 0 on test PASS
+and returns 1 on test FAILURE.
+
+Unlike traditional test tools, there's no notion of a test suite. We simply put
+test cases in their separate directories, as needed.
+
+The 'test' directory should look something like this:
+
+{{{
+test/
+ |- core
+ |    |
+ |    +- TestVector2d.cpp  // Tests the Vector class
+ |
+ |- experimental
+ |    |
+ |    +- ...
+ | ...
+}}}
+
+Each test case should be named 'Testxxx.cpp', with a fairly descriptive file name.
+
+
+=Using CppUnit!=
+CTest provides us a means of running many tests, but doesn't give us many means
+of making meaningful error messages, so it is advised that you use some sort of
+unit testing library such as CppUnit.
+
+=Do Everything with One Command!=
+For your convenience, I have created a script that will invoke
+{{{cmake}}}, {{{make}}} AND {{{ctest}}} one after another.
+Just run:
+{{{
+cd build
+./buildall.sh
+}}}
+
+If it for some reason says 'Permission denied', then:
+{{{
+chmod a+x buildall.sh
+}}}
+to grant execution permissions for the script.
+== Previously encountered problems ==
+* Both CMake AND Eclipse gives linker errors due to the fact that files are
+  named .c. Name ALL files .cpp despite them being C-files, please!
+  
