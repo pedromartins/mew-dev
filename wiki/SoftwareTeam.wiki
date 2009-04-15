@@ -12,9 +12,9 @@ You may see some references to the "Old Tree" - well, that refers to {{{svn/trun
 A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everything *working* can be put in there. The principles underlying the being of this tree can be found in SourceTreeStructure, which every developer should adhere to and respect.
  
  * [Overview] A description of how the project is layed out, and where resources can be found
- * [GettingStarted] Useful information to get started with development here
+ * [GettingStarted Getting Started!] Useful information to get started with development here
 
- * [SourceTreeStructure]
+ * [NeubauTreeStructure The Neubau Tree Structure]
 
  * [Decision] Generates high-level goals by searching problem space. No planning :/
  * [Control] Controls the robot's actuators with given information to achieve or finitely fail at achieving goals. Lower-level planning is done here.
@@ -23,7 +23,7 @@ A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everyt
     * [BehaviourArbitration] Combines outputs of steering behaviours to produce a final output
   * [Build] Control algorithms for the claw (currently). Very simplistic.
  * [Perception] The robot's interpretation of the world and itself. Keeps robot and world state, and processes incoming data from sensors to provide
-  * [WorldModelling] Representation of the world and problem space.
+  * [WorldModelling Modelling the world] Representation of the world and problem space.
   * [Localization]
    * [Odometric] Dead reckoning techniques with limited information about change of distance from initial position
  * [Device] The virtualized device layer (or drivers layer) provides hardware abstraction
@@ -38,5 +38,5 @@ A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everyt
  * [Core] Common classes, useful data structures and generalized algorithms used throughout the project are housed in core
  * [Virtual] A virtual replacement of the real world and hardware, to provide a simple testing platform. Interfacing with robot frameworks and simulators can be done here.
 
- * SoftwareTeamResources
- * CodingConventions
+ * [SoftwareTeamResources Links and resources] Miscellaneous links and resources that may be of interest
+ * [CodingConventions Coding conventions] What code should look like
