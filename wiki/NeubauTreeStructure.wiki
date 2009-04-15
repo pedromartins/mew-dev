@@ -20,7 +20,7 @@ If you've always been using {{{trunk}}}, then good news!!! To use Neubau, all yo
 Things are *seriously* simple now, *seriously*.
 
 One particular explanation is required, and that is the "Dirty commit".
-A "*dirty commit*" is a commit that [BreakingTheBuild breaks the build]. The build is considered broken when:
+A "*dirty commit*" is a commit that [BrokenBuild breaks the build]. The build is considered broken when:
  * cmake doesn't complete properly
  * make returns an error or severe warnings
 
