@@ -13,8 +13,10 @@ A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everyt
  
  * [Overview] A description of how the project is layed out, and where resources can be found
  * [GettingStarted Getting Started!] Useful information to get started with development here
+ * [SVNHowTo How to use SVN] Describes how to use Subversion to check out code
 
- * [NeubauTreeStructure The Neubau Tree Structure]
+ * [NeubauTreeStructure The Neubau Tree Structure] A description of the new source tree
+ * [CodingConventions Coding conventions] What code should look like
 
  * [Decision] Generates high-level goals by searching problem space. No planning :/
  * [Control] Controls the robot's actuators with given information to achieve or finitely fail at achieving goals. Lower-level planning is done here.
@@ -39,4 +41,3 @@ A new tree by the name of "Neubau" ({{{svn/neubau}}}) was created so that everyt
  * [Virtual] A virtual replacement of the real world and hardware, to provide a simple testing platform. Interfacing with robot frameworks and simulators can be done here.
 
  * [SoftwareTeamResources Links and resources] Miscellaneous links and resources that may be of interest
- * [CodingConventions Coding conventions] What code should look like
