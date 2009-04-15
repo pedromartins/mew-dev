@@ -18,28 +18,11 @@ ease of use of the source-tree for the mew-robotics project that we had.
 
 
 =Introduction=
-From experience, we (I!) managed to introduce a very complicated structure
-that nobody really wanted, things never integrated well (we had to copy code
-in a temporary location to make a build) and basically, it was build-hell.
 
-It's a more advanced than the older source  
-The main principles of the Neubau project is this:
 
- * simple build system via CMake and 1-2 line configuration files
- * working build, ALWAYS. SERIOUSLY, DON'T BREAK THE BUILD!!!
- * no Makefiles, ever.
+Neubau is the *official* and current mew-dev software team source-tree.
 
- * tested code to ensure libraries and units work as intended.
- * NO include directories
-
-Don't worry, it might sound like I'm throwing away everything you currently know
-and replacing it with some complicated system, but it really is quite simple.
-
-In fact, you'll need to know two new commands, and that's about it. No worrying
-about building ever again.
-
-N.B: We aren't using Eclipse CDT build anymore, due to difficulties working
-with multiple build targets.
+Older code can be found in the {{{svn/mew-dev}}} tree (which I always had called Maple :P).
 
 =Prerequisites for building=
 To build Neubau, you will need:
@@ -68,6 +51,8 @@ The project consists of different types of binaries: libraries, and test applica
 
 3) Edit files
 Editing source files can be done by any IDE or text-editor of choice. Eclipse is recommended.
+
+After editing code, to upload your changes onto the SVN repository, you will need to *commit*. For further information about how to do this, see the [SVNHowTo] page.
 
 
 =Building using CMake!=
