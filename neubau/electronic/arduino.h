@@ -1,47 +1,42 @@
-#ifndef ARDUINOH
-	#define ARDUINOH
+#include <SerialStream.h>	//requires apt-get install libserial0 libserial-dev
+#include <pthread.h>
 
-#include "serial.h"
+using namespace LibSerial;
 
+enum {SENSORS, SERVOS, ULTRASOUND, NUMOFARDUINOS};
 
-#define BAUDRATE 9600
-#define LINTELSERVO 0
+class arduino_t {
+	private:
+		SerialStream ss[NUMOFARDUINOS];
+	public:
+		arduino_t();
+		~arduino_t();
+		int open(int arduinoNum); //Opens a single arduino
+		int close(int arduinoNum); //Closes a single arduino
+		bool isOpen(int arduinoNum); //Returns true if specified arduino is active.
+		int debugVal;	
+	//----------Sensor Arduino---------------
+	private:
+		int bigCompassHeading; // Holds multi-turn compass heading
+		pthread_t compassHandlingThread; 
+		static void *compassHandlingRoutine(void *threadIngredients);
+	public:	
+		void getIR(int *IRVals); //Stores values in IRVals
+		int getCompass(); //Returns compass heading
+		int setCompassHandler(); //Sets the compassHandlingThread going
+		int getBigHeading(); //Returns bigCompassHeading
+		int getSmallHeading(); //Returns bigCompassHeading%3600
 
-enum {SENSORS, CONTROL, ULTRASOUND, NUMOFARDUINOS}; //This list must agree with arduinoNames in arduino.cpp
+	//----------UltraSound Arduino-----------
+	private: //Nothing
+	public:
+		void getUS(int *USVals); //Stores values using passed pointer USVals
 
-class Arduino
-{
-public:
-	Arduino();		//class constructor
-	~Arduino();		//class destructor - takes care of closing all ttyUSB connections
-
-	void init();	//initialise arduinos - this function sends a ? to ttyUSB0-2 and sorts the arduinos
-			// into the arduino array, depending on how they reply; 's;' = sensors, 'c;' = servos (c for control), 'm;' = motor.
-
-	//sensor acquiring functions
-	void getIRreadings(int* buf);	//buf must be an array of 4 integers; this function returns the set of IR sensor values, each in cm.
-	void getUSreadings(int* buf);	//buf must be an array of 2 integers; this function returns the set of Ultrasound sensor values, each in cm.
-	int getCompassreading();	//returns the compass heading in "milli-degrees" (i.e. .1 of a degree)
-
-	//servo control functions
-	void dropLintel(); //Servo num defined above
-	void resetLintel();
-
-	
-	//... todo: add them
-
-private:
-	bool checkConnection(int a);	//is an arduino connected? e.g. checkConnection(CONTROL);
-	int arduino[NUMOFARDUINOS];		//file descriptors for our 3 arduinos
-				// arduino[0] = sensor arduino
-				// arduino[1] = servo arduino
-				// arduino[2] = motor arduino
-
-	//servo control functions
-	void servos_setPos(char servoNum, int inAngle);
-	void servos_setMax(int servoNum, int inNum);
-	void servos_setMin(int servoNum, int inNum);
-
+	//----------Servo Arduino----------------
+	private: //Nothing
+	public:
+		void setServoAngle(int servoNum, int angle);
+		void setServoMax(int servoNum, int uSTime);
+		void setServoMin(int servoNum, int uSTime);
 };
 
-#endif

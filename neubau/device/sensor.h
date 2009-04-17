@@ -45,7 +45,7 @@ public:
 
 class IRSensor : public Sensor {
 public:
-	IRSensor(Arduino *ard, int num): ard(ard), num(num){
+	IRSensor(arduino_t *ard, int num): ard(ard), num(num){
 		if (num <= 0 || num > 3 ) {
 			cerr << "Error: Oh dear, invalid IRsensor number provided in constructor" <<endl;
 		}
@@ -57,19 +57,19 @@ protected:
 	virtual int getReading() {
 		int buff[4];
 
-		ard->getIRreadings(buff);
+		ard->getIR(buff);
 
 		return buff[num];
 	}
 private:
-	Arduino *ard;
+	arduino_t *ard;
 	int num;
 };
 
 
 class USSensor : public Sensor {
 public:
-	USSensor(Arduino *ard, int num): ard(ard), num(num){
+	USSensor(arduino_t *ard, int num): ard(ard), num(num){
 		if (num <= 0 || num > 1 ) {
 			cerr << "Error: Oh dear, invalid USsensor number provided in constructor" <<endl;
 		}
@@ -81,29 +81,28 @@ protected:
 	virtual int getReading() {
 		int buff[2];
 
-		ard->getUSreadings(buff);
+		ard->getUS(buff);
 
 		return buff[num];
 	}
 
 private:
-	Arduino *ard;
+	arduino_t *ard;
 	int num;
 };
 
 
 class Compass :public Sensor {
 public:
-	Compass(Arduino *ard): ard(ard){}
+	Compass(arduino_t *ard): ard(ard){}
 	virtual ~Compass() {}
 
-
 	virtual int getReading() {
-		return ard->getCompassreading();
+		return ard->getSmallHeading();
 	}
 
 private:
-	Arduino *ard;
+	arduino_t *ard;
 };
 
 

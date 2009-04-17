@@ -1,2 +1,3 @@
-add_library(electronic mew_i2c.cpp arduino.cpp serial.cpp)
+add_library(electronic arduino.cpp)
 set_target_properties(electronic PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(electronic serial pthread)

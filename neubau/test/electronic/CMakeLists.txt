@@ -1,0 +1,3 @@
+add_executable(TestArduino TestArduino.cpp)
+target_link_libraries(TestArduino electronic)
+add_test(TestArduino TestArduino)

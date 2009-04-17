@@ -7,7 +7,6 @@
 
 #include "actuator.h"
 
-#include <electronic/mew_i2c.h>
 #include <iostream>
 
 using namespace std;

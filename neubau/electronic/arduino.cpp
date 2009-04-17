@@ -1,285 +1,232 @@
-#include "arduino.h"
-#include "serial.h"
-#include <string>
-#include <cstring>//for memset
-#include <sstream>
-#include <iostream>//debug
-#include <unistd.h>
+#include <iostream>
 #include <stdlib.h>
+#include <electronic/arduino.h>
 
 using namespace std;
 
+using namespace LibSerial;
+
+#define BAUDRATE SerialStreamBuf::BAUD_9600
+#define IR_SENSOR_NUM 4
+#define US_SENSOR_NUM 2
+#define SERVO_NUM 6 //Change to 12 when servo-shield fixed
+
 const char *arduinoNames[NUMOFARDUINOS] = // Must agree with the enum in arduino.h
 {	"/dev/arduino_A7006SQw", //Sensors
-	"/dev/arduino_A7006S82", //Control
+	"/dev/arduino_A7006S82", //Servos
 	"/dev/arduino_A9005aVz"}; //Ultrasound
 
-Arduino::Arduino()
+
+arduino_t::arduino_t() //Constructor
 {
-	//initialise the file descriptors
-	for(int i=0; i<NUMOFARDUINOS; i++) {
-		arduino[i] = 0;
+	bigCompassHeading = 0;
+	debugVal = 0;
+}
+
+arduino_t::~arduino_t() //Destructor
+{
+	for(int i = 0; i < NUMOFARDUINOS; i++) {
+		ss[i].Close();
 	}
 }
 
-Arduino::~Arduino()
+int arduino_t::open(int arduinoNum) //Opens a single arduino
 {
-	//close all open ttyUSB connections
-	for(int i = 0; i < NUMOFARDUINOS; i++)
-	{
-		if(arduino[i]) {
-			serialport_close(arduino[i]);
-		}
+	if(arduinoNum < NUMOFARDUINOS) {
+		ss[arduinoNum].Open(arduinoNames[arduinoNum]); //Open port
+		ss[arduinoNum].SetBaudRate(SerialStreamBuf::BAUD_9600); //Set Baudrate
+		ss[arduinoNum].SetCharSize(SerialStreamBuf::CHAR_SIZE_8);
+		if(ss[arduinoNum].IsOpen()) {
+			cout << "Success fully openeded " << arduinoNames[arduinoNum] << endl;
+			return 0; //Success!
+		} else {
+			cerr << "Error: couldn't open arduino " << arduinoNum << endl;
+			return -1;
+		}	
+	} else {
+		cerr << "Error: tried to open non-existant arduino " << arduinoNum << endl;
+		return -1;
+	}
+}
+int arduino_t::close(int arduinoNum) //Closes a single arduino
+{
+	if(arduinoNum < NUMOFARDUINOS) {
+		ss[arduinoNum].Close(); //Close port
+		if (!ss[arduinoNum].IsOpen()) {
+			return 0; //Success!
+		} else {
+			cerr << "Error: Couldn't close arduino " << arduinoNum << endl;
+			return -1;
+		}	
+	} else {
+		cerr << "Error: tried to close non-existant arduino " << arduinoNum <<  endl;
+		return -1;
 	}
 }
 
-void Arduino::init()
+bool arduino_t::isOpen(int arduinoNum) 
 {
-	// figure out which arduino is which. 0=sensor, 1=servo, 2=motor
-	int arduino_fd = 0;	//temporary one
-
-	//various more or less temporary variables
-	string usbadapter, error;
-	ostringstream number;
-	char buf[128];
-
-
-	for(int i = 0; i < NUMOFARDUINOS; i++)
-	{
-		//Fetch adapter name
-		usbadapter = arduinoNames[i];
-
-		usleep(500000);
-
-		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
-		serialport_close(arduino_fd);
-		arduino_fd = serialport_init(usbadapter.c_str(), BAUDRATE);	//open it up
-
-		//check for errors
-		if(arduino_fd < 0)
-		{
-			error = "error opening device " + usbadapter;
-			perror(error.c_str());
-			continue;		//don't bother doing any checks if the device doesn't exist.
-		}
-		else
-		{
-			cout << "Communication with " << usbadapter << " established!" << endl;
-		}
-
-		arduino[i] = arduino_fd;
-		serialport_read_until(arduino[i], buf, '!');
-	}
-		/*memset(&buf, 0, 5);	//clear our buffer before we write anything into it.
-
-		 usleep(500000);
-		//now, ask the arduino which one it is! send it a '?;'
-		serialport_write(arduino_fd, "?;");
-		//let it think... we're not in a hurry since this is initialisation business.
-		usleep(500000);
-		serialport_read_until(arduino_fd, (char*)&buf, ';');	//get the reply
-		usleep(500000);
-
-		//sort the arduino into the right place in the array. Make sure, that only 1 servo is assigned to each task,
-		// just in case somebody programmed an arduino wrongly.
-
-		switch(buf[0])
-		{
-			case 's':		//sensors
-				if(!arduino[SENSORS])
-					arduino[SENSORS] = arduino_fd;
-				else
-				{
-					cout << "Error! 2 arduinos claim to handle sensors!" << endl;
-					return;
-				}
-				break;
-			case 'c':		//the control thingy, i.e. the servos... sorry, only 1 s available
-				if(!arduino[CONTROL])
-					arduino[CONTROL] = arduino_fd;
-				else
-				{
-					cout << "Error! 2 arduinos claim to control servos!" << endl;
-					return;
-				}
-				break;
-			case 'u':		//the ultrasound arduino
-				if(!arduino[ULTRASOUND])
-					arduino[ULTRASOUND] = arduino_fd;
-				else
-				{
-					cout << "Error! 2 arduinos claim to read the ultrasound sensors!" << endl;
-					return;
-				}
-				break;
-		}//end switch
-
-	}	//end for loop
-
-	//tell us which arduino is where
-	*/
-}
-
-//check connection
-bool Arduino::checkConnection(int a)
-{
-	if(arduino[a] <= 0)	//check it's filedescriptor
-	{
-		cout << "Error trying to connect to  " << arduinoNames[a] << "! Aborting function call." << endl;
+	if(arduinoNum < NUMOFARDUINOS) {
+		return ss[arduinoNum].IsOpen();	
+	} else {
+		cerr << "Error: tried to check state of non-existant arduino " << arduinoNum << endl;
 		return false;
 	}
-	return true;
+}
+	//----------Sensor Arduino------------------------------------------
+
+
+void arduino_t::getIR(int *IRVals) //Writes readings into IRVals
+{
+	if(ss[SENSORS].IsOpen()) {
+		ss[SENSORS] << 'i'; //Request IR readings from arduino
+
+		for (int i = 0; i < IR_SENSOR_NUM; i++)
+		{
+			ss[SENSORS] >> IRVals[i]; //Read IRVals in
+		}
+
+	} else {
+		cerr << "Error: Can't retrieve IR readings - Sensor arduino connection not open" << endl;
+	}
 }
 
-//-----------------------------------------------------sensor part
-void Arduino::getIRreadings(int* vals)
+int arduino_t::getCompass() //Returns a pointer to an int
 {
-	if(!checkConnection(SENSORS))
-		return;
+	if(ss[SENSORS].IsOpen()) {
+		ss[SENSORS] << 'c'; //Request compass readings from arduino
+		int CompassVal = 0;
+		//usleep(20000);
+		ss[SENSORS] >> CompassVal; //Read CompassVal in
+		//cout << "compassVal is " << CompassVal << endl;
+		return CompassVal;
+	} else {
+		cerr << "Error: Can't retrieve compass readings - Sensor arduino connection not open" << endl;
+		return -1; 
+	}	
+}
 
-	char buf[128];
-	memset(&buf, 0, 128);
+int arduino_t::setCompassHandler() 
+{
+	//threadIngredients_t threadIngredients; //Create threadIngredients
+	//threadIngredients.arduino = this;
+	//threadIngredients.func = &(arduino_t::getCompass());
 
-	if(serialport_writebyte(arduino[SENSORS], 'i') == -1)
-		cout << "An error occured while requesting the IR ranges." << endl;
+	pthread_create(&compassHandlingThread, NULL, &(arduino_t::compassHandlingRoutine), (void *)this);
+}
 
-	usleep(50000);
-	stringstream ss;
-	memset(vals, 0, 4);	//clear the first 4 instances of vals.
+void *arduino_t::compassHandlingRoutine(void *arduino_t_ptr) // Static routine 
+{
+	
+	int newHeading = 0;
+	int intHeading = ((arduino_t *)arduino_t_ptr)->getCompass(); // getcompass()
+	
+	while(true) { //Loop forever (until thread destroyed)
+		newHeading = ((arduino_t *)arduino_t_ptr)->getCompass(); // getcompass()
 
-	//cout << "Arduino printed " << buf << endl;
+		if(intHeading >= 0) {
+			if(abs(newHeading-(intHeading%3600)) < 1800) { //No overflow occurred		
+				intHeading -= intHeading%3600; //Reduce to a whole number of revolutions
+				intHeading += newHeading; 
+			} else { //Overflowed 0<->3600
+				if(intHeading >= 0) {
+					if(newHeading > (intHeading%3600)) { // going anti-clockwise
+						intHeading -= intHeading%3600; //Reduce to whole number of revs
+						intHeading -= 3600; //Take off extra rev
+						intHeading += newHeading;
+					} else {
+						intHeading -= intHeading%3600; //Reduce to whole number of revs
+						intHeading += 3600; //Add on extra rev
+						intHeading += newHeading; 
+					}
+				}  
+			}
+		} else { // if intHeading is negative, needs modulo correction (+3600)
+			if(abs(newHeading-((intHeading%3600)+3600)) < 1800) { //No overflow occurred		
+				intHeading -= (intHeading%3600)+3600; //Reduce to a whole number of revolutions
+				intHeading += newHeading; 
+			} else { //Overflowed 0<->3600
+				if(intHeading >= 0) {
+					if(newHeading > ((intHeading%3600)+3600)) { // going anti-clockwise
+						intHeading -= (intHeading%3600)+3600; //Reduce to whole number of revs
+						intHeading -= 3600; //Take off extra rev
+						intHeading += newHeading;
+					} else {
+						intHeading -= (intHeading%3600)+3600; //Reduce to whole number of revs
+						intHeading += 3600; //Add on extra rev
+						intHeading += newHeading; 
+					}
+				}  
+			}
+		}
+		((arduino_t *)arduino_t_ptr)->bigCompassHeading = intHeading;
+		usleep(200000); //~10Hz refresh rate of compass heading
+	}
+}
 
+int arduino_t::getBigHeading() 
+{
+	return bigCompassHeading;
+}
 
-	for(int i = 0; i < 4; i++)
-	{
-		serialport_read_until(arduino[SENSORS], buf, '\n');
-		cout << "Buffer is " << buf << endl;
-		ss << buf;
-		ss >> vals[i];
+int arduino_t::getSmallHeading()
+{
+	return (bigCompassHeading%3600);
+}
+	//----------UltraSound Arduino--------------------------------------
+void arduino_t::getUS(int *USVals) //Returns a pointer to an array of 2 ints
+{
+	if(isOpen(ULTRASOUND)) {
+		ss[ULTRASOUND] << 'u'; //Request ultrasound readings from arduino
+		for(int i = 1; i < US_SENSOR_NUM; i++) {
+			ss[ULTRASOUND] >> USVals[i]; //Read USVals in
+		}
+	} else {
+		cerr << "Error: Can't retrieve ultrasound readings - Ultrasound arduino connection not open" << endl; 
+	}	
+}
+
+	//----------Servo Arduino----------------
+void arduino_t::setServoAngle(int servoNum, int angle)
+{
+	if(isOpen(SENSORS)) {
+		if(servoNum < SERVO_NUM) {
+			if(angle > 180) {
+				angle = 180;
+			}
+			if(angle < 0) {
+				angle = 0;
+			}
+			ss[SERVOS] << 's' << servoNum << 'm' << angle << endl;	//May need altering - not sure about how libserial sends integers (BCD or not?)
+		} else {
+			cerr << "Error: tried to set non-existant servo angle" << endl;
+		}
+	} else {
+		cerr << "Error: can't set servo angle - sensor arduino connection not open" << endl;
+	}
+}
+void arduino_t::setServoMax(int servoNum, int uSTime)
+{
+	if(isOpen(SENSORS)) {
+		if(servoNum < SERVO_NUM) {
+			ss[SERVOS] << 's' << servoNum << 'x' << uSTime << endl;	//May need altering - not sure about how libserial sends integers (BCD or not?)
+		} else {
+			cerr << "Error: tried to set non-existant servo max" << endl;
+		}
+	} else {
+		cerr << "Error: can't set servo max - sensor arduino connection not open" << endl;
 	}
 
 }
-
-int Arduino::getCompassreading()
-{
-	if(!checkConnection(SENSORS))
-		return -1;
-
-	char buf[128];
-	memset(buf, 0, 128);
-
-	if(serialport_writebyte(arduino[SENSORS], 'c') == -1)
-		cout << "An Error occured while requesting the compass reading." << endl;
-
-	usleep(50000);
-	serialport_read_until(arduino[SENSORS], buf, '\n');
-
-	int reading = atoi(buf);
-	/*if(reading == 0 || buf == "0")
-		return -1;*/
-
-	return reading;
-}
-
-void Arduino::getUSreadings(int* vals)
-{
-	if(!checkConnection(ULTRASOUND))
-		return;
-	cout << "in getUS" << endl;
-	char buf[128];
-	memset(buf, 0, 128);
-
-	usleep(50000);
-	if(serialport_writebyte(arduino[ULTRASOUND], 'u') == -1)
-		cout << "An error occured while requesting the IR ranges." << endl;
-
-	usleep(50000);
-
-	stringstream ss;
-	cout << "after ss" << endl;
-	for(int i = 0; i < 2; i++)
-	{
-		cout << "in loop " << i << endl;
-		serialport_read_until(arduino[ULTRASOUND], buf, '\n');
-		cout << "Buffer is " << buf << endl;
-		ss << buf;
-		ss >> vals[i];
+void arduino_t::setServoMin(int servoNum, int uSTime)
+{	
+	if(isOpen(SENSORS)) {
+		if(servoNum < SERVO_NUM) {
+			ss[SERVOS] << 's' << servoNum << 'n' << uSTime << endl;	//May need altering - not sure about how libserial sends integers (BCD or not?)
+		} else {
+			cerr << "Error: tried to set non-existant servo min" << endl;
+		}
+	} else {
+		cerr << "Error: can't set servo min - sensor arduino connection not open" << endl;
 	}
-
 }
-
-//----------------------------------------end of sensor part
-
-//-----------------------------------------------------control part
-
-void Arduino::dropLintel() {
-	if(!checkConnection(CONTROL))
-		return;
-
-	servos_setPos(LINTELSERVO, 15);
-}
-
-void Arduino::resetLintel() {
-	if(!checkConnection(CONTROL))
-		return;
-
-	servos_setPos(LINTELSERVO, 50);
-}
-
-void Arduino::servos_setPos(char servoNum, int inAngle)
-{
-	//Moves a servo to specified angle.
-	int angle = inAngle;
-
-	if(angle > 180) angle = 180; //Constrain angle to within servo limits
-	if(angle < 0) angle = 0;
-
-	//Write command string to the serial port
-	serialport_writebyte(arduino[CONTROL],'s');
-	serialport_writebyte(arduino[CONTROL],'c');
-	serialport_writeubyte(arduino[CONTROL],servoNum);
-	serialport_writebyte(arduino[CONTROL],'m');
-	serialport_writeubyte(arduino[CONTROL],0);
-	serialport_writeubyte(arduino[CONTROL],angle);
-//	serialport_writebyte(arduino[CONTROL],';');
-}
-
-void Arduino::servos_setMin(int servoNum, int inNum)
-{
-	//Changes a servos minimum pulse length (in uSeconds)
-
-	int LSByte, MSByte;
-
-	LSByte = inNum%256;
-	MSByte = (inNum-LSByte)/256;
-
-	//Write command string to the serial port
-	serialport_writebyte(arduino[CONTROL],'s');
-	serialport_writebyte(arduino[CONTROL],'c');
-	serialport_writeubyte(arduino[CONTROL],servoNum);
-	serialport_writebyte(arduino[CONTROL],'n');
-	serialport_writeubyte(arduino[CONTROL],MSByte);
-	serialport_writeubyte(arduino[CONTROL],LSByte);
-//	serialport_writebyte(arduino[CONTROL],';');
-}
-
-void Arduino::servos_setMax(int servoNum, int inNum)
-{
-	//Changes a servos maximum pulse length (in uSeconds)
-
-	int LSByte, MSByte;
-
-	LSByte = inNum%256;
-	MSByte = (inNum-LSByte)/256;
-
-	//Write command string to the serial port
-	serialport_writebyte(arduino[CONTROL],'s');
-	serialport_writebyte(arduino[CONTROL],'c');
-	serialport_writeubyte(arduino[CONTROL],servoNum);
-	serialport_writebyte(arduino[CONTROL],'x');
-	serialport_writeubyte(arduino[CONTROL],MSByte);
-	serialport_writeubyte(arduino[CONTROL],LSByte);
-//	serialport_writebyte(arduino[CONTROL],';');
-}
-
-//-----------------------------------------------------end of control part
