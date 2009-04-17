@@ -57,7 +57,8 @@ protected:
 	virtual int getReading() {
 		int buff[4];
 
-		ard->getIR(buff);
+		//dummy, needs to await final IR sensor implementation
+		//ard->getIR(buff);
 
 		return buff[num];
 	}

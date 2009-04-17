@@ -14,13 +14,14 @@ using namespace LibSerial;
 const char *arduinoNames[NUMOFARDUINOS] = // Must agree with the enum in arduino.h
 {	"/dev/arduino_A7006SQw", //Sensors
 	"/dev/arduino_A7006S82", //Servos
-	"/dev/arduino_A9005aVz"}; //Ultrasound
+	"/dev/arduino_A9005aVz"}; //Motor
 
 
 arduino_t::arduino_t() //Constructor
 {
 	bigCompassHeading = 0;
-	debugVal = 0;
+	
+	setCompassHandler();	//start the CompassHandler thread
 }
 
 arduino_t::~arduino_t() //Destructor
@@ -112,6 +113,8 @@ int arduino_t::setCompassHandler()
 	//threadIngredients.arduino = this;
 	//threadIngredients.func = &(arduino_t::getCompass());
 
+	// TODO check if thread is already running
+    
 	pthread_create(&compassHandlingThread, NULL, &(arduino_t::compassHandlingRoutine), (void *)this);
 }
 

@@ -11,8 +11,6 @@ int main (int argc, char **argv)
 	arduino_t ourArds;
 	if(ourArds.open(SENSORS) == 0)
 	{
-		ourArds.debugVal = 4;
-		ourArds.setCompassHandler();
 		while(1) {
 			usleep(100000);
 			cout << "Compass heading is " << ourArds.getBigHeading() << endl;

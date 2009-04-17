@@ -14,16 +14,19 @@ class arduino_t {
 		int open(int arduinoNum); //Opens a single arduino
 		int close(int arduinoNum); //Closes a single arduino
 		bool isOpen(int arduinoNum); //Returns true if specified arduino is active.
-		int debugVal;	
 	//----------Sensor Arduino---------------
 	private:
 		int bigCompassHeading; // Holds multi-turn compass heading
 		pthread_t compassHandlingThread; 
 		static void *compassHandlingRoutine(void *threadIngredients);
-	public:	
-		void getIR(int *IRVals); //Stores values in IRVals
+
+		void getIR(int *IRVals); //Stores the current values returned from the IR sensors in *IRVals
 		int getCompass(); //Returns compass heading
+
 		int setCompassHandler(); //Sets the compassHandlingThread going
+
+	public:
+		void getIRscan(int *IRleft, int* IRright, int* IRfrontscan, int* IRbackscan); //Scans the area around the robot
 		int getBigHeading(); //Returns bigCompassHeading
 		int getSmallHeading(); //Returns bigCompassHeading%3600
 
