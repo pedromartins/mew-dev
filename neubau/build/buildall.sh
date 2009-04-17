@@ -4,6 +4,6 @@
 # makes the project
 # and then tests it.
 
-cmake ../
-make
-ctest -V
+cmake ../ && make && ctest -V
+
+
