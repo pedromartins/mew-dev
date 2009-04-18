@@ -73,7 +73,7 @@ int main() {
 	}
 	*/
 
-	VirtualWorld *vworld = new VirtualWorld();
+	SimpleVirtualWorld *vworld = new SimpleVirtualWorld();
 
 	// The test world
 	for(int i = 3; i != 6; i++) {

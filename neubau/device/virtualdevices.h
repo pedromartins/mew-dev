@@ -10,7 +10,7 @@
 
 #include "actuator.h"
 #include <experimental/virtual/virtualworld.h>
-#include <experimental/virtual/entity.h>
+#include <perception/entity.h> // relationship with a higher layer that shouldn't really exist.
 
 #define PROB_FAILURE_PICKUP 0.1
 #define PROB_DROP_MOVING 0.1
@@ -36,7 +36,7 @@
  */
 class SimpleVirtualDrive : public ISimpleDriveSystem {
 public:
-	SimpleVirtualDrive(EntityPtr payload, VirtualWorld *world)
+	SimpleVirtualDrive(EntityPtr payload, SimpleVirtualWorld *world)
 	: payload(payload), world(world){}
 	virtual ~SimpleVirtualDrive() {}
 
@@ -54,7 +54,7 @@ public:
 
 private:
 	EntityPtr payload;
-	VirtualWorld *world;
+	SimpleVirtualWorld *world;
 };
 
 /**
@@ -64,7 +64,7 @@ private:
  */
 class SimpleVirtualClaw : public ISimpleClaw {
 public:
-	SimpleVirtualClaw(EntityPtr mountpoint, VirtualWorld *world)
+	SimpleVirtualClaw(EntityPtr mountpoint, SimpleVirtualWorld *world)
 	: closed(false), holding(false), mountpoint(mountpoint), world(world){}
 	virtual ~SimpleVirtualClaw() {}
 
@@ -79,7 +79,7 @@ private:
 	bool closed;  //default to open claw.
 	bool holding; // default to empty claw.
 	EntityPtr mountpoint;
-	VirtualWorld *world;
+	SimpleVirtualWorld *world;
 };
 
 #endif /* SIMULATEDDEVICES_H_ */

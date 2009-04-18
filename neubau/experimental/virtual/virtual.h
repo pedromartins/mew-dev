@@ -13,9 +13,6 @@
  * TODO include virtual perceptors
  */
 
-#include "entity.h"
 #include "virtualworld.h"
-// #include "virtualperceptor.h"
-
 
 #endif /* VIRTUAL_H_ */

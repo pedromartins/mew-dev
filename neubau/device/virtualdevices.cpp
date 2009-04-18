@@ -28,7 +28,7 @@ void SimpleVirtualDrive::moveForward(int squares){
 
 	world->setLocationOf(payload,
 			world->getPositionOf(payload)+
-			VirtualWorld::dOffsets[world->getOrientationOf(payload)]*squares
+			SimpleVirtualWorld::dOffsets[world->getOrientationOf(payload)]*squares
 	);
 }
 

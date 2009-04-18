@@ -14,7 +14,7 @@ using namespace std;
 /*
  * STATIC INITIALIZATION
  */
-Vector2di VirtualWorld::dOffsets[] = {
+Vector2di SimpleVirtualWorld::dOffsets[] = {
 		Vector2di(0,-1), // NORTH
 		Vector2di(-1,0), // WEST
 		Vector2di(0,1), // SOUTH
@@ -22,18 +22,18 @@ Vector2di VirtualWorld::dOffsets[] = {
 };
 
 
-VirtualWorld::VirtualWorld(const int width, const int height)
+SimpleVirtualWorld::SimpleVirtualWorld(const int width, const int height)
 : width(width), height(height), entmap() {
 	arr = new_2DArr<MapElement>(width, height);
 	clear();
 }
 
-VirtualWorld::~VirtualWorld() {
+SimpleVirtualWorld::~SimpleVirtualWorld() {
 	delete_2DArr(arr,width);
 }
 
 //print a layout of the map in ASCII ART, so that you can see what's going on.
-ostream& operator << (ostream& os, const VirtualWorld& world) {
+ostream& operator << (ostream& os, const SimpleVirtualWorld& world) {
 	/// XXX Do we need this?!
 	Vector2di pos;
 	MapElement me;

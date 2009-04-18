@@ -16,7 +16,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <core/core.h>
-#include "entity.h"
+#include <perception/entity.h>
 
 #define VWORLD_NO_SUCH_ENTITY -426
 #define VWORLD_INVALID_SQUARE -427
@@ -44,19 +44,19 @@ typedef map<EntityPtr, Staticio> EntStatMap;
  *
  * Imitates the real world in software.
  *
- * The virtual world provides a basis with which virtual sensors, and virtual actuators interact.
+ * The simple virtual world provides a basis with which virtual sensors, and virtual actuators interact.
  *
  */
-class VirtualWorld {
+class SimpleVirtualWorld {
 public:
 	/**
-	 * Creates a custom sized Virtual world.
+	 * Creates a custom sized simple virtual world.
 	 * @param width
 	 * @param height
 	 * @return
 	 */
-	VirtualWorld(const int width = DEFAULT_SIZE, const int height = DEFAULT_SIZE);
-	virtual ~VirtualWorld();
+	SimpleVirtualWorld(const int width = DEFAULT_SIZE, const int height = DEFAULT_SIZE);
+	virtual ~SimpleVirtualWorld();
 
 	/**
 	 * Returns the map element at a particular position.
@@ -238,21 +238,21 @@ public:
 	}
 
 	/**
-	 * Prints this Virtual world out onto the given output stream.
+	 * Prints this simple virtual world out onto the given output stream.
 	 * Cannot accurately represent entities, sadly.
 	 * @param os	The output stream.
 	 * @param world The world.
 	 * @return
 	 */
-	friend ostream& operator << (ostream& os, const VirtualWorld& world);
+	friend ostream& operator << (ostream& os, const SimpleVirtualWorld& world);
 
 
 	/** Directional offsets array of vectors, for ease of offsetting a square in some direction. */
 	static Vector2di dOffsets[4];
 private:
 
-	int width; /// the width of the virtual world
-	int height; /// the height of the virtual world
+	int width; /// the width of the simple virtual world
+	int height; /// the height of the simple virtual world
 	MapElement **arr; // multi-dimensional array.
 
 	EntStatMap entmap;

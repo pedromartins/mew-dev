@@ -3,7 +3,7 @@
 
 #include <device/virtualdevices.h>
 #include <experimental/virtual/virtualworld.h>
-#include <experimental/virtual/entity.h>
+#include <perception/entity.h> // should not really be using this entity class, as it breaks the program's layered semantics. It'll do for now.
 #include <boost/shared_ptr.hpp>
 
 /**
@@ -103,7 +103,7 @@ protected:
  */
 class SimpleVirtualRobot : public SimpleRobot {
 public:
-	SimpleVirtualRobot(VirtualWorld *world,
+	SimpleVirtualRobot(SimpleVirtualWorld *world,
 			Vector2di initial_loc,
 			Orientation orientation)
 	: SimpleRobot(initial_loc,orientation){
