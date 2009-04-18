@@ -9,14 +9,20 @@
 #define ENTITY_H_
 
 #include <sstream>
-#include <boost/shared_ptr.hpp>
+#include <ostream>
 
-// TODO mock class for representing *some* entity.
+using namespace std;
+
+/*
+ * TODO expand this class:
+ * currently a mock class for representing *some* entity in the
+ * SimpleVirtualWorld.
+ */
 class IEntity {
 public:
 
 	// outputs this entity as a string. Uses toString;
-	friend std::ostream& operator << (std::ostream & os, const IEntity& rhs);
+	friend ostream& operator << (ostream& os, const IEntity& rhs);
 
 	/**
 	 * Returns the string representation of the entity.
@@ -29,6 +35,7 @@ public:
 	}
 };
 
-typedef boost::shared_ptr<IEntity> EntityPtr;
+// Reverting to plain pointer type.
+typedef IEntity * EntityPtr;
 
 #endif /* ENTITY_H_ */

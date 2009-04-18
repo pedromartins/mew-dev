@@ -12,9 +12,9 @@
 
 
 enum TurnDirection {
-	LEFT = -1,
-	STRAIGHT,
-	RIGHT
+	LEFT = -1,// -1
+	STRAIGHT, // 0
+	RIGHT     // 1
 };
 
 /**

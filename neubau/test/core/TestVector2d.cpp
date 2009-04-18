@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <core/core.h>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -38,6 +39,11 @@ int main() {
 
 	// Test the unit vector of a zero vector is a zero vector.
 	assert( zero.unit() == zero );
+
+	// Test that the << operator works.
+	stringstream ss;
+	ss << zero;
+	assert(ss.str().compare("(0,0)") == 0);
 
 	return 0;
 }

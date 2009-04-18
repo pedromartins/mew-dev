@@ -18,6 +18,8 @@
 #include <core/core.h>
 #include "entity.h"
 
+#define VWORLD_NO_SUCH_ENTITY -426
+#define VWORLD_INVALID_SQUARE -427
 
 /**
  * Enum type for representing a drop zone.
@@ -25,13 +27,6 @@
 typedef enum MapElement {
   EMPTY, PIECE, DROPZONE, FORBIDDEN
 } MapElement;
-
-/**
- * Enum type for representing the four directions
- */
-typedef enum Orientation {
-	NORTH=0, WEST, SOUTH, EAST
-} Orientation;
 
 using namespace std;
 
@@ -41,9 +36,8 @@ using namespace std;
  * There are no constraints or requirements as to what an Entity
  * maybe.
  */
-typedef map<EntityPtr, boost::shared_ptr<Static<int,Orientation> > > EntityMap;
 typedef Static<int, Orientation> Staticio;
-typedef boost::shared_ptr<Staticio> StaticioPtr;
+typedef map<EntityPtr, Staticio> EntStatMap;
 
 /**
  * VirtualWorld
@@ -66,17 +60,27 @@ public:
 
 	/**
 	 * Returns the map element at a particular position.
-	 * returns
 	 * @param pos the position
+	 * @throw -427 VWORLD_INVALID_SQUARE If the given position is invalid
 	 */
 	MapElement getElementAt(const Vector2di& pos) const
 	{
-		return arr[pos.x][pos.y];
+		if (valid(pos)) {
+			return arr[pos.x][pos.y];
+		} else throw VWORLD_INVALID_SQUARE;
 	}
 
+	/**
+	 * Returns the map element at a particular position.
+	 * @param posx
+	 * @param posy
+	 * @throw -427 VWORLD_INVALID_SQUARE If the given position is invalid
+	 */
 	MapElement getElementAt(int posx, int posy) const
 	{
-		return arr[posx][posy];
+		if (valid(posx,posy)) {
+			return arr[posx][posy];
+		} else throw VWORLD_INVALID_SQUARE;
 	}
 
 	/**
@@ -85,7 +89,9 @@ public:
 	 * @param posy The y coordinate
 	 */
 	void putPiece(int posx, int posy) {
-		arr[posx][posy] = PIECE;
+		if (valid(posx, posy)) {
+			arr[posx][posy] = PIECE;
+		}
 	}
 
 	/**
@@ -94,24 +100,23 @@ public:
 	 * @param posy
 	 */
 	void removePiece(int posx, int posy){
-		arr[posx][posy] = EMPTY;
+		if (valid(posx, posy)) {
+			arr[posx][posy] = EMPTY;
+		}
 	}
 
 	/**
 	 * Returns the 'actual' location of the entity.
-	 * @param entity  The entity
+	 * @param entity
+	 * @throw -426 VWORLD_NO_SUCH_ENTITY when no entity by the given pointer is found.
 	 */
-	Vector2di getPositionOf(EntityPtr entity) {
-		if (!entity) {
-			cout<<"Oh dear!!!!"<<endl;
-			exit(1);
+	Vector2di getPositionOf(EntityPtr entity) const {
+		EntStatMap::const_iterator i;
+		if ((i = entmap.find(entity))!=entmap.end()) {
+			return i->second.position;
+		} else {
+			throw VWORLD_NO_SUCH_ENTITY;
 		}
-
-		if (!entmap[entity]) {
-			cout << "We nailed the b****!!!"<<endl;
-			exit(1);
-		}
-		// ->position;
 	}
 
 	/**
@@ -126,23 +131,31 @@ public:
 			return;
 		}
 
-		entmap[entity]->position = location;
+		entmap[entity].position = location;
+	}
+
+	/**
+	 * Returns the 'actual' location of the entity.
+	 * @param entity
+	 * @throw -426 NO_SUCH_ENTITY When the given entity does not exist.
+	 */
+	Orientation getOrientationOf(EntityPtr entity) const {
+		EntStatMap::const_iterator i;
+		if ((i=entmap.find(entity))!=entmap.end()){
+			return i->second.orientation;
+		} else throw VWORLD_NO_SUCH_ENTITY;
 	}
 
 	/**
 	 * Returns the 'actual' location of the entity.
 	 * @param entity
 	 * @param orientation
+	 * @throw -426 VWORLD_NO_SUCH_ENTITY
 	 */
 	void setOrientationOf(EntityPtr entity,Orientation orientation) {
-		entmap[entity]->orientation = orientation;
-	}
-
-	/**
-	 * Returns the 'actual' location of the entity.
-	 */
-	Orientation getOrientationOf(EntityPtr entity) {
-		return entmap[entity]->orientation;
+		if (entmap.find(entity)!=entmap.end()) {
+			entmap[entity].orientation = orientation;
+		} else throw VWORLD_NO_SUCH_ENTITY;
 	}
 
 	/**
@@ -150,21 +163,22 @@ public:
 	 * @param location the location to be checked for emptiness.
 	 */
 	bool isEmpty(Vector2di location) const {
-		return arr[location.x][location.y] == EMPTY;
+		if (valid(location)) {
+			return arr[location.x][location.y] == EMPTY;
+		} else throw VWORLD_INVALID_SQUARE;
 	}
 
 	/**
 	 * Registers an entity with this world, with a given state.
 	 * @param entity
-	 * @param location
+	 * @param state
+	 * @throw -427 VWORLD_INVALID_SQUARE when the actual state of the robot
+	 * is invalid (i.e., outside bounds of world.
 	 */
-	void putEntity(EntityPtr entity, StaticioPtr state){
-		entmap[entity] = state;
-		assert(entmap[entity] == state); // test equivalence
-
-		EntityPtr newptr (&(*entity));
-
-		assert(entmap[newptr] == entmap[entity]);
+	void putEntity(EntityPtr entity, Staticio& state){
+		if (valid(state.position)) {
+			entmap[entity] = state;
+		} else throw VWORLD_INVALID_SQUARE;
 	}
 
 	/**
@@ -190,25 +204,37 @@ public:
 	int getHeight() const { return height; }
 
 	/**
+	 * Returns true iff the coordinates given by x and y are fully contained within
+	 * this VirtualWorld.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	bool valid(int x, int y) const {
+		return (x >= 0 && x < width &&
+				y >= 0 && y < height);
+	}
+
+	/**
 	 * Returns true iff the position is a valid coordinate in this world.
 	 * @param newPos
 	 * @return
 	 */
-	bool valid(Vector2di newPos) {
+	bool valid(Vector2di newPos) const {
 		return (newPos.x >= 0 && newPos.x < width &&
 				newPos.y >= 0 && newPos.y < height);
 	}
 
 	/**
 	 * Returns the square 'in front' of the entity in question.
+	 * May return invalid squares.
+	 * @param entity The entity
 	 * @return
 	 */
-	Vector2di inFront(EntityPtr ent) {
-		cout<<"Wonderful" <<endl;
-		Vector2di pos = getPositionOf(ent);
-		cout<<"printing!!"<<endl;
+	Vector2di inFront(EntityPtr entity) const {
+		Vector2di pos = getPositionOf(entity);
 
-		return  pos + dOffsets[getOrientationOf(ent)];
+		return  pos + dOffsets[getOrientationOf(entity)];
 	}
 
 	/**
@@ -220,6 +246,8 @@ public:
 	 */
 	friend ostream& operator << (ostream& os, const VirtualWorld& world);
 
+
+	/** Directional offsets array of vectors, for ease of offsetting a square in some direction. */
 	static Vector2di dOffsets[4];
 private:
 
@@ -227,7 +255,7 @@ private:
 	int height; /// the height of the virtual world
 	MapElement **arr; // multi-dimensional array.
 
-	EntityMap entmap;
+	EntStatMap entmap;
 };
 
 

@@ -3,6 +3,5 @@
 
 #include "sensor.h"
 
-class virtualsensor : public sensor
 
 #endif /*VIRTUALSENSOR_H_*/

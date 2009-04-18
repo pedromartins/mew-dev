@@ -23,7 +23,7 @@ Vector2di VirtualWorld::dOffsets[] = {
 
 
 VirtualWorld::VirtualWorld(const int width, const int height)
-: width(width), height(height){
+: width(width), height(height), entmap() {
 	arr = new_2DArr<MapElement>(width, height);
 	clear();
 }
@@ -40,11 +40,11 @@ ostream& operator << (ostream& os, const VirtualWorld& world) {
 	string content;
 
 	// for every row
-	for(pos.y = 0; pos.y < world.height; pos.y++) {
-		printf("%.2d:", pos.y);
+	for(pos.y = world.height-1; pos.y >= 0; --pos.y) {
+		os << right << pos.y << " ";
 
 		// for every column
-		for(pos.x = 0; pos.x < world.width; pos.x++) {
+		for(pos.x = 0; pos.x < world.width; ++pos.x) {
 			content = "";
 			me = world.getElementAt(pos);
 			switch(me)
@@ -78,11 +78,7 @@ ostream& operator << (ostream& os, const VirtualWorld& world) {
 	/*
 	 * Output all the entities.
 	 */
-	for(EntityMap::const_iterator i = world.entmap.begin(); i!=world.entmap.end(); ++i ) {
-		// if ( (*i).first != NULL) {
-			//os << *((*i).first) << "," << *((*i).second) << endl;
-		//}
-
-		// os << *i;
+	for(EntStatMap::const_iterator i = world.entmap.begin(); i!=world.entmap.end(); ++i ) {
+		os << i->first->toString() << "  " << i->second << endl;
 	}
 }

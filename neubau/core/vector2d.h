@@ -7,6 +7,8 @@
 #include "floating.h"
 #include <ostream>
 
+using namespace std;
+
 /**
  * Parametized equivalence function with specializations with floating-point equivalence
  * with some arbitrary tolerance.
@@ -355,14 +357,14 @@ public:
 
 	//! stream redirection operator.
 	template <typename U>
-	friend std::ostream& operator<<(std::ostream&, const Vector2d<U> &);
+	friend ostream& operator<<(ostream&, const Vector2d<U> &);
 };
 
 
 template <typename U>
-std::ostream& operator<< (std::ostream& ostr, const Vector2d<U>& vect)
+ostream& operator<< (ostream& os, const Vector2d<U>& vect)
 {
-	return ostr << "(" << vect.x << "," << vect.y << ")";
+	return os << "(" << vect.x << "," << vect.y << ")";
 }
 
 typedef Vector2d<int> Vector2di;

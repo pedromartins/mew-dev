@@ -17,58 +17,58 @@ const char *arduinoNames[NUMOFARDUINOS] = // Must agree with the enum in arduino
 	"/dev/arduino_A9005aVz"}; //Motor
 
 
-arduino_t::arduino_t() //Constructor
+ArduinoManager::ArduinoManager()
 {
 	bigCompassHeading = 0;
-	
+
 	setCompassHandler();	//start the CompassHandler thread
 }
 
-arduino_t::~arduino_t() //Destructor
+ArduinoManager::~ArduinoManager()
 {
 	for(int i = 0; i < NUMOFARDUINOS; i++) {
 		ss[i].Close();
 	}
 }
 
-int arduino_t::open(int arduinoNum) //Opens a single arduino
+bool ArduinoManager::open(int arduinoNum) //Opens a single arduino
 {
 	if(arduinoNum < NUMOFARDUINOS) {
 		ss[arduinoNum].Open(arduinoNames[arduinoNum]); //Open port
 		ss[arduinoNum].SetBaudRate(SerialStreamBuf::BAUD_9600); //Set Baudrate
 		ss[arduinoNum].SetCharSize(SerialStreamBuf::CHAR_SIZE_8);
 		if(ss[arduinoNum].IsOpen()) {
-			cout << "Success fully openeded " << arduinoNames[arduinoNum] << endl;
-			return 0; //Success!
+			return true;
 		} else {
 			cerr << "Error: couldn't open arduino " << arduinoNum << endl;
-			return -1;
-		}	
+			return false;
+		}
 	} else {
 		cerr << "Error: tried to open non-existant arduino " << arduinoNum << endl;
-		return -1;
+		return false;
 	}
 }
-int arduino_t::close(int arduinoNum) //Closes a single arduino
+
+bool ArduinoManager::close(int arduinoNum) //Closes a single arduino
 {
 	if(arduinoNum < NUMOFARDUINOS) {
 		ss[arduinoNum].Close(); //Close port
 		if (!ss[arduinoNum].IsOpen()) {
-			return 0; //Success!
+			return true;
 		} else {
 			cerr << "Error: Couldn't close arduino " << arduinoNum << endl;
-			return -1;
-		}	
+			return false;
+		}
 	} else {
 		cerr << "Error: tried to close non-existant arduino " << arduinoNum <<  endl;
-		return -1;
+		return false;
 	}
 }
 
-bool arduino_t::isOpen(int arduinoNum) 
+bool ArduinoManager::isOpen(int arduinoNum)
 {
 	if(arduinoNum < NUMOFARDUINOS) {
-		return ss[arduinoNum].IsOpen();	
+		return ss[arduinoNum].IsOpen();
 	} else {
 		cerr << "Error: tried to check state of non-existant arduino " << arduinoNum << endl;
 		return false;
@@ -77,7 +77,7 @@ bool arduino_t::isOpen(int arduinoNum)
 	//----------Sensor Arduino------------------------------------------
 
 
-void arduino_t::getIR(int *IRVals) //Writes readings into IRVals
+void ArduinoManager::getIR(int *IRVals) //Writes readings into IRVals
 {
 	if(ss[SENSORS].IsOpen()) {
 		ss[SENSORS] << 'i'; //Request IR readings from arduino
@@ -92,7 +92,7 @@ void arduino_t::getIR(int *IRVals) //Writes readings into IRVals
 	}
 }
 
-int arduino_t::getCompass() //Returns a pointer to an int
+int ArduinoManager::getCompass() //Returns a pointer to an int
 {
 	if(ss[SENSORS].IsOpen()) {
 		ss[SENSORS] << 'c'; //Request compass readings from arduino
@@ -103,34 +103,34 @@ int arduino_t::getCompass() //Returns a pointer to an int
 		return CompassVal;
 	} else {
 		cerr << "Error: Can't retrieve compass readings - Sensor arduino connection not open" << endl;
-		return -1; 
-	}	
+		return -1;
+	}
 }
 
-int arduino_t::setCompassHandler() 
+int ArduinoManager::setCompassHandler()
 {
 	//threadIngredients_t threadIngredients; //Create threadIngredients
 	//threadIngredients.arduino = this;
 	//threadIngredients.func = &(arduino_t::getCompass());
 
 	// TODO check if thread is already running
-    
-	pthread_create(&compassHandlingThread, NULL, &(arduino_t::compassHandlingRoutine), (void *)this);
+
+	pthread_create(&compassHandlingThread, NULL, &(ArduinoManager::compassHandlingRoutine), (void *)this);
 }
 
-void *arduino_t::compassHandlingRoutine(void *arduino_t_ptr) // Static routine 
+void *ArduinoManager::compassHandlingRoutine(void *arduino_t_ptr) // Static routine
 {
-	
+
 	int newHeading = 0;
-	int intHeading = ((arduino_t *)arduino_t_ptr)->getCompass(); // getcompass()
-	
+	int intHeading = ((ArduinoManager *)arduino_t_ptr)->getCompass(); // getcompass()
+
 	while(true) { //Loop forever (until thread destroyed)
-		newHeading = ((arduino_t *)arduino_t_ptr)->getCompass(); // getcompass()
+		newHeading = ((ArduinoManager *)arduino_t_ptr)->getCompass(); // getcompass()
 
 		if(intHeading >= 0) {
-			if(abs(newHeading-(intHeading%3600)) < 1800) { //No overflow occurred		
+			if(abs(newHeading-(intHeading%3600)) < 1800) { //No overflow occurred
 				intHeading -= intHeading%3600; //Reduce to a whole number of revolutions
-				intHeading += newHeading; 
+				intHeading += newHeading;
 			} else { //Overflowed 0<->3600
 				if(intHeading >= 0) {
 					if(newHeading > (intHeading%3600)) { // going anti-clockwise
@@ -140,14 +140,14 @@ void *arduino_t::compassHandlingRoutine(void *arduino_t_ptr) // Static routine
 					} else {
 						intHeading -= intHeading%3600; //Reduce to whole number of revs
 						intHeading += 3600; //Add on extra rev
-						intHeading += newHeading; 
+						intHeading += newHeading;
 					}
-				}  
+				}
 			}
 		} else { // if intHeading is negative, needs modulo correction (+3600)
-			if(abs(newHeading-((intHeading%3600)+3600)) < 1800) { //No overflow occurred		
+			if(abs(newHeading-((intHeading%3600)+3600)) < 1800) { //No overflow occurred
 				intHeading -= (intHeading%3600)+3600; //Reduce to a whole number of revolutions
-				intHeading += newHeading; 
+				intHeading += newHeading;
 			} else { //Overflowed 0<->3600
 				if(intHeading >= 0) {
 					if(newHeading > ((intHeading%3600)+3600)) { // going anti-clockwise
@@ -157,27 +157,27 @@ void *arduino_t::compassHandlingRoutine(void *arduino_t_ptr) // Static routine
 					} else {
 						intHeading -= (intHeading%3600)+3600; //Reduce to whole number of revs
 						intHeading += 3600; //Add on extra rev
-						intHeading += newHeading; 
+						intHeading += newHeading;
 					}
-				}  
+				}
 			}
 		}
-		((arduino_t *)arduino_t_ptr)->bigCompassHeading = intHeading;
+		((ArduinoManager *)arduino_t_ptr)->bigCompassHeading = intHeading;
 		usleep(200000); //~10Hz refresh rate of compass heading
 	}
 }
 
-int arduino_t::getBigHeading() 
+int ArduinoManager::getBigHeading()
 {
 	return bigCompassHeading;
 }
 
-int arduino_t::getSmallHeading()
+int ArduinoManager::getSmallHeading()
 {
 	return (bigCompassHeading%3600);
 }
 	//----------UltraSound Arduino--------------------------------------
-void arduino_t::getUS(int *USVals) //Returns a pointer to an array of 2 ints
+void ArduinoManager::getUS(int *USVals) //Returns a pointer to an array of 2 ints
 {
 	if(isOpen(ULTRASOUND)) {
 		ss[ULTRASOUND] << 'u'; //Request ultrasound readings from arduino
@@ -185,12 +185,12 @@ void arduino_t::getUS(int *USVals) //Returns a pointer to an array of 2 ints
 			ss[ULTRASOUND] >> USVals[i]; //Read USVals in
 		}
 	} else {
-		cerr << "Error: Can't retrieve ultrasound readings - Ultrasound arduino connection not open" << endl; 
-	}	
+		cerr << "Error: Can't retrieve ultrasound readings - Ultrasound arduino connection not open" << endl;
+	}
 }
 
 	//----------Servo Arduino----------------
-void arduino_t::setServoAngle(int servoNum, int angle)
+void ArduinoManager::setServoAngle(int servoNum, int angle)
 {
 	if(isOpen(SENSORS)) {
 		if(servoNum < SERVO_NUM) {
@@ -208,7 +208,7 @@ void arduino_t::setServoAngle(int servoNum, int angle)
 		cerr << "Error: can't set servo angle - sensor arduino connection not open" << endl;
 	}
 }
-void arduino_t::setServoMax(int servoNum, int uSTime)
+void ArduinoManager::setServoMax(int servoNum, int uSTime)
 {
 	if(isOpen(SENSORS)) {
 		if(servoNum < SERVO_NUM) {
@@ -221,8 +221,8 @@ void arduino_t::setServoMax(int servoNum, int uSTime)
 	}
 
 }
-void arduino_t::setServoMin(int servoNum, int uSTime)
-{	
+void ArduinoManager::setServoMin(int servoNum, int uSTime)
+{
 	if(isOpen(SENSORS)) {
 		if(servoNum < SERVO_NUM) {
 			ss[SERVOS] << 's' << servoNum << 'n' << uSTime << endl;	//May need altering - not sure about how libserial sends integers (BCD or not?)

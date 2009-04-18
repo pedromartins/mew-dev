@@ -14,8 +14,7 @@ using namespace std;
  * Orientation is stored as a single value of type O.
  */
 template <typename P, typename O>
-class Static
-{
+class Static {
 public:
 	/**
 	 * The position in 2D Euclidean space.
@@ -29,22 +28,9 @@ public:
 	O orientation;
 
 	/**
-	 * Creates a new static with a 0 position and orientation.
-	 */
-	Static() : orientation(0)
-	{}
-
-	/**
-	 * Creates a static at the given position with no rotation.
-	 */
-	Static(const Vector2d<P>& position)
-	: position(position), orientation(0)
-	{}
-
-	/**
 	 * Creates a static with the given position and orientation.
 	 */
-	Static(const Vector2d<P>& position, O orientation)
+	Static(const Vector2d<P>& position=Vector2d<P>(0,0), O orientation=(O)0)
 	: position(position), orientation(orientation)
 	{}
 
@@ -52,7 +38,7 @@ public:
 	 * Creates a static with the position vector given as
 	 * components and the given orientation.
 	 */
-	Static(P x, P y, O orientation)
+	Static(P x, P y, O orientation=(O)0)
 	: position(x, y), orientation(orientation)
 	{}
 
@@ -72,17 +58,16 @@ public:
 	void clear()
 	{
 		position.clear();
-		orientation = 0;
+		orientation = (O)0;
 	}
 
 	/**
 	 * Checks that the given static is equal to this. Statics
 	 * are equal if their positions and orientations are equal.
 	 */
-	bool operator == (Static& other)
+	bool operator == (const Static& other) const
 	{
-		return position == other.position &&
-		orientation == other.orientation;
+		return position == other.position && orientation == other.orientation;
 	}
 
 	/**
@@ -90,10 +75,9 @@ public:
 	 * this. Statics are unequal if either their positions or
 	 * orientations are unequal.
 	 */
-	bool operator != (Static& other)
+	bool operator != (const Static& other) const
 	{
-		return position != other.position ||
-		orientation != other.orientation;
+		return position != other.position || orientation != other.orientation;
 	}
 
 	/**
@@ -124,12 +108,12 @@ public:
         void retrieveTM(Matrix& m);
 	 */
 	template<typename X,typename Y>
-	friend ostream& operator << (ostream& os, const Static<X,Y>& rhs);
+	friend ostream& operator<<(ostream& os, const Static<X,Y>& rhs);
 };
 
 template<typename X,typename Y>
-ostream& operator << (ostream& os, const Static<X,Y>& rhs) {
-	os << "P: " << rhs.position << ", O:" << rhs.orientation;
+ostream& operator<<(ostream& os, const Static<X,Y>& rhs) {
+	return os << "{" << rhs.position << "," << rhs.orientation << "}";
 }
 
 #endif

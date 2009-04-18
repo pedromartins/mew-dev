@@ -42,11 +42,13 @@ public:
 
 	/**
 	 * Moves the robot forward for a number of squares.
+	 * @param squares the number of squares to move in the SimpleVirtualWorld.
 	 */
 	virtual void moveForward(int squares);
 
 	/**
 	 * Turns the robot either left, right, or not at all.
+	 * @param dir the direction to turn in a SimpleVirtualWorld
 	 */
 	virtual void turn(TurnDirection dir);
 

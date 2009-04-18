@@ -56,20 +56,19 @@ public:
 	 * DIRECT DRIVE CONTROL METHOD
 	 * Instructs this robot to move forward one square in the
 	 * current orientation, and stop. This is assumed to occur
-	 * instantaneously.
+	 * instantaneously and flawlessly, unless, of course, the
+	 * world does not permit such movement.
 	 */
 
 	virtual void moveForward(int squares) {
-		cout<< "before";
 		drivesystem->moveForward(squares);
-		cout<< "after";
 	}
 
 	/**
 	 * DIRECT DRIVE CONTROL METHOD
 	 * Instructs this robot to turn
 	 * Turn 90º left or right.
-	 * this is assumed to occur instantaneously.
+	 * this is assumed to occur instantaneously and flawlessly.
 	 */
 	virtual void turn(TurnDirection dir) {
 		drivesystem->turn(dir);
@@ -87,7 +86,7 @@ public:
 	}
 
 	virtual std::string toString() const {
-		return "Robot ";
+		return "Robot";
 	}
 protected:
 	ISimpleDriveSystem *drivesystem;
@@ -113,6 +112,10 @@ public:
 	}
 
 	virtual ~SimpleVirtualRobot() {}
+
+	virtual std::string toString() const  {
+		return "Virtual robot";
+	}
 };
 
 

@@ -12,6 +12,7 @@
 #include "float.h"
 #include "floating.h"
 #include "kinematic.h"
+#include "orientation.h"
 #include "static.h"
 #include "vector2d.h"
 

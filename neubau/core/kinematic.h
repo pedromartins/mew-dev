@@ -33,7 +33,7 @@ struct Kinematic : public Staticff
 	 * Creates a new Kinematic with zeroed data.
 	 */
 	Kinematic()
-	: Staticff(), velocity(), rotation(0)
+	: Staticff(0,0), velocity(), rotation(0)
 	{}
 
 	/**
