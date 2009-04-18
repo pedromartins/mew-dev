@@ -8,6 +8,8 @@
 #include <experimental/virtual/virtualworld.h>
 #include <experimental/profile/simpleprofile.h>
 
+#include <assert.h>
+
 using namespace std;
 
 /*
@@ -29,9 +31,21 @@ int main() {
 
 	vworld.putPiece(9,0);
 
+
+	assert(vworld.getElementAt(Vector2di(9,0))!=EMPTY);
+
+	// N.B Currently does nothing with initial data.
 	SimpleVirtualRobot robot(&vworld, Vector2di(0,0), SOUTH);
 
-	robot.moveForward(2);
 
-	cout << vworld;
+	// put the robot into the world.
+	vworld.putEntity(EntityPtr(&robot), StaticioPtr(new Staticio(Vector2di(0,0), EAST)));
+
+	cout << "Put the entity into the vworld." << endl;
+	robot.moveForward(2);
+	cout << "Completed the move forward" << endl;
+	// The robot should have been moved! XD
+	assert(vworld.getPositionOf(EntityPtr(&robot)) == Vector2di(2,0));
+
+	// cout << vworld;
 }

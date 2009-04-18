@@ -46,7 +46,7 @@ public:
 	 * the point at which the method was called.
 	 * @param squares
 	 */
-	virtual void moveFoward(int squares) = 0;
+	virtual void moveForward(int squares) = 0;
 
 	/**
 	 * Pre: None.
@@ -71,7 +71,7 @@ public:
 	 * the point at which the method was called.
 	 * @param squares
 	 */
-	virtual void moveFoward(int squares);
+	virtual void moveForward(int squares);
 
 	/**
 	 * Pre: None.

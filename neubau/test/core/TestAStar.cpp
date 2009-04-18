@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <math.h>
+#include <assert.h>
 
 #define DEBUG_LISTS 0
 #define DEBUG_LIST_LENGTHS_ONLY 0
@@ -301,8 +302,9 @@ int main( int argc, char *argv[] )
 				cout << "Displaying solution\n";
 	#endif
 				int steps = 0;
-
+	#if DEBUG_LISTS
 				node->PrintNodeInfo();
+
 				for( ;; )
 				{
 					node = astarsearch.GetSolutionNext();
@@ -318,7 +320,7 @@ int main( int argc, char *argv[] )
 				};
 
 				cout << "Solution steps " << steps << endl;
-
+	#endif
 				// Once you're done with the solution you can free the nodes up
 				astarsearch.FreeSolutionNodes();
 

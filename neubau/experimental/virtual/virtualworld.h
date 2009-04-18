@@ -14,8 +14,10 @@
 #include <string.h>
 #include <map>
 #include <vector>
+#include <boost/shared_ptr.hpp>
 #include <core/core.h>
 #include "entity.h"
+
 
 /**
  * Enum type for representing a drop zone.
@@ -31,22 +33,25 @@ typedef enum Orientation {
 	NORTH=0, WEST, SOUTH, EAST
 } Orientation;
 
+using namespace std;
+
+
 /**
  * A type for holding the entities.
  * There are no constraints or requirements as to what an Entity
  * maybe.
  */
-typedef map<IEntity *, Static<int,Orientation> *> EntityMap;
-
-using namespace std;
+typedef map<EntityPtr, boost::shared_ptr<Static<int,Orientation> > > EntityMap;
+typedef Static<int, Orientation> Staticio;
+typedef boost::shared_ptr<Staticio> StaticioPtr;
 
 /**
  * VirtualWorld
  *
- * In a simple grid model, the robot and anything IN the grid is
- * simply represented by some enum value in a 2D array.
+ * Imitates the real world in software.
  *
- * NOTE: this is a wrapper around the old simulator model.
+ * The virtual world provides a basis with which virtual sensors, and virtual actuators interact.
+ *
  */
 class VirtualWorld {
 public:
@@ -61,6 +66,7 @@ public:
 
 	/**
 	 * Returns the map element at a particular position.
+	 * returns
 	 * @param pos the position
 	 */
 	MapElement getElementAt(const Vector2di& pos) const
@@ -95,8 +101,17 @@ public:
 	 * Returns the 'actual' location of the entity.
 	 * @param entity  The entity
 	 */
-	Vector2di getPositionOf(IEntity *entity) {
-		return entmap[entity]->position;
+	Vector2di getPositionOf(EntityPtr entity) {
+		if (!entity) {
+			cout<<"Oh dear!!!!"<<endl;
+			exit(1);
+		}
+
+		if (!entmap[entity]) {
+			cout << "We nailed the b****!!!"<<endl;
+			exit(1);
+		}
+		// ->position;
 	}
 
 	/**
@@ -104,7 +119,7 @@ public:
 	 * @param entity   An entity reference
 	 * @param location The entity's location
 	 */
-	void setLocationOf(IEntity *entity, Vector2di location) {
+	void setLocationOf(EntityPtr entity, Vector2di location) {
 		if (!valid(location)) {
 			cerr << "VirtualWorld: OH DEAR! tried to move "
 					"entity to invalid place" << endl;
@@ -119,14 +134,14 @@ public:
 	 * @param entity
 	 * @param orientation
 	 */
-	void setOrientationOf(IEntity *entity,Orientation orientation) {
+	void setOrientationOf(EntityPtr entity,Orientation orientation) {
 		entmap[entity]->orientation = orientation;
 	}
 
 	/**
 	 * Returns the 'actual' location of the entity.
 	 */
-	Orientation getOrientationOf(IEntity *entity) {
+	Orientation getOrientationOf(EntityPtr entity) {
 		return entmap[entity]->orientation;
 	}
 
@@ -143,15 +158,20 @@ public:
 	 * @param entity
 	 * @param location
 	 */
-	void putEntity(IEntity *entity, Static<int,Orientation> * state){
+	void putEntity(EntityPtr entity, StaticioPtr state){
 		entmap[entity] = state;
+		assert(entmap[entity] == state); // test equivalence
+
+		EntityPtr newptr (&(*entity));
+
+		assert(entmap[newptr] == entmap[entity]);
 	}
 
 	/**
 	 * Unregisters an entity with this world.
 	 * @param entity
 	 */
-	void removeEntity(IEntity *entity) {
+	void removeEntity(EntityPtr entity) {
 		entmap.erase(entity);
 	}
 
@@ -183,8 +203,12 @@ public:
 	 * Returns the square 'in front' of the entity in question.
 	 * @return
 	 */
-	Vector2di inFront(IEntity *ent) {
-		return getPositionOf(ent) + dOffsets[getOrientationOf(ent)];
+	Vector2di inFront(EntityPtr ent) {
+		cout<<"Wonderful" <<endl;
+		Vector2di pos = getPositionOf(ent);
+		cout<<"printing!!"<<endl;
+
+		return  pos + dOffsets[getOrientationOf(ent)];
 	}
 
 	/**

@@ -74,7 +74,15 @@ ostream& operator << (ostream& os, const VirtualWorld& world) {
 	}
 
 	os << "Registered entities: " << endl;
+
+	/*
+	 * Output all the entities.
+	 */
 	for(EntityMap::const_iterator i = world.entmap.begin(); i!=world.entmap.end(); ++i ) {
-		// os << *(i->first) << "," << *(i->second) << endl;
+		// if ( (*i).first != NULL) {
+			//os << *((*i).first) << "," << *((*i).second) << endl;
+		//}
+
+		// os << *i;
 	}
 }

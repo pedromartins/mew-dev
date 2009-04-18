@@ -4,7 +4,7 @@
 #include <device/virtualdevices.h>
 #include <experimental/virtual/virtualworld.h>
 #include <experimental/virtual/entity.h>
-
+#include <boost/shared_ptr.hpp>
 
 /**
  * This profile describes is a:
@@ -58,9 +58,11 @@ public:
 	 * current orientation, and stop. This is assumed to occur
 	 * instantaneously.
 	 */
+
 	virtual void moveForward(int squares) {
-		// TODO REIMPLEMENT THIS
-		// drivesystem->moveForward(squares);
+		cout<< "before";
+		drivesystem->moveForward(squares);
+		cout<< "after";
 	}
 
 	/**
@@ -84,6 +86,9 @@ public:
 		claw->open();
 	}
 
+	virtual std::string toString() const {
+		return "Robot ";
+	}
 protected:
 	ISimpleDriveSystem *drivesystem;
 	ISimpleClaw *claw;
@@ -103,8 +108,8 @@ public:
 			Vector2di initial_loc,
 			Orientation orientation)
 	: SimpleRobot(initial_loc,orientation){
-		drivesystem = new SimpleVirtualDrive(this, world);
-		claw = new SimpleVirtualClaw(this, world);
+		drivesystem = new SimpleVirtualDrive(EntityPtr(this), world);
+		claw = new SimpleVirtualClaw(EntityPtr(this), world);
 	}
 
 	virtual ~SimpleVirtualRobot() {}

@@ -11,8 +11,11 @@
 
 using namespace std;
 
-void SimpleVirtualDrive::moveFoward(int squares){
+void SimpleVirtualDrive::moveForward(int squares){
+
+	cout<< "b" <<endl;
 	Vector2di frontpos = world->inFront(payload);
+	cout << "a";
 
 	if(!world->valid(frontpos) || !world->isEmpty(frontpos)) {
 		cerr << "STALLING!!" << endl;

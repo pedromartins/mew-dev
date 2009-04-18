@@ -46,7 +46,7 @@ void DriveSystem::setRawPowerLevel(motor_t motor, int raw_power_level) {
 }
 */
 
-void SimpleDifferentialDrive::moveFoward(int squares) {
+void SimpleDifferentialDrive::moveForward(int squares) {
 	/// TODO! Might look like the code above, but I don't know how
 	/// you might want to measure the distance of squares.
 	cerr << "Not implemented!!!" << endl;

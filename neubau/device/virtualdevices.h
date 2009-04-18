@@ -36,14 +36,14 @@
  */
 class SimpleVirtualDrive : public ISimpleDriveSystem {
 public:
-	SimpleVirtualDrive(IEntity *payload, VirtualWorld *world)
+	SimpleVirtualDrive(EntityPtr payload, VirtualWorld *world)
 	: payload(payload), world(world){}
 	virtual ~SimpleVirtualDrive() {}
 
 	/**
 	 * Moves the robot forward for a number of squares.
 	 */
-	virtual void moveFoward(int squares);
+	virtual void moveForward(int squares);
 
 	/**
 	 * Turns the robot either left, right, or not at all.
@@ -51,7 +51,7 @@ public:
 	virtual void turn(TurnDirection dir);
 
 private:
-	IEntity *payload;
+	EntityPtr payload;
 	VirtualWorld *world;
 };
 
@@ -62,7 +62,7 @@ private:
  */
 class SimpleVirtualClaw : public ISimpleClaw {
 public:
-	SimpleVirtualClaw(IEntity *mountpoint, VirtualWorld *world)
+	SimpleVirtualClaw(EntityPtr mountpoint, VirtualWorld *world)
 	: closed(false), holding(false), mountpoint(mountpoint), world(world){}
 	virtual ~SimpleVirtualClaw() {}
 
@@ -76,7 +76,7 @@ protected:
 private:
 	bool closed;  //default to open claw.
 	bool holding; // default to empty claw.
-	IEntity *mountpoint;
+	EntityPtr mountpoint;
 	VirtualWorld *world;
 };
 
