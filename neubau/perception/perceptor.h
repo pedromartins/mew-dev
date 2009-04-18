@@ -1,6 +1,7 @@
-#ifndef VIRTUAL_PERCEPTOR_H
-#define VIRTUAL_PERCEPTOR_H
+#ifndef PERCEPTOR_H
+#define PERCEPTOR_H
 
+#include "model.h"
 #include <map>
 
 /// TODO Use perceptors.
@@ -35,20 +36,47 @@
  * state to be translated into a useful form, which then must be interpreted
  * by the model.
  *
- * The state is stored where???
+ * For both, information can be interpreted to update the:
+ * - Internal state (PRIORITY)
+ * - External state
  *
+ * Terminology: A xxxDeltor is a PROVIDER for 'delta's (i.e. changes) in a
+ * particular piece of information.
  *
  * Thus, we separate the DATA PROVIDERS from INFORMATION PROVIDERS.
  * DATA providers give raw data, raw integer values, in some sort of measurement.
  * These measurements are accumulated if required, and the value accumulated
  * is interpreted in the context of a particular model only when it is sensible.
+ * Due to the simplicity of the task, one can expect that some direct implementations
+ * to Information providers are written.
  *
+ * Perceptor:   Updates the model using the latest information available.
+ * -= Information Providers =-
+ * ILocator:    Updates the raw location of the robot
+ * IOrientator: Updates the raw orientation of the robot
+ * (IVelocimeter) : Updates the raw velocity of the robot
+ * (IAngularVelocimeter) : Updates the raw angular velocity of the robot
+ * IProximityDetector: updates raw proximity information
+ *
+ * -= Data Providers =-
+ * IDeltor<T>: A templated interface class for changes to a type T.
+ * Specializations include:
+ *   IVectorDeltor<T>: Provides a change in a pair of values last invocation.
+ *   IFloatDeltor:  Provides a change in a floating point value since last invocation
+ *   IIntDeltor: Provides the change in an calar value since last invocation
  *
  */
-class Perceptor {
+typedef Static<float,Orientation> RawStatic;
 
+class Perceptor {
 public:
-	Perceptor(){
+	/**
+	 * Builds a perceptor with a reference to a model.
+	 * Might use
+	 * @param model
+	 * @return
+	 */
+	Perceptor(Model model){
 		/*
       ExampleLocator * loc = new ExampleLocator();
       locators[loc] = 0.2;
@@ -58,6 +86,26 @@ public:
 		 */
 	}
 
+	/**
+	 * Queries all the information sources that this Perceptor knows about
+	 * and updates the internal state of the perceptor.
+	 */
+	void updateInternalState() {
+
+	}
+
+	/**
+	 *
+	 */
+	void updateModel() {
+
+	}
+
+
+	/**
+	 * Iterates over
+	 * @return
+	 */
 	float getOrientation() {
 		float orientation = 0.0f;
 		for(std::map<ILocator *, float>::iterator iter = orientators.begin();
@@ -76,10 +124,13 @@ public:
 		return location;
 	}
 
+protected:
+	// The 'raw' internal state of the robot.
+	RawStatic internalstate;
 private:
 	std::map<ILocator *, float> locators;
 	std::map<IOrientator *, float> orientators;
 
 }
 
-#endif //VIRTUAL_PERCEPTOR_H_
+#endif //PERCEPTOR_H_

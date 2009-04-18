@@ -55,7 +55,13 @@ int map[ MAP_WIDTH * MAP_HEIGHT ] =
 
 // map helper functions
 
-int GetMap( int x, int y )
+/**
+ * Returns the height of the coordinates at (x,y)
+ * @param x
+ * @param y
+ * @return
+ */
+int getHeight( int x, int y )
 {
 
 	if( x < 0 ||
@@ -85,9 +91,25 @@ public:
 
 	float getDistance( SquareGridNode &nodeGoal );
 	bool isGoal( SquareGridNode &nodeGoal );
-	bool getSuccessors( AStarSearch<SquareGridNode> *astarsearch, SquareGridNode *parent_node );
+
+	/**
+	 * This generates the successors to the given Node. It uses a helper function called
+	 * AddSuccessor to give the successors to the AStar class. The A* specific initialisation
+	 * is done for each node internally, so here you just set the state information that
+	 * is specific to the application
+	 * @param astarsearch the AStarSearch instance (to access the closed list
+	 */
+	bool getSuccessors( AStarSearch<SquareGridNode> *astarsearch,
+						SquareGridNode *parent_node );
+
+	/**
+	 * given this node, what does it cost to move to successor. In the case
+	 * of our map the answer is the map terrain value at this node since that is
+	 * conceptually where we're moving
+	 * @param successor
+	 */
 	float getCost( SquareGridNode &successor );
-	bool equals( SquareGridNode &rhs );
+	bool inline equals( SquareGridNode &rhs );
 
 	void PrintNodeInfo();
 
@@ -96,18 +118,8 @@ public:
 
 bool SquareGridNode::equals( SquareGridNode &rhs )
 {
-
 	// same state in a maze search is simply when (x,y) are the same
-	if( (x == rhs.x) &&
-		(y == rhs.y) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
+	return (x == rhs.x) && (y == rhs.y);
 }
 
 void SquareGridNode::PrintNodeInfo()
@@ -138,10 +150,7 @@ bool SquareGridNode::isGoal( SquareGridNode &nodeGoal )
 	return false;
 }
 
-// This generates the successors to the given Node. It uses a helper function called
-// AddSuccessor to give the successors to the AStar class. The A* specific initialisation
-// is done for each node internally, so here you just set the state information that
-// is specific to the application
+
 bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, SquareGridNode *parent_node )
 {
 
@@ -159,7 +168,7 @@ bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, Sq
 
 	// push each possible move except allowing the search to go backwards
 
-	if( (GetMap( x-1, y ) < 9)
+	if( (getHeight( x-1, y ) < 9)
 		&& !((parent_x == x-1) && (parent_y == y))
 	  )
 	{
@@ -167,7 +176,7 @@ bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, Sq
 		astarsearch->AddSuccessor( NewNode );
 	}
 
-	if( (GetMap( x, y-1 ) < 9)
+	if( (getHeight( x, y-1 ) < 9)
 		&& !((parent_x == x) && (parent_y == y-1))
 	  )
 	{
@@ -175,7 +184,7 @@ bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, Sq
 		astarsearch->AddSuccessor( NewNode );
 	}
 
-	if( (GetMap( x+1, y ) < 9)
+	if( (getHeight( x+1, y ) < 9)
 		&& !((parent_x == x+1) && (parent_y == y))
 	  )
 	{
@@ -184,7 +193,7 @@ bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, Sq
 	}
 
 
-	if( (GetMap( x, y+1 ) < 9)
+	if( (getHeight( x, y+1 ) < 9)
 		&& !((parent_x == x) && (parent_y == y+1))
 		)
 	{
@@ -195,13 +204,9 @@ bool SquareGridNode::getSuccessors( AStarSearch<SquareGridNode> *astarsearch, Sq
 	return true;
 }
 
-// given this node, what does it cost to move to successor. In the case
-// of our map the answer is the map terrain value at this node since that is
-// conceptually where we're moving
-
 float SquareGridNode::getCost( SquareGridNode &successor )
 {
-	return (float) GetMap( x, y );
+	return (float) getHeight( x, y );
 
 }
 
@@ -211,7 +216,7 @@ float SquareGridNode::getCost( SquareGridNode &successor )
 int main( int argc, char *argv[] )
 {
 
-	cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";
+	// STL A* Search implementation\n(C)2001 Justin Heyes-Jones
 
 	// Our sample problem defines the world as a 2d array representing a terrain
 	// Each element contains an integer from 0 to 5 which indicates the cost
