@@ -11,8 +11,8 @@ int main (int argc, char **argv)
 	ArduinoManager ourArds;
 	if(ourArds.open(SENSORS))
 	{
-		// FIXME dude, that is insane. Looping forever in a unit test?!
-		while(1) {
+		// TODO make a real unit test!
+		for(int i=0;i<10;i++) { 
 			usleep(100000);
 			cout << "Compass heading is " << ourArds.getBigHeading() << endl;
 		}
