@@ -24,6 +24,7 @@ link_directories(${NEUBAU_BINARY_DIR}/core
 				${NEUBAU_BINARY_DIR}/electronic
 				${NEUBAU_BINARY_DIR}/experimental/virtual)
 
+add_subdirectory(app)
 add_subdirectory(control)
 add_subdirectory(core)
 add_subdirectory(device)

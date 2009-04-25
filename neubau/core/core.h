@@ -9,7 +9,6 @@
 #define CORE_H_
 
 #include "array.h"
-#include "float.h"
 #include "floating.h"
 #include "kinematic.h"
 #include "orientation.h"

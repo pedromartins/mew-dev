@@ -19,7 +19,7 @@ enum TurnDirection {
 
 /**
  * Represents a motor, but what should an IMotor actually provide, in
- * terms of functoinality?
+ * terms of functionality?
  */
 class IMotor {
 	/// TODO!!!!
@@ -49,6 +49,7 @@ public:
 	virtual void moveForward(int squares) = 0;
 
 	/**
+	 * Turns the robot until it has completed 90 degrees from what
 	 * Pre: None.
 	 * Post: The robot will have turned 90 degrees in the direction specified.
 	 * @param dir

@@ -42,69 +42,71 @@ public:
 /************************************
  * Series of Arduino-based devices
  **/
+/// DEPRECATED: Use the ArduinoManager class instead.
 
-class IRSensor : public Sensor {
-public:
-	IRSensor(ArduinoManager *ard, int num): ard(ard), num(num){
-		if (num <= 0 || num > 3 ) {
-			cerr << "Error: Oh dear, invalid IRsensor number provided in constructor" <<endl;
-		}
-	}
-	virtual ~IRSensor(){}
-
-protected:
-
-	virtual int getReading() {
-		int buff[4];
-
-		//dummy, needs to await final IR sensor implementation
-		//ard->getIR(buff);
-
-		return buff[num];
-	}
-private:
-	ArduinoManager *ard;
-	int num;
-};
-
-
-class USSensor : public Sensor {
-public:
-	USSensor(ArduinoManager *ard, int num): ard(ard), num(num){
-		if (num <= 0 || num > 1 ) {
-			cerr << "Error: Oh dear, invalid USsensor number provided in constructor" <<endl;
-		}
-	}
-	virtual ~USSensor(){}
-
-protected:
-
-	virtual int getReading() {
-		int buff[2];
-
-		ard->getUS(buff);
-
-		return buff[num];
-	}
-
-private:
-	ArduinoManager *ard;
-	int num;
-};
-
-
-class Compass :public Sensor {
-public:
-	Compass(ArduinoManager *ard): ard(ard){}
-	virtual ~Compass() {}
-
-	virtual int getReading() {
-		return ard->getSmallHeading();
-	}
-
-private:
-	ArduinoManager *ard;
-};
+//
+//class IRSensor : public Sensor {
+//public:
+//	IRSensor(ArduinoManager *ard, int num): ard(ard), num(num){
+//		if (num <= 0 || num > 3 ) {
+//			cerr << "Error: Oh dear, invalid IRsensor number provided in constructor" <<endl;
+//		}
+//	}
+//	virtual ~IRSensor(){}
+//
+//protected:
+//
+//	virtual int getReading() {
+//		int buff[4];
+//
+//		//dummy, needs to await final IR sensor implementation
+//		//ard->getIR(buff);
+//
+//		return buff[num];
+//	}
+//private:
+//	ArduinoManager *ard;
+//	int num;
+//};
+//
+//
+//class USSensor : public Sensor {
+//public:
+//	USSensor(ArduinoManager *ard, int num): ard(ard), num(num){
+//		if (num <= 0 || num > 1 ) {
+//			cerr << "Error: Oh dear, invalid USsensor number provided in constructor" <<endl;
+//		}
+//	}
+//	virtual ~USSensor(){}
+//
+//protected:
+//
+//	virtual int getReading() {
+//		int buff[2];
+//
+//		ard->getUS(buff);
+//
+//		return buff[num];
+//	}
+//
+//private:
+//	ArduinoManager *ard;
+//	int num;
+//};
+//
+//
+//class Compass :public Sensor {
+//public:
+//	Compass(ArduinoManager *ard): ard(ard){}
+//	virtual ~Compass() {}
+//
+//	virtual int getReading() {
+//		return ard->getSmallHeading();
+//	}
+//
+//private:
+//	ArduinoManager *ard;
+//};
 
 
 #endif /* SENSOR_H_ */
