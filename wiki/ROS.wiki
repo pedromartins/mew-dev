@@ -14,7 +14,13 @@ If you get compilation errors about some uint_8 type not being declared, then ad
 }}}
 
 == Fixing rxgraph ==
-If you're experiencing problems when running rxgraph on [tutorial 6]
+If you're experiencing problems when running rxgraph on [tutorial 6] and running into strange exceptions:
+{{{
+Type error: font_options must be of type cairo.FontOptions or None
+}}}
+then download the lastest xdot script (used to render nice diagrammatic things) [http://jrfonseca.googlecode.com/svn/trunk/xdot/xdot.py here] and replace the ROS one.
+This will cause a few incompatibilities with ros/tools/rosgraph/src/rosgraph/rxgraph.py, so let's fix those:
+
 Remove the second parameter of the __init__ call (the numbers may vary)
 {{{
 rosgraph.xdot.DotWindow.__init__(self, (1024, 768))
