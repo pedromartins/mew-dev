@@ -1,0 +1,33 @@
+#summary Info about Robot Operating System (ROS)
+
+= Introduction =
+[http://www.ros.org/wiki/ ROS] is a robotics development environment and framework that provides many bindings to useful tools, packaging facilities, and a lot of other goodies. 
+Contrary to what its name may suggest, ROS is not really an operating system, but its various shell-scripts integrate well into the UNIX or UNIX-like environments well via the shell commands and daemons such that it appears to become a part of your opearting system.
+
+= Installation =
+To install ROS, follow the instructions on [http://www.ros.org/wiki/ROS/Installation].
+
+== Troubleshooting ==
+If you get compilation errors about some uint_8 type not being declared, then add the following line in the #include section of the source code file in question and recompile:
+{{{
+#include <stdint.h>
+}}}
+
+== Fixing rxgraph ==
+If you're experiencing problems when running rxgraph on [tutorial 6]
+Remove the second parameter of the __init__ call (the numbers may vary)
+{{{
+rosgraph.xdot.DotWindow.__init__(self, (1024, 768))
+}}}
+so that it looks like
+{{{
+rosgraph.xdot.DotWindow.__init__(self)
+}}}
+and then comment out the line
+{{{
+self.widget.set_on_rotate(self.on_rotate)
+}}}
+so that it looks like
+{{{
+# self.widget.set_on_rotate(self.on_rotate)
+}}}
