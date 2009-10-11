@@ -37,3 +37,10 @@ so that it looks like
 {{{
 # self.widget.set_on_rotate(self.on_rotate)
 }}}
+
+= Development with ROS =
+The great thing about ROS is that all the code we have written can be carefully 
+== Porting existing C/C++ code ==
+The code that we have written is C/C++ based, and for our sensors, they fit snuggly  into the ROS model of modular design as a 'publisher'. 
+In the tutorials
+http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
